@@ -9,11 +9,9 @@ node_modules/
 dist/
 .env.local
 
-# ML
-ml/data/*.csv
-ml/models/*.pkl
-!ml/data/README.md
 
 # OS
 .DS_Store
 Thumbs.db
+
+.env
