@@ -6,8 +6,8 @@ app = FastAPI(title="Food Waste Platform API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://annsetu-food-redistribution-v2-hsqg.vercel.app",
-        "http://localhost:5173",  # her local dev server, if she runs one
+        "https://annsetu-food-management-system.vercel.app",
+        "http://localhost:5173",
     ],
     allow_credentials=True,
     allow_methods=["*"],
