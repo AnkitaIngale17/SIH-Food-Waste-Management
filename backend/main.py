@@ -1,7 +1,18 @@
-# backend/main.py
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Food Waste Platform API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://annsetu-food-redistribution-v2-hsqg.vercel.app",
+        "http://localhost:5173",  # her local dev server, if she runs one
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -11,11 +22,6 @@ def health_check():
 
 @app.post("/channels/voice/turn")
 def voice_turn(payload: dict):
-    """
-    Stub endpoint for the Asterisk AGI script to POST transcripts to.
-    Real extraction logic comes later — for now, always asks for quantity
-    so you can test the AGI turn-loop plumbing end to end.
-    """
     transcript = payload.get("transcript", "")
     return {
         "transcript": transcript,
