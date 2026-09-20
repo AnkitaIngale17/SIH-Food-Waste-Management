@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer  # or HTTPBearer / APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -14,6 +15,7 @@ from models import User, Organisation, SurplusListing
 from auth import hash_password, verify_password, create_access_token, get_current_user_payload
 
 app = FastAPI(title="Food Waste Platform API")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,6 +36,9 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(keep_db_alive, "interval", minutes=10)
 scheduler.start()
 
+@app.get("/protected")
+def protected(token: str = Depends(oauth2_scheme)):
+    return {"token": token}
 
 @app.get("/")
 def health_check():
