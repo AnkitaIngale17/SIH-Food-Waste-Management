@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
 from database import get_db
-from models import User, Organisation
-from auth import hash_password, verify_password, create_access_token
+from models import User, Organisation, SurplusListing
+from auth import hash_password, verify_password, create_access_token, get_current_user_payload
 
 app = FastAPI(title="Food Waste Platform API")
 
@@ -85,4 +85,45 @@ def voice_turn(payload: dict):
         "missing_slot": "quantity",
         "next_prompt": "ask_quantity.wav",
         "parsed_so_far": {},
+    }
+
+@app.get("/kitchen/dashboard")
+def kitchen_dashboard(
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == token_payload["user_id"]).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    org = db.query(Organisation).filter(Organisation.id == user.org_id).first() if user.org_id else None
+
+    listings = (
+        db.query(SurplusListing)
+        .filter(SurplusListing.org_id == user.org_id)
+        .order_by(SurplusListing.created_at.desc())
+        .all()
+    )
+
+    return {
+        "kitchenName": org.name if org else user.full_name,
+        "forecast": {
+            "headline": "Not enough history yet",
+            "points": [],
+            "reasons": [],
+        },
+        "risk": {"label": "Not calculated yet"},
+        "brief": None,
+        "listings": [
+            {
+                "id": l.id,
+                "foodItem": l.food_item,
+                "quantity": l.quantity,
+                "unit": l.unit,
+                "urgency": l.urgency,
+                "status": l.status,
+                "pickupBy": l.pickup_by.isoformat() if l.pickup_by else None,
+            }
+            for l in listings
+        ],
     }
