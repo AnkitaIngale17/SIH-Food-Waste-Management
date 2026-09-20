@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
+from datetime import datetime
 
 from database import get_db
 from models import User, Organisation, SurplusListing
@@ -126,4 +127,49 @@ def kitchen_dashboard(
             }
             for l in listings
         ],
+    }
+
+class ReportSurplusRequest(BaseModel):
+    foodItem: str
+    quantity: float
+    unit: str
+    cookedAt: str
+    pickupBy: str
+    notes: str | None = None
+    urgency: str = "medium"
+
+
+@app.post("/kitchen/report-surplus")
+def report_surplus(
+    payload: ReportSurplusRequest,
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == token_payload["user_id"]).first()
+    if not user or not user.org_id:
+        raise HTTPException(status_code=400, detail="No organisation linked to this user")
+
+    listing = SurplusListing(
+        org_id=user.org_id,
+        food_item=payload.foodItem,
+        quantity=payload.quantity,
+        unit=payload.unit,
+        urgency=payload.urgency,
+        status="confirmed",
+        cooked_at=datetime.fromisoformat(payload.cookedAt),
+        pickup_by=datetime.fromisoformat(payload.pickupBy),
+        notes=payload.notes,
+    )
+    db.add(listing)
+    db.commit()
+    db.refresh(listing)
+
+    return {
+        "id": listing.id,
+        "foodItem": listing.food_item,
+        "quantity": listing.quantity,
+        "unit": listing.unit,
+        "urgency": listing.urgency,
+        "status": listing.status,
+        "pickupBy": listing.pickup_by.isoformat(),
     }
