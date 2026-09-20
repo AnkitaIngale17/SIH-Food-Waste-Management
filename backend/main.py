@@ -173,3 +173,31 @@ def report_surplus(
         "status": listing.status,
         "pickupBy": listing.pickup_by.isoformat(),
     }
+
+@app.get("/kitchen/listings/{listing_id}")
+def get_listing(
+    listing_id: int,
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == token_payload["user_id"]).first()
+    listing = db.query(SurplusListing).filter(
+        SurplusListing.id == listing_id,
+        SurplusListing.org_id == user.org_id,
+    ).first()
+
+    if not listing:
+        raise HTTPException(status_code=404, detail="Listing not found")
+
+    return {
+        "id": listing.id,
+        "foodItem": listing.food_item,
+        "title": listing.food_item,
+        "quantity": listing.quantity,
+        "unit": listing.unit,
+        "urgency": listing.urgency,
+        "status": listing.status,
+        "pickupBy": listing.pickup_by.isoformat() if listing.pickup_by else None,
+        "pickup": None,
+        "recipient": None,
+    }
