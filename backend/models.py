@@ -52,3 +52,5 @@ class SurplusListing(Base):
     pickup_by = Column(DateTime)
     notes = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
+    accepted_by_org_id = Column(Integer, ForeignKey("organisation.id"), nullable=True)
+    pickup_otp_hash = Column(String(64), nullable=True)

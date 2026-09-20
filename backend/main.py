@@ -6,6 +6,8 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from database import engine
 from sqlalchemy import text
+import secrets
+import hashlib
 
 from database import get_db
 from models import User, Organisation, SurplusListing
@@ -214,3 +216,119 @@ def get_listing(
         "pickup": None,
         "recipient": None,
     }
+
+class RespondToOfferRequest(BaseModel):
+    decision: str  # "accept" or "decline"
+
+
+@app.get("/recipient/offers")
+def recipient_offers(
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    listings = (
+        db.query(SurplusListing)
+        .filter(SurplusListing.status == "confirmed")
+        .order_by(SurplusListing.created_at.desc())
+        .all()
+    )
+
+    result = []
+    for l in listings:
+        kitchen_org = db.query(Organisation).filter(Organisation.id == l.org_id).first()
+        result.append({
+            "id": l.id,
+            "foodItem": l.food_item,
+            "title": l.food_item,
+            "quantity": l.quantity,
+            "unit": l.unit,
+            "pickupBy": l.pickup_by.isoformat() if l.pickup_by else None,
+            "kitchen": {"name": kitchen_org.name if kitchen_org else "Kitchen"},
+            "distanceKm": None,
+        })
+    return result
+
+
+@app.patch("/recipient/offers/{listing_id}")
+def respond_to_offer(
+    listing_id: int,
+    payload: RespondToOfferRequest,
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == token_payload["user_id"]).first()
+    listing = db.query(SurplusListing).filter(SurplusListing.id == listing_id).first()
+
+    if not listing:
+        raise HTTPException(status_code=404, detail="Listing not found")
+
+    if payload.decision == "accept":
+        listing.status = "claimed"
+        listing.accepted_by_org_id = user.org_id
+        listing.pickup_otp_hash = hashlib.sha256(
+            secrets.token_hex(2).encode()
+        ).hexdigest()  # placeholder; real OTP generated below
+        otp = f"{secrets.randbelow(10000):04d}"
+        listing.pickup_otp_hash = hashlib.sha256(otp.encode()).hexdigest()
+        db.commit()
+        return {"status": "claimed", "otp_for_demo_only": otp}
+    else:
+        listing.status = "draft"
+        db.commit()
+        return {"status": "declined"}
+
+
+@app.get("/volunteer/pickups/{listing_id}")
+def get_pickup(
+    listing_id: int,
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    listing = db.query(SurplusListing).filter(SurplusListing.id == listing_id).first()
+    if not listing:
+        raise HTTPException(status_code=404, detail="Pickup not found")
+
+    kitchen_org = db.query(Organisation).filter(Organisation.id == listing.org_id).first()
+    recipient_org = (
+        db.query(Organisation).filter(Organisation.id == listing.accepted_by_org_id).first()
+        if listing.accepted_by_org_id else None
+    )
+
+    return {
+        "id": listing.id,
+        "foodItem": listing.food_item,
+        "title": listing.food_item,
+        "quantity": listing.quantity,
+        "unit": listing.unit,
+        "pickup": {"address": kitchen_org.address if kitchen_org else None,
+                   "latitude": kitchen_org.latitude if kitchen_org else None,
+                   "longitude": kitchen_org.longitude if kitchen_org else None},
+        "recipient": {"address": recipient_org.address if recipient_org else None,
+                      "latitude": recipient_org.latitude if recipient_org else None,
+                      "longitude": recipient_org.longitude if recipient_org else None},
+    }
+
+
+class VerifyDeliveryRequest(BaseModel):
+    otp: str
+
+
+@app.post("/volunteer/pickups/{listing_id}/verify-delivery")
+def verify_delivery(
+    listing_id: int,
+    payload: VerifyDeliveryRequest,
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    listing = db.query(SurplusListing).filter(SurplusListing.id == listing_id).first()
+    if not listing:
+        raise HTTPException(status_code=404, detail="Pickup not found")
+
+    submitted_hash = hashlib.sha256(payload.otp.encode()).hexdigest()
+    if submitted_hash != listing.pickup_otp_hash:
+        raise HTTPException(status_code=400, detail="Incorrect code")
+
+    listing.status = "delivered"
+    db.commit()
+    return {"status": "delivered"}
+
