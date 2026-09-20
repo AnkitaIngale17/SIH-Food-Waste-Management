@@ -139,7 +139,7 @@ class ReportSurplusRequest(BaseModel):
     urgency: str = "medium"
 
 
-@app.post("/kitchen/report-surplus")
+@app.post("/kitchen/listings")
 def report_surplus(
     payload: ReportSurplusRequest,
     token_payload: dict = Depends(get_current_user_payload),
