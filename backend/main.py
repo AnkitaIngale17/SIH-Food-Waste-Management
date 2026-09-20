@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+from database import engine
+from sqlalchemy import text
 
 from database import get_db
 from models import User, Organisation, SurplusListing
@@ -18,6 +21,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def keep_db_alive():
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+    except Exception as e:
+        print(f"Keep-alive ping failed: {e}")
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(keep_db_alive, "interval", minutes=10)
+scheduler.start()
 
 
 @app.get("/")
