@@ -54,3 +54,15 @@ class SurplusListing(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     accepted_by_org_id = Column(Integer, ForeignKey("organisation.id"), nullable=True)
     pickup_otp_hash = Column(String(64), nullable=True)
+
+class ComplianceRecord(Base):
+    __tablename__ = "compliance_record"
+
+    id = Column(Integer, primary_key=True)
+    listing_id = Column(Integer, ForeignKey("surplus_listing.id"), nullable=False)
+    donor_org_id = Column(Integer, ForeignKey("organisation.id"), nullable=False)
+    recipient_org_id = Column(Integer, ForeignKey("organisation.id"), nullable=False)
+    food_item = Column(String(200), nullable=False)
+    quantity = Column(Float, nullable=False)
+    unit = Column(String(20), nullable=False)
+    delivered_at = Column(DateTime, default=datetime.utcnow)

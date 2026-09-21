@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
 from database import get_db
-from models import User, Organisation, SurplusListing
+from models import User, Organisation, SurplusListing, ComplianceRecord
 from auth import hash_password, verify_password, create_access_token, get_current_user_payload
 
 app = FastAPI(title="Food Waste Platform API")
@@ -302,8 +302,68 @@ def verify_delivery(
         raise HTTPException(status_code=400, detail="Incorrect code")
 
     listing.status = "delivered"
+
+    record = ComplianceRecord(
+        listing_id=listing.id,
+        donor_org_id=listing.org_id,
+        recipient_org_id=listing.accepted_by_org_id,
+        food_item=listing.food_item,
+        quantity=listing.quantity,
+        unit=listing.unit,
+    )
+    db.add(record)
     db.commit()
+
     return {"status": "delivered"}
+
+@app.get("/compliance/handovers")
+def compliance_handovers(
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    records = db.query(ComplianceRecord).order_by(ComplianceRecord.delivered_at.desc()).all()
+
+    result = []
+    for r in records:
+        donor = db.query(Organisation).filter(Organisation.id == r.donor_org_id).first()
+        recipient = db.query(Organisation).filter(Organisation.id == r.recipient_org_id).first()
+        result.append({
+            "id": r.id,
+            "reference": f"AS-{r.id:05d}",
+            "deliveredAt": r.delivered_at.isoformat(),
+            "kitchen": {"name": donor.name if donor else "Unknown"},
+            "kitchenName": donor.name if donor else "Unknown",
+            "recipient": {"name": recipient.name if recipient else "Unknown"},
+            "recipientName": recipient.name if recipient else "Unknown",
+            "foodItem": r.food_item,
+            "quantity": r.quantity,
+            "unit": r.unit,
+        })
+    return result
+
+
+@app.get("/impact")
+def impact(
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    records = db.query(ComplianceRecord).all()
+
+    meals_redistributed = sum(r.quantity for r in records)  # rough proxy for now
+    waste_prevented_kg = sum(r.quantity for r in records if r.unit == "kg")
+    rupees_saved = waste_prevented_kg * 40  # placeholder rate, ₹40/kg — replace once ML/cost data exists
+
+    return {
+        "mealsRedistributed": meals_redistributed,
+        "wastePreventedKg": waste_prevented_kg,
+        "rupeesSaved": rupees_saved,
+        "computations": {
+            "mealsRedistributed": "Sum of verified delivered quantities across all handovers.",
+            "wastePreventedKg": "Total kilograms from OTP-verified deliveries.",
+            "rupeesSaved": "Estimated at ₹40/kg of verified food redistributed (placeholder rate).",
+        },
+        "trend": [],
+    }
 
 
 @app.post("/channels/voice/turn")
