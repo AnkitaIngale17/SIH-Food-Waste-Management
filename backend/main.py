@@ -342,6 +342,14 @@ def compliance_handovers(
     return result
 
 
+UNIT_TO_KG_ESTIMATE = {
+    "kg": 1.0,
+    "packets": 0.4,   # rough estimate: 400g per packet — adjust as needed
+    "servings": 0.35,
+    "trays": 2.5,
+}
+
+
 @app.get("/impact")
 def impact(
     token_payload: dict = Depends(get_current_user_payload),
@@ -349,17 +357,20 @@ def impact(
 ):
     records = db.query(ComplianceRecord).all()
 
-    meals_redistributed = sum(r.quantity for r in records)  # rough proxy for now
-    waste_prevented_kg = sum(r.quantity for r in records if r.unit == "kg")
-    rupees_saved = waste_prevented_kg * 40  # placeholder rate, ₹40/kg — replace once ML/cost data exists
+    meals_redistributed = sum(r.quantity for r in records)
+    waste_prevented_kg = sum(
+        r.quantity * UNIT_TO_KG_ESTIMATE.get(r.unit.lower(), 0.5)
+        for r in records
+    )
+    rupees_saved = waste_prevented_kg * 40
 
     return {
         "mealsRedistributed": meals_redistributed,
-        "wastePreventedKg": waste_prevented_kg,
-        "rupeesSaved": rupees_saved,
+        "wastePreventedKg": round(waste_prevented_kg, 1),
+        "rupeesSaved": round(rupees_saved),
         "computations": {
             "mealsRedistributed": "Sum of verified delivered quantities across all handovers.",
-            "wastePreventedKg": "Total kilograms from OTP-verified deliveries.",
+            "wastePreventedKg": "Estimated kg-equivalent of verified deliveries, using per-unit weight estimates (e.g. ~0.4kg per packet).",
             "rupeesSaved": "Estimated at ₹40/kg of verified food redistributed (placeholder rate).",
         },
         "trend": [],
