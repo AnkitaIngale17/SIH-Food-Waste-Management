@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from database import get_db
 from models import User, Organisation, SurplusListing, ComplianceRecord
 from auth import hash_password, verify_password, create_access_token, get_current_user_payload
+from extractor import extract_surplus_fields
 
 app = FastAPI(title="Food Waste Platform API")
 
@@ -380,9 +381,22 @@ def impact(
 @app.post("/channels/voice/turn")
 def voice_turn(payload: dict):
     transcript = payload.get("transcript", "")
+    extracted = extract_surplus_fields(transcript)
+
+    prompt_map = {
+        "foodItem": "ask_food.wav",
+        "quantity": "ask_quantity.wav",
+        "pickupBy": "ask_pickup_time.wav",
+    }
+
     return {
         "transcript": transcript,
-        "missing_slot": "quantity",
-        "next_prompt": "ask_quantity.wav",
-        "parsed_so_far": {},
+        "missing_slot": extracted["missing_slot"],
+        "next_prompt": prompt_map.get(extracted["missing_slot"]),
+        "parsed_so_far": {
+            "foodItem": extracted["foodItem"],
+            "quantity": extracted["quantity"],
+            "unit": extracted["unit"],
+            "pickupBy": extracted["pickupBy"],
+        },
     }
