@@ -1,21 +1,17 @@
+from datetime import datetime
+import secrets
+import hashlib
+
 from fastapi import FastAPI, Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer  # or HTTPBearer / APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from datetime import datetime
-from apscheduler.schedulers.background import BackgroundScheduler
-from database import engine
-from sqlalchemy import text
-import secrets
-import hashlib
 
 from database import get_db
 from models import User, Organisation, SurplusListing
 from auth import hash_password, verify_password, create_access_token, get_current_user_payload
 
 app = FastAPI(title="Food Waste Platform API")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,20 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def keep_db_alive():
-    try:
-        with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-    except Exception as e:
-        print(f"Keep-alive ping failed: {e}")
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(keep_db_alive, "interval", minutes=10)
-scheduler.start()
-
-@app.get("/protected")
-def protected(token: str = Depends(oauth2_scheme)):
-    return {"token": token}
 
 @app.get("/")
 def health_check():
@@ -98,16 +80,6 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
     return {"accessToken": token, "role": user.role}
 
 
-@app.post("/channels/voice/turn")
-def voice_turn(payload: dict):
-    transcript = payload.get("transcript", "")
-    return {
-        "transcript": transcript,
-        "missing_slot": "quantity",
-        "next_prompt": "ask_quantity.wav",
-        "parsed_so_far": {},
-    }
-
 @app.get("/kitchen/dashboard")
 def kitchen_dashboard(
     token_payload: dict = Depends(get_current_user_payload),
@@ -128,11 +100,7 @@ def kitchen_dashboard(
 
     return {
         "kitchenName": org.name if org else user.full_name,
-        "forecast": {
-            "headline": "Not enough history yet",
-            "points": [],
-            "reasons": [],
-        },
+        "forecast": {"headline": "Not enough history yet", "points": [], "reasons": []},
         "risk": {"label": "Not calculated yet"},
         "brief": None,
         "listings": [
@@ -148,6 +116,7 @@ def kitchen_dashboard(
             for l in listings
         ],
     }
+
 
 class ReportSurplusRequest(BaseModel):
     foodItem: str
@@ -194,6 +163,7 @@ def report_surplus(
         "pickupBy": listing.pickup_by.isoformat(),
     }
 
+
 @app.get("/kitchen/listings/{listing_id}")
 def get_listing(
     listing_id: int,
@@ -221,9 +191,6 @@ def get_listing(
         "pickup": None,
         "recipient": None,
     }
-
-class RespondToOfferRequest(BaseModel):
-    decision: str  # "accept" or "decline"
 
 
 @app.get("/recipient/offers")
@@ -254,6 +221,10 @@ def recipient_offers(
     return result
 
 
+class RespondToOfferRequest(BaseModel):
+    decision: str
+
+
 @app.patch("/recipient/offers/{listing_id}")
 def respond_to_offer(
     listing_id: int,
@@ -270,9 +241,6 @@ def respond_to_offer(
     if payload.decision == "accept":
         listing.status = "claimed"
         listing.accepted_by_org_id = user.org_id
-        listing.pickup_otp_hash = hashlib.sha256(
-            secrets.token_hex(2).encode()
-        ).hexdigest()  # placeholder; real OTP generated below
         otp = f"{secrets.randbelow(10000):04d}"
         listing.pickup_otp_hash = hashlib.sha256(otp.encode()).hexdigest()
         db.commit()
@@ -337,3 +305,13 @@ def verify_delivery(
     db.commit()
     return {"status": "delivered"}
 
+
+@app.post("/channels/voice/turn")
+def voice_turn(payload: dict):
+    transcript = payload.get("transcript", "")
+    return {
+        "transcript": transcript,
+        "missing_slot": "quantity",
+        "next_prompt": "ask_quantity.wav",
+        "parsed_so_far": {},
+    }
