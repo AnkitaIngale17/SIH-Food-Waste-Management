@@ -377,6 +377,35 @@ def impact(
         "trend": [],
     }
 
+class VoiceSurplusRequest(BaseModel):
+    callerPhone: str
+    foodItem: str
+    quantity: float
+    unit: str
+    pickupBy: str
+
+
+@app.post("/channels/voice/create-listing")
+def create_listing_from_voice(payload: VoiceSurplusRequest, db: Session = Depends(get_db)):
+    org = db.query(Organisation).filter(Organisation.phone == payload.callerPhone).first()
+    if not org:
+        raise HTTPException(status_code=404, detail="No kitchen registered with this phone number")
+
+    listing = SurplusListing(
+        org_id=org.id,
+        food_item=payload.foodItem,
+        quantity=payload.quantity,
+        unit=payload.unit,
+        urgency="medium",
+        status="confirmed",
+        cooked_at=datetime.utcnow(),
+        pickup_by=datetime.fromisoformat(payload.pickupBy),
+    )
+    db.add(listing)
+    db.commit()
+    db.refresh(listing)
+
+    return {"id": listing.id, "status": "created"}
 
 @app.post("/channels/voice/turn")
 def voice_turn(payload: dict):
