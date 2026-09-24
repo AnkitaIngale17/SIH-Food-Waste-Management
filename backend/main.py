@@ -407,6 +407,58 @@ def create_listing_from_voice(payload: VoiceSurplusRequest, db: Session = Depend
 
     return {"id": listing.id, "status": "created"}
 
+@app.post("/kitchen/listings/{listing_id}/urgent-match")
+def trigger_urgent_match(
+    listing_id: int,
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == token_payload["user_id"]).first()
+    listing = db.query(SurplusListing).filter(
+        SurplusListing.id == listing_id,
+        SurplusListing.org_id == user.org_id,
+    ).first()
+
+    if not listing:
+        raise HTTPException(status_code=404, detail="Listing not found")
+
+    listing.urgency = "high"
+    db.commit()
+    return {"status": "success", "message": f"Listing {listing_id} escalated to urgent priority."}
+
+@app.get("/compliance/handovers/export")
+def export_compliance_handovers(
+    token_payload: dict = Depends(get_current_user_payload),
+    db: Session = Depends(get_db),
+):
+    records = db.query(ComplianceRecord).order_by(ComplianceRecord.delivered_at.desc()).all()
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Write FSSAI-compliant headers
+    writer.writerow(["Reference ID", "Delivered At", "Donor Kitchen", "Recipient Organisation", "Food Item", "Quantity", "Unit"])
+
+    for r in records:
+        donor = db.query(Organisation).filter(Organisation.id == r.donor_org_id).first()
+        recipient = db.query(Organisation).filter(Organisation.id == r.recipient_org_id).first()
+        writer.writerow([
+            f"AS-{r.id:05d}",
+            r.delivered_at.isoformat(),
+            donor.name if donor else "Unknown",
+            recipient.name if recipient else "Unknown",
+            r.food_item,
+            r.quantity,
+            r.unit,
+        ])
+
+    output.seek(0)
+    return StreamingResponse(
+        iter([output.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=fssai_compliance_register.csv"}
+    )
+
 @app.post("/channels/voice/turn")
 def voice_turn(payload: dict):
     transcript = payload.get("transcript", "")
