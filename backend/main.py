@@ -1,9 +1,12 @@
 from datetime import datetime
 import secrets
 import hashlib
+import csv
+import io
 
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
@@ -317,6 +320,7 @@ def verify_delivery(
 
     return {"status": "delivered"}
 
+
 @app.get("/compliance/handovers")
 def compliance_handovers(
     token_payload: dict = Depends(get_current_user_payload),
@@ -345,7 +349,7 @@ def compliance_handovers(
 
 UNIT_TO_KG_ESTIMATE = {
     "kg": 1.0,
-    "packets": 0.4,   # rough estimate: 400g per packet — adjust as needed
+    "packets": 0.4,
     "servings": 0.35,
     "trays": 2.5,
 }
@@ -377,6 +381,7 @@ def impact(
         "trend": [],
     }
 
+
 class VoiceSurplusRequest(BaseModel):
     callerPhone: str
     foodItem: str
@@ -407,6 +412,7 @@ def create_listing_from_voice(payload: VoiceSurplusRequest, db: Session = Depend
 
     return {"id": listing.id, "status": "created"}
 
+
 @app.post("/kitchen/listings/{listing_id}/urgent-match")
 def trigger_urgent_match(
     listing_id: int,
@@ -426,6 +432,7 @@ def trigger_urgent_match(
     db.commit()
     return {"status": "success", "message": f"Listing {listing_id} escalated to urgent priority."}
 
+
 @app.get("/compliance/handovers/export")
 def export_compliance_handovers(
     token_payload: dict = Depends(get_current_user_payload),
@@ -436,7 +443,6 @@ def export_compliance_handovers(
     output = io.StringIO()
     writer = csv.writer(output)
     
-    # Write FSSAI-compliant headers
     writer.writerow(["Reference ID", "Delivered At", "Donor Kitchen", "Recipient Organisation", "Food Item", "Quantity", "Unit"])
 
     for r in records:
@@ -458,6 +464,7 @@ def export_compliance_handovers(
         media_type="text/csv",
         headers={"Content-Disposition": "attachment; filename=fssai_compliance_register.csv"}
     )
+
 
 @app.post("/channels/voice/turn")
 def voice_turn(payload: dict):
