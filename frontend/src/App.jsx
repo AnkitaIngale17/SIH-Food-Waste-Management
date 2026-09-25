@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import {
   Link,
   NavLink,
@@ -57,13 +57,13 @@ const backgroundStyle = {
 
 const roles = {
   kitchen: {
-    title: "Kitchen",
+    title: "Kitchen/Restaurant",
     description: "Report surplus, view forecasts, and manage food handovers.",
     icon: Store,
     home: "/kitchen/dashboard"
   },
   restaurant: {
-    title: "Restaurant",
+    title: "Organization",
     description: "Review nearby food offers and accept available food.",
     icon: HandHeart,
     home: "/restaurant/offers"
@@ -197,11 +197,13 @@ function EmptyState({
         <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-[#667268]">
           {text}
         </p>
+
         {offline && (
           <p className="mt-3 text-xs text-[#7a857d]">
             Connect your backend API to load real data.
           </p>
         )}
+
         {action && <div className="mt-4">{action}</div>}
       </div>
     </div>
@@ -212,9 +214,11 @@ function ErrorState({ error, reload }) {
   return (
     <div className="card text-center">
       <h3 className="text-xl">Could not load this page</h3>
+
       <p className="mt-2 text-sm text-red-700">
         {error?.message || "Please try again."}
       </p>
+
       <button onClick={reload} className="btn-secondary mt-4">
         <RefreshCw className="h-4 w-4" />
         Try again
@@ -227,6 +231,7 @@ function InfoTip({ children }) {
   return (
     <span className="group relative inline-flex cursor-help">
       <Info className="h-3.5 w-3.5 text-[#7a857d]" />
+
       <span className="pointer-events-none absolute bottom-5 left-1/2 z-30 hidden w-52 -translate-x-1/2 rounded bg-[#173f2e] p-2 text-center text-xs text-white group-hover:block">
         {children}
       </span>
@@ -244,8 +249,8 @@ function RoleDropdown({ role }) {
         onChange={(event) => navigate(`/login/${event.target.value}`)}
         className="appearance-none rounded-md border border-[#d6d6c9] bg-white py-2 pl-3 pr-8 text-xs font-semibold text-[#173f2e]"
       >
-        <option value="kitchen">Kitchen</option>
-        <option value="restaurant">Restaurant</option>
+        <option value="kitchen">Kitchen/Restaurant</option>
+        <option value="restaurant">Organization</option>
         <option value="volunteer">Volunteer</option>
       </select>
 
@@ -270,6 +275,7 @@ function RolePicker() {
           style={{ backgroundColor: cream }}
         >
           <h1 className="text-2xl">Who’s signing in?</h1>
+
           <p className="mt-1 text-sm text-[#667268]">
             Choose the workspace for this device.
           </p>
@@ -290,6 +296,7 @@ function RolePicker() {
 
                   <span className="flex-1">
                     <strong className="block text-sm">{role.title}</strong>
+
                     <span className="block text-xs leading-5 text-[#667268]">
                       {role.description}
                     </span>
@@ -311,6 +318,7 @@ function RolePicker() {
 function AuthPage({ mode }) {
   const { role } = useParams();
   const navigate = useNavigate();
+
   const selectedRole = roles[role] || roles.kitchen;
   const Icon = selectedRole.icon;
   const isSignup = mode === "signup";
@@ -382,6 +390,7 @@ function AuthPage({ mode }) {
       <div className="w-full max-w-[430px]">
         <div className="mb-7 flex items-center justify-between">
           <Brand />
+
           <RoleDropdown role={role || "kitchen"} />
         </div>
 
@@ -396,6 +405,7 @@ function AuthPage({ mode }) {
 
           <div className="mt-5 flex items-center gap-2">
             <Icon className="h-5 w-5 text-[#173f2e]" />
+
             <h1 className="text-2xl">
               {isSignup
                 ? `Create ${selectedRole.title.toLowerCase()} account`
@@ -411,17 +421,21 @@ function AuthPage({ mode }) {
             <>
               <label className="mt-5 block text-xs font-semibold">
                 Full name
+
                 <input
                   required
                   className="input"
                   value={form.fullName}
-                  onChange={(event) => update("fullName", event.target.value)}
+                  onChange={(event) =>
+                    update("fullName", event.target.value)
+                  }
                 />
               </label>
 
               {role !== "volunteer" && (
                 <label className="mt-4 block text-xs font-semibold">
                   Organisation name
+
                   <input
                     required
                     className="input"
@@ -435,13 +449,16 @@ function AuthPage({ mode }) {
 
               <label className="mt-4 block text-xs font-semibold">
                 Phone number
+
                 <input
                   required
                   type="tel"
                   className="input"
                   placeholder="9876543210"
                   value={form.phone}
-                  onChange={(event) => update("phone", event.target.value)}
+                  onChange={(event) =>
+                    update("phone", event.target.value)
+                  }
                 />
               </label>
             </>
@@ -449,18 +466,22 @@ function AuthPage({ mode }) {
 
           <label className="mt-5 block text-xs font-semibold">
             Email address
+
             <input
               required
               type="email"
               className="input"
               placeholder="name@organisation.org"
               value={form.email}
-              onChange={(event) => update("email", event.target.value)}
+              onChange={(event) =>
+                update("email", event.target.value)
+              }
             />
           </label>
 
           <label className="mt-4 block text-xs font-semibold">
             Password
+
             <div className="relative mt-1.5">
               <input
                 required
@@ -469,13 +490,18 @@ function AuthPage({ mode }) {
                 className="input mt-0 pr-10"
                 placeholder="At least 6 characters"
                 value={form.password}
-                onChange={(event) => update("password", event.target.value)}
+                onChange={(event) =>
+                  update("password", event.target.value)
+                }
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#667268] hover:text-[#173f2e]"
-                aria-label={showPassword ? "Hide password" : "Show password"}
+                aria-label={
+                  showPassword ? "Hide password" : "Show password"
+                }
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
@@ -489,6 +515,7 @@ function AuthPage({ mode }) {
           {isSignup && (
             <label className="mt-4 block text-xs font-semibold">
               Confirm password
+
               <div className="relative mt-1.5">
                 <input
                   required
@@ -500,6 +527,7 @@ function AuthPage({ mode }) {
                     update("confirmPassword", event.target.value)
                   }
                 />
+
                 <button
                   type="button"
                   onClick={() =>
@@ -532,6 +560,7 @@ function AuthPage({ mode }) {
 
           <p className="mt-5 text-center text-xs text-[#667268]">
             {isSignup ? "Already registered?" : "New to अन्नSetu?"}{" "}
+
             <Link
               to={
                 isSignup
@@ -566,11 +595,17 @@ function SignOutPage() {
         style={{ backgroundColor: cream }}
       >
         <ShieldCheck className="mx-auto h-9 w-9 text-[#173f2e]" />
+
         <h1 className="mt-4 text-2xl">You are signed out</h1>
+
         <p className="mt-2 text-sm text-[#667268]">
           Your local session has been cleared from this device.
         </p>
-        <button onClick={() => navigate("/login")} className="btn-primary mt-6">
+
+        <button
+          onClick={() => navigate("/login")}
+          className="btn-primary mt-6"
+        >
           Choose a login
         </button>
       </section>
@@ -608,7 +643,11 @@ function Shell({ title, subtitle, role, children, action }) {
 
           <div className="flex items-center gap-2">
             {action}
-            <Link to="/signout" className="btn-secondary px-3 py-2 text-xs">
+
+            <Link
+              to="/signout"
+              className="btn-secondary px-3 py-2 text-xs"
+            >
               Sign out
             </Link>
           </div>
@@ -624,7 +663,9 @@ function Shell({ title, subtitle, role, children, action }) {
             to={path}
             className={({ isActive }) =>
               `flex min-w-16 flex-col items-center gap-1 text-[10px] ${
-                isActive ? "text-[#173f2e]" : "text-[#7e887f]"
+                isActive
+                  ? "text-[#173f2e]"
+                  : "text-[#7e887f]"
               }`
             }
           >
@@ -638,7 +679,11 @@ function Shell({ title, subtitle, role, children, action }) {
 }
 
 function KitchenDashboard() {
-  const resource = useApi(api.kitchenDashboard, "kitchen-dashboard");
+  const resource = useApi(
+    api.kitchenDashboard,
+    "kitchen-dashboard"
+  );
+
   const navigate = useNavigate();
   const dashboard = resource.data || {};
   const listings = list(dashboard.listings);
@@ -650,7 +695,9 @@ function KitchenDashboard() {
       role="kitchen"
       action={
         <button
-          onClick={() => navigate("/kitchen/report-surplus?urgent=1")}
+          onClick={() =>
+            navigate("/kitchen/report-surplus?urgent=1")
+          }
           className="btn-primary bg-[#c9981e] text-[#173f2e]"
         >
           <Zap className="h-4 w-4" />
@@ -667,21 +714,29 @@ function KitchenDashboard() {
           <section className="space-y-3">
             <div className="card border-l-2 border-l-[#173f2e]">
               <h3>Tomorrow’s forecast</h3>
-              <p className="eyebrow">Predicted surplus load</p>
+
+              <p className="eyebrow">
+                Predicted surplus load
+              </p>
+
               <p className="mt-2 font-serif text-3xl">
-                {dashboard.forecast?.headline || "Awaiting kitchen history"}
+                {dashboard.forecast?.headline ||
+                  "Awaiting kitchen history"}
               </p>
             </div>
 
             <div className="card border-l-2 border-l-[#c9981e]">
               <h3>Surplus risk</h3>
+
               <p className="mt-2 text-sm">
-                {dashboard.risk?.label || "Not calculated yet"}
+                {dashboard.risk?.label ||
+                  "Not calculated yet"}
               </p>
             </div>
 
             <div className="card border-l-2 border-l-[#173f2e]">
               <h3>Today’s AI brief</h3>
+
               <p className="mt-2 text-sm">
                 {dashboard.brief ||
                   "A real-time AI brief will appear when kitchen data is connected."}
@@ -694,11 +749,15 @@ function KitchenDashboard() {
 
             {dashboard.forecast?.points?.length ? (
               <div className="mt-4 h-52">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
                   <AreaChart data={dashboard.forecast.points}>
                     <XAxis dataKey="label" />
                     <YAxis />
                     <Tooltip />
+
                     <Area
                       dataKey="value"
                       stroke="#173f2e"
@@ -716,7 +775,10 @@ function KitchenDashboard() {
 
           <section className="card mt-4">
             <h3>Why this forecast</h3>
-            <p className="eyebrow">Plain-language reasoning</p>
+
+            <p className="eyebrow">
+              Plain-language reasoning
+            </p>
 
             {dashboard.forecast?.reasons?.length ? (
               <ul className="mt-3 space-y-2 text-sm">
@@ -735,6 +797,7 @@ function KitchenDashboard() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3>Active listings</h3>
+
                 <p className="eyebrow">
                   Everything reported today, across every channel
                 </p>
@@ -762,8 +825,9 @@ function KitchenDashboard() {
 
                     <span
                       className={`pill ml-2 ${
-                        urgencyStyles[listing.urgency?.toLowerCase()] ||
-                        urgencyStyles.low
+                        urgencyStyles[
+                          listing.urgency?.toLowerCase()
+                        ] || urgencyStyles.low
                       }`}
                     >
                       {listing.urgency || "Low"} urgency
@@ -776,7 +840,9 @@ function KitchenDashboard() {
                   </span>
 
                   <span className="text-xs">
-                    {stageNames[listing.status] || "Matching"} ›
+                    {stageNames[listing.status] ||
+                      "Matching"}{" "}
+                    ›
                   </span>
                 </Link>
               ))
@@ -823,11 +889,15 @@ function ReportSurplus() {
       });
 
       if (response.offline) {
-        setMessage("This form is ready for the real backend API.");
+        setMessage(
+          "This form is ready for the real backend API."
+        );
         return;
       }
 
-      navigate(`/kitchen/listings/${unwrap(response).id}`);
+      navigate(
+        `/kitchen/listings/${unwrap(response).id}`
+      );
     } catch (error) {
       setMessage(error.message);
     }
@@ -839,16 +909,23 @@ function ReportSurplus() {
       subtitle="Same fields used by WhatsApp and call extraction"
       role="kitchen"
     >
-      <form onSubmit={submit} className="card mt-4 max-w-[480px] space-y-4">
+      <form
+        onSubmit={submit}
+        className="card mt-4 max-w-[480px] space-y-4"
+      >
         <label className="block text-xs font-semibold">
           Food item
+
           <input
             required
             className="input"
             placeholder="e.g. Vegetable pulao"
             value={form.foodItem}
             onChange={(event) =>
-              setForm({ ...form, foodItem: event.target.value })
+              setForm({
+                ...form,
+                foodItem: event.target.value
+              })
             }
           />
         </label>
@@ -856,6 +933,7 @@ function ReportSurplus() {
         <div className="grid grid-cols-2 gap-3">
           <label className="text-xs font-semibold">
             Quantity
+
             <input
               required
               type="number"
@@ -863,18 +941,25 @@ function ReportSurplus() {
               className="input"
               value={form.quantity}
               onChange={(event) =>
-                setForm({ ...form, quantity: event.target.value })
+                setForm({
+                  ...form,
+                  quantity: event.target.value
+                })
               }
             />
           </label>
 
           <label className="text-xs font-semibold">
             Unit
+
             <select
               className="input"
               value={form.unit}
               onChange={(event) =>
-                setForm({ ...form, unit: event.target.value })
+                setForm({
+                  ...form,
+                  unit: event.target.value
+                })
               }
             >
               <option>kg</option>
@@ -886,26 +971,34 @@ function ReportSurplus() {
 
           <label className="text-xs font-semibold">
             Cooked at
+
             <input
               required
               type="datetime-local"
               className="input"
               value={form.cookedAt}
               onChange={(event) =>
-                setForm({ ...form, cookedAt: event.target.value })
+                setForm({
+                  ...form,
+                  cookedAt: event.target.value
+                })
               }
             />
           </label>
 
           <label className="text-xs font-semibold">
             Pickup by
+
             <input
               required
               type="datetime-local"
               className="input"
               value={form.pickupBy}
               onChange={(event) =>
-                setForm({ ...form, pickupBy: event.target.value })
+                setForm({
+                  ...form,
+                  pickupBy: event.target.value
+                })
               }
             />
           </label>
@@ -913,12 +1006,16 @@ function ReportSurplus() {
 
         <label className="block text-xs font-semibold">
           Notes
+
           <textarea
             className="input min-h-20"
             placeholder="Allergens, packing, gate instructions…"
             value={form.notes}
             onChange={(event) =>
-              setForm({ ...form, notes: event.target.value })
+              setForm({
+                ...form,
+                notes: event.target.value
+              })
             }
           />
         </label>
@@ -928,10 +1025,16 @@ function ReportSurplus() {
           or WhatsApp message.
         </p>
 
-        {message && <p className="text-xs text-red-700">{message}</p>}
+        {message && (
+          <p className="text-xs text-red-700">
+            {message}
+          </p>
+        )}
 
         <button className="btn-primary w-full">
-          {urgent ? "Start urgent matching" : "Publish listing"}
+          {urgent
+            ? "Start urgent matching"
+            : "Publish listing"}
         </button>
       </form>
     </Shell>
@@ -939,7 +1042,10 @@ function ReportSurplus() {
 }
 
 function Timeline({ current = "draft" }) {
-  const activeIndex = Math.max(0, stages.indexOf(current));
+  const activeIndex = Math.max(
+    0,
+    stages.indexOf(current)
+  );
 
   return (
     <div className="mt-5 grid gap-3 sm:grid-cols-6">
@@ -948,7 +1054,10 @@ function Timeline({ current = "draft" }) {
         const active = index === activeIndex;
 
         return (
-          <div key={stage} className="flex gap-2 sm:block">
+          <div
+            key={stage}
+            className="flex gap-2 sm:block"
+          >
             <span
               className={`grid h-7 w-7 place-items-center rounded-full text-xs ${
                 active
@@ -958,12 +1067,18 @@ function Timeline({ current = "draft" }) {
                   : "bg-[#ecece6] text-[#7a857d]"
               }`}
             >
-              {complete ? <Check className="h-4 w-4" /> : index + 1}
+              {complete ? (
+                <Check className="h-4 w-4" />
+              ) : (
+                index + 1
+              )}
             </span>
 
             <span
               className={`text-xs ${
-                active ? "font-bold text-[#173f2e]" : "text-[#667268]"
+                active
+                  ? "font-bold text-[#173f2e]"
+                  : "text-[#667268]"
               }`}
             >
               {stageNames[stage]}
@@ -976,7 +1091,10 @@ function Timeline({ current = "draft" }) {
 }
 
 function FoodMap({ pickup, recipient }) {
-  if (pickup?.latitude == null || pickup?.longitude == null) {
+  if (
+    pickup?.latitude == null ||
+    pickup?.longitude == null
+  ) {
     return (
       <EmptyState
         Icon={MapPin}
@@ -986,22 +1104,38 @@ function FoodMap({ pickup, recipient }) {
     );
   }
 
-  const position = [pickup.latitude, pickup.longitude];
+  const position = [
+    pickup.latitude,
+    pickup.longitude
+  ];
 
   return (
-    <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+    <MapContainer
+      center={position}
+      zoom={13}
+      scrollWheelZoom={false}
+    >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
       <Marker position={position}>
-        <Popup>{pickup.address || "Kitchen pickup"}</Popup>
+        <Popup>
+          {pickup.address || "Kitchen pickup"}
+        </Popup>
       </Marker>
 
       {recipient?.latitude != null && (
-        <Marker position={[recipient.latitude, recipient.longitude]}>
-          <Popup>{recipient.address || "Restaurant location"}</Popup>
+        <Marker
+          position={[
+            recipient.latitude,
+            recipient.longitude
+          ]}
+        >
+          <Popup>
+            {recipient.address || "Restaurant location"}
+          </Popup>
         </Marker>
       )}
     </MapContainer>
@@ -1010,7 +1144,12 @@ function FoodMap({ pickup, recipient }) {
 
 function ListingPage() {
   const { id } = useParams();
-  const resource = useApi(() => api.getListing(id), `listing-${id}`);
+
+  const resource = useApi(
+    () => api.getListing(id),
+    `listing-${id}`
+  );
+
   const listing = resource.data;
   const [message, setMessage] = useState("");
 
@@ -1029,7 +1168,11 @@ function ListingPage() {
   }
 
   return (
-    <Shell title="Listing status" subtitle="Track every handover" role="kitchen">
+    <Shell
+      title="Listing status"
+      subtitle="Track every handover"
+      role="kitchen"
+    >
       {resource.loading ? (
         <Loading />
       ) : resource.error ? (
@@ -1062,7 +1205,10 @@ function ListingPage() {
               </p>
             </div>
 
-            <button onClick={urgentMatch} className="btn-primary">
+            <button
+              onClick={urgentMatch}
+              className="btn-primary"
+            >
               <Zap className="h-4 w-4" />
               Urgent
             </button>
@@ -1076,11 +1222,15 @@ function ListingPage() {
 
           <section className="card mt-4">
             <h3>Handover progress</h3>
+
             <Timeline current={listing.status} />
           </section>
 
           <section className="card mt-4 h-72 p-2">
-            <FoodMap pickup={listing.pickup} recipient={listing.recipient} />
+            <FoodMap
+              pickup={listing.pickup}
+              recipient={listing.recipient}
+            />
           </section>
         </>
       )}
@@ -1089,13 +1239,20 @@ function ListingPage() {
 }
 
 function RestaurantOffers() {
-  const resource = useApi(api.recipientOffers, "restaurant-offers");
+  const resource = useApi(
+    api.recipientOffers,
+    "restaurant-offers"
+  );
+
   const offers = list(resource.data);
   const [message, setMessage] = useState("");
 
   async function decide(id, decision) {
     try {
-      const response = await api.respondToOffer(id, decision);
+      const response = await api.respondToOffer(
+        id,
+        decision
+      );
 
       setMessage(
         response.offline
@@ -1135,10 +1292,16 @@ function RestaurantOffers() {
           )}
 
           {offers.map((offer) => (
-            <article key={offer.id} className="card mb-3">
+            <article
+              key={offer.id}
+              className="card mb-3"
+            >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3>{offer.foodItem || offer.title}</h3>
+                  <h3>
+                    {offer.foodItem || offer.title}
+                  </h3>
+
                   <p className="text-xs text-[#667268]">
                     {offer.kitchen?.name || "Kitchen"}
                   </p>
@@ -1161,7 +1324,9 @@ function RestaurantOffers() {
 
               <div className="mt-4 grid grid-cols-2 gap-2">
                 <button
-                  onClick={() => decide(offer.id, "decline")}
+                  onClick={() =>
+                    decide(offer.id, "decline")
+                  }
                   className="btn-secondary text-red-700"
                 >
                   <XCircle className="h-4 w-4" />
@@ -1169,7 +1334,9 @@ function RestaurantOffers() {
                 </button>
 
                 <button
-                  onClick={() => decide(offer.id, "accept")}
+                  onClick={() =>
+                    decide(offer.id, "accept")
+                  }
                   className="btn-primary"
                 >
                   <CheckCircle2 className="h-4 w-4" />
@@ -1186,7 +1353,12 @@ function RestaurantOffers() {
 
 function VolunteerPickup() {
   const { id } = useParams();
-  const resource = useApi(() => api.getPickup(id), `pickup-${id}`);
+
+  const resource = useApi(
+    () => api.getPickup(id),
+    `pickup-${id}`
+  );
+
   const pickup = resource.data;
 
   const [otp, setOtp] = useState("");
@@ -1196,12 +1368,17 @@ function VolunteerPickup() {
     event.preventDefault();
 
     if (otp.length !== 4) {
-      setMessage("Enter the four-digit code from the restaurant.");
+      setMessage(
+        "Enter the four-digit code from the restaurant."
+      );
       return;
     }
 
     try {
-      const response = await api.verifyDelivery(id, otp);
+      const response = await api.verifyDelivery(
+        id,
+        otp
+      );
 
       setMessage(
         response.offline
@@ -1214,7 +1391,11 @@ function VolunteerPickup() {
   }
 
   return (
-    <Shell title="Your pickup" subtitle="Volunteer workspace" role="volunteer">
+    <Shell
+      title="Your pickup"
+      subtitle="Volunteer workspace"
+      role="volunteer"
+    >
       {resource.loading ? (
         <Loading text="Loading assigned pickup…" />
       ) : resource.error ? (
@@ -1229,19 +1410,27 @@ function VolunteerPickup() {
       ) : (
         <>
           <section className="card h-72 p-2">
-            <FoodMap pickup={pickup.pickup} recipient={pickup.recipient} />
+            <FoodMap
+              pickup={pickup.pickup}
+              recipient={pickup.recipient}
+            />
           </section>
 
           <section className="card mt-3">
             <h3>Load</h3>
+
             <p className="mt-2 text-sm">
-              {pickup.foodItem || pickup.title} · {pickup.quantity}{" "}
-              {pickup.unit}
+              {pickup.foodItem || pickup.title} ·{" "}
+              {pickup.quantity} {pickup.unit}
             </p>
           </section>
 
-          <form onSubmit={verify} className="card mt-3">
+          <form
+            onSubmit={verify}
+            className="card mt-3"
+          >
             <h3>Confirm handover</h3>
+
             <p className="mt-1 text-xs text-[#667268]">
               Ask the restaurant representative to read their four-digit code.
             </p>
@@ -1255,13 +1444,17 @@ function VolunteerPickup() {
               value={otp}
               onChange={(event) =>
                 setOtp(
-                  event.target.value.replace(/\D/g, "").slice(0, 4)
+                  event.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 4)
                 )
               }
             />
 
             {message && (
-              <p className="mt-3 text-xs text-[#173f2e]">{message}</p>
+              <p className="mt-3 text-xs text-[#173f2e]">
+                {message}
+              </p>
             )}
 
             <button className="btn-primary mt-4 w-full">
@@ -1285,11 +1478,15 @@ function ImpactPage() {
       <div className="card border-l-2 border-l-[#173f2e]">
         <p className="flex items-center gap-1 text-xs">
           {title}
+
           <InfoTip>{note}</InfoTip>
         </p>
 
         <div className="mt-2 flex items-center justify-between">
-          <p className="font-serif text-3xl">{value}</p>
+          <p className="font-serif text-3xl">
+            {value}
+          </p>
+
           <Icon className="h-5 w-5 text-[#173f2e]" />
         </div>
       </div>
@@ -1311,26 +1508,34 @@ function ImpactPage() {
           <div className="grid grid-cols-2 gap-3">
             {metric(
               "Meals redistributed",
-              formatNumber(impact.mealsRedistributed),
+              formatNumber(
+                impact.mealsRedistributed
+              ),
               UtensilsCrossed,
-              impact.computations?.mealsRedistributed ||
+              impact.computations
+                ?.mealsRedistributed ||
                 "Verified delivered quantity divided by the configured serving size."
             )}
 
             {metric(
               "Waste prevented",
               impact.wastePreventedKg != null
-                ? `${formatNumber(impact.wastePreventedKg)} kg`
+                ? `${formatNumber(
+                    impact.wastePreventedKg
+                  )} kg`
                 : "—",
               Leaf,
-              impact.computations?.wastePreventedKg ||
+              impact.computations
+                ?.wastePreventedKg ||
                 "Total weight from OTP-verified deliveries."
             )}
 
             {metric(
               "Rupees saved",
               impact.rupeesSaved != null
-                ? `₹${formatNumber(impact.rupeesSaved)}`
+                ? `₹${formatNumber(
+                    impact.rupeesSaved
+                  )}`
                 : "—",
               Sparkles,
               impact.computations?.rupeesSaved ||
@@ -1343,11 +1548,15 @@ function ImpactPage() {
 
             {trend.length ? (
               <div className="mt-4 h-56">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
                   <AreaChart data={trend}>
                     <XAxis dataKey="label" />
                     <YAxis />
                     <Tooltip />
+
                     <Area
                       dataKey="value"
                       stroke="#8d670e"
@@ -1374,12 +1583,19 @@ function ImpactPage() {
 }
 
 function CompliancePage() {
-  const resource = useApi(api.compliance, "compliance");
+  const resource = useApi(
+    api.compliance,
+    "compliance"
+  );
+
   const rows = list(resource.data);
 
   function download(format) {
     if (apiConfigured) {
-      window.open(api.exportRegister(format), "_blank");
+      window.open(
+        api.exportRegister(format),
+        "_blank"
+      );
     }
   }
 
@@ -1425,28 +1641,52 @@ function CompliancePage() {
           <table className="w-full min-w-[650px] text-left text-xs">
             <thead className="bg-[#eeeee6]">
               <tr>
-                {["ID", "Date", "Kitchen", "Restaurant", "Item", "Qty"].map(
-                  (heading) => (
-                    <th key={heading} className="p-3">
-                      {heading}
-                    </th>
-                  )
-                )}
+                {[
+                  "ID",
+                  "Date",
+                  "Kitchen",
+                  "Restaurant",
+                  "Item",
+                  "Qty"
+                ].map((heading) => (
+                  <th
+                    key={heading}
+                    className="p-3"
+                  >
+                    {heading}
+                  </th>
+                ))}
               </tr>
             </thead>
 
             <tbody>
               {rows.map((row) => (
-                <tr key={row.id} className="border-t">
-                  <td className="p-3">{row.reference || row.id}</td>
-                  <td className="p-3">{formatDate(row.deliveredAt)}</td>
+                <tr
+                  key={row.id}
+                  className="border-t"
+                >
                   <td className="p-3">
-                    {row.kitchen?.name || row.kitchenName}
+                    {row.reference || row.id}
                   </td>
+
                   <td className="p-3">
-                    {row.recipient?.name || row.recipientName}
+                    {formatDate(row.deliveredAt)}
                   </td>
-                  <td className="p-3">{row.foodItem}</td>
+
+                  <td className="p-3">
+                    {row.kitchen?.name ||
+                      row.kitchenName}
+                  </td>
+
+                  <td className="p-3">
+                    {row.recipient?.name ||
+                      row.recipientName}
+                  </td>
+
+                  <td className="p-3">
+                    {row.foodItem}
+                  </td>
+
                   <td className="p-3">
                     {row.quantity} {row.unit}
                   </td>
@@ -1470,8 +1710,14 @@ function NotFound() {
         className="rounded-xl border border-[#eadfca] p-7 text-center shadow-xl"
         style={{ backgroundColor: cream }}
       >
-        <h1 className="text-2xl">Page not found</h1>
-        <Link to="/login" className="btn-primary mt-5">
+        <h1 className="text-2xl">
+          Page not found
+        </h1>
+
+        <Link
+          to="/login"
+          className="btn-primary mt-5"
+        >
           Go to login
         </Link>
       </section>
@@ -1482,24 +1728,70 @@ function NotFound() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<RolePicker />} />
-      <Route path="/login/:role" element={<AuthPage mode="login" />} />
-      <Route path="/signup/:role" element={<AuthPage mode="signup" />} />
-      <Route path="/signout" element={<SignOutPage />} />
+      <Route
+        path="/login"
+        element={<RolePicker />}
+      />
 
-      <Route path="/kitchen/dashboard" element={<KitchenDashboard />} />
-      <Route path="/kitchen/report-surplus" element={<ReportSurplus />} />
-      <Route path="/kitchen/listings/:id" element={<ListingPage />} />
+      <Route
+        path="/login/:role"
+        element={<AuthPage mode="login" />}
+      />
 
-      <Route path="/restaurant/offers" element={<RestaurantOffers />} />
+      <Route
+        path="/signup/:role"
+        element={<AuthPage mode="signup" />}
+      />
 
-      <Route path="/volunteer/pickup/:id" element={<VolunteerPickup />} />
+      <Route
+        path="/signout"
+        element={<SignOutPage />}
+      />
 
-      <Route path="/impact" element={<ImpactPage />} />
-      <Route path="/compliance" element={<CompliancePage />} />
+      <Route
+        path="/kitchen/dashboard"
+        element={<KitchenDashboard />}
+      />
 
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="/kitchen/report-surplus"
+        element={<ReportSurplus />}
+      />
+
+      <Route
+        path="/kitchen/listings/:id"
+        element={<ListingPage />}
+      />
+
+      <Route
+        path="/restaurant/offers"
+        element={<RestaurantOffers />}
+      />
+
+      <Route
+        path="/volunteer/pickup/:id"
+        element={<VolunteerPickup />}
+      />
+
+      <Route
+        path="/impact"
+        element={<ImpactPage />}
+      />
+
+      <Route
+        path="/compliance"
+        element={<CompliancePage />}
+      />
+
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
+
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
     </Routes>
   );
 }
