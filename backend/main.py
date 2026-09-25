@@ -157,6 +157,32 @@ def kitchen_dashboard(
         ],
     }
 
+HIGH_PERISHABILITY_FOODS = {"milk", "paneer", "curd", "dal", "gravy", "curry", "fish", "meat", "custard"}
+
+def evaluate_urgency(food_item: str, pickup_by: datetime, cooked_at: datetime | None = None) -> str:
+    """
+    Evaluates listing urgency:
+    - High: <= 2 hours until pickup deadline OR high perishability items with <= 3.5 hours remaining.
+    - Low: >= 6 hours remaining.
+    - Medium: default operating window.
+    """
+    now = datetime.utcnow()
+    hours_remaining = (pickup_by - now).total_seconds() / 3600.0
+
+    if hours_remaining <= 2.0:
+        return "high"
+
+    food_lower = (food_item or "").lower()
+    is_perishable = any(item in food_lower for item in HIGH_PERISHABILITY_FOODS)
+
+    if is_perishable and hours_remaining <= 3.5:
+        return "high"
+    elif hours_remaining >= 6.0:
+        return "low"
+    
+    return "medium"
+
+
 class ReportSurplusRequest(BaseModel):
     foodItem: str
     quantity: float
@@ -165,6 +191,7 @@ class ReportSurplusRequest(BaseModel):
     pickupBy: str
     notes: str | None = None
     urgency: str = "medium"
+
 
 
 @app.post("/kitchen/listings")
@@ -177,15 +204,23 @@ def report_surplus(
     if not user or not user.org_id:
         raise HTTPException(status_code=400, detail="No organisation linked to this user")
 
+    cooked_at_dt = datetime.fromisoformat(payload.cookedAt)
+    pickup_by_dt = datetime.fromisoformat(payload.pickupBy)
+
+    # Use auto-calculated urgency if left at default "medium"
+    urgency = payload.urgency
+    if urgency == "medium":
+        urgency = evaluate_urgency(payload.foodItem, pickup_by_dt, cooked_at_dt)
+
     listing = SurplusListing(
         org_id=user.org_id,
         food_item=payload.foodItem,
         quantity=payload.quantity,
         unit=payload.unit,
-        urgency=payload.urgency,
+        urgency=urgency,
         status="confirmed",
-        cooked_at=datetime.fromisoformat(payload.cookedAt),
-        pickup_by=datetime.fromisoformat(payload.pickupBy),
+        cooked_at=cooked_at_dt,
+        pickup_by=pickup_by_dt,
         notes=payload.notes,
     )
     db.add(listing)
@@ -201,7 +236,6 @@ def report_surplus(
         "status": listing.status,
         "pickupBy": listing.pickup_by.isoformat(),
     }
-
 
 @app.get("/kitchen/listings/{listing_id}")
 def get_listing(
@@ -237,6 +271,9 @@ def recipient_offers(
     token_payload: dict = Depends(get_current_user_payload),
     db: Session = Depends(get_db),
 ):
+    user = db.query(User).filter(User.id == token_payload["user_id"]).first()
+    recipient_org = db.query(Organisation).filter(Organisation.id == user.org_id).first() if user and user.org_id else None
+
     listings = (
         db.query(SurplusListing)
         .filter(SurplusListing.status == "confirmed")
@@ -247,15 +284,30 @@ def recipient_offers(
     result = []
     for l in listings:
         kitchen_org = db.query(Organisation).filter(Organisation.id == l.org_id).first()
+        
+        dist = None
+        if recipient_org and kitchen_org:
+            dist = calculate_distance(
+                recipient_org.latitude,
+                recipient_org.longitude,
+                kitchen_org.latitude,
+                kitchen_org.longitude,
+            )
+
         result.append({
             "id": l.id,
             "foodItem": l.food_item,
             "title": l.food_item,
             "quantity": l.quantity,
             "unit": l.unit,
+            "urgency": l.urgency,
             "pickupBy": l.pickup_by.isoformat() if l.pickup_by else None,
-            "kitchen": {"name": kitchen_org.name if kitchen_org else "Kitchen"},
-            "distanceKm": None,
+            "kitchen": {
+                "name": kitchen_org.name if kitchen_org else "Kitchen",
+                "address": kitchen_org.address if kitchen_org else None,
+                "phone": kitchen_org.phone if kitchen_org else None,
+            },
+            "distanceKm": dist,
         })
     return result
 
@@ -498,21 +550,23 @@ class VoiceSurplusRequest(BaseModel):
 def create_listing_from_voice(payload: VoiceSurplusRequest, db: Session = Depends(get_db)):
     org = db.query(Organisation).filter(Organisation.phone == payload.callerPhone).first()
     if not org:
-        # Fallback for demo/testing: if phone doesn't match, pick the first kitchen in the database!
         org = db.query(Organisation).first()
     
     if not org:
         raise HTTPException(status_code=404, detail="No kitchen registered")
+
+    pickup_by_dt = datetime.fromisoformat(payload.pickupBy)
+    computed_urgency = evaluate_urgency(payload.foodItem, pickup_by_dt)
 
     listing = SurplusListing(
         org_id=org.id,
         food_item=payload.foodItem,
         quantity=payload.quantity,
         unit=payload.unit,
-        urgency="medium",
-        status="confirmed",  # Ensures it shows up on Vercel immediately!
+        urgency=computed_urgency,
+        status="confirmed",
         cooked_at=datetime.utcnow(),
-        pickup_by=datetime.fromisoformat(payload.pickupBy),
+        pickup_by=pickup_by_dt,
     )
     db.add(listing)
     db.commit()
