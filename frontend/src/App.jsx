@@ -1,4 +1,4 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Link,
   NavLink,
@@ -1246,6 +1246,7 @@ function RestaurantOffers() {
 
   const offers = list(resource.data);
   const [message, setMessage] = useState("");
+  const [claimedOtp, setClaimedOtp] = useState(null);
 
   async function decide(id, decision) {
     try {
@@ -1254,11 +1255,19 @@ function RestaurantOffers() {
         decision
       );
 
-      setMessage(
-        response.offline
-          ? "This action is ready for the backend."
-          : `Offer ${decision}d successfully.`
-      );
+      const resData = unwrap(response);
+      const demoOtp = resData?.otp_for_demo_only;
+
+      if (decision === "accept" && demoOtp) {
+        setClaimedOtp(demoOtp);
+        setMessage("Offer accepted! Share the 4-digit Handover Code below with the volunteer.");
+      } else {
+        setMessage(
+          response.offline
+            ? "This action is ready for the backend."
+            : `Offer ${decision}d successfully.`
+        );
+      }
 
       resource.reload();
     } catch (error) {
@@ -1276,75 +1285,92 @@ function RestaurantOffers() {
         <Loading text="Checking offers…" />
       ) : resource.error ? (
         <ErrorState {...resource} />
-      ) : !offers.length ? (
-        <EmptyState
-          Icon={HandHeart}
-          title="No offers right now"
-          text="Nearby kitchen offers will arrive here the moment they are matched."
-          offline={resource.offline}
-        />
       ) : (
         <>
-          {message && (
+          {/* Prominent Verification OTP Card */}
+          {claimedOtp && (
+            <div className="mb-4 rounded-xl border-2 border-[#173f2e] bg-[#eaf1e8] p-5 text-center shadow-sm">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#667268]">
+                Handover Verification Code
+              </p>
+              <p className="mt-1 font-mono text-4xl font-bold tracking-widest text-[#173f2e]">
+                {claimedOtp}
+              </p>
+              <p className="mt-2 text-xs text-[#173f2e]">
+                Provide this 4-digit code to the volunteer when they arrive for collection.
+              </p>
+            </div>
+          )}
+
+          {message && !claimedOtp && (
             <p className="mb-3 rounded bg-[#eaf1e8] p-3 text-sm">
               {message}
             </p>
           )}
 
-          {offers.map((offer) => (
-            <article
-              key={offer.id}
-              className="card mb-3"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3>
-                    {offer.foodItem || offer.title}
-                  </h3>
+          {!offers.length ? (
+            <EmptyState
+              Icon={HandHeart}
+              title="No offers right now"
+              text="Nearby kitchen offers will arrive here the moment they are matched."
+              offline={resource.offline}
+            />
+          ) : (
+            offers.map((offer) => (
+              <article
+                key={offer.id}
+                className="card mb-3"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3>
+                      {offer.foodItem || offer.title}
+                    </h3>
 
-                  <p className="text-xs text-[#667268]">
-                    {offer.kitchen?.name || "Kitchen"}
-                  </p>
+                    <p className="text-xs text-[#667268]">
+                      {offer.kitchen?.name || "Kitchen"}
+                    </p>
+                  </div>
+
+                  {offer.distanceKm != null && (
+                    <span className="pill bg-[#eaf1e8]">
+                      {offer.distanceKm} km
+                    </span>
+                  )}
                 </div>
 
-                {offer.distanceKm != null && (
-                  <span className="pill bg-[#eaf1e8]">
-                    {offer.distanceKm} km
-                  </span>
-                )}
-              </div>
+                <p className="mt-3 text-sm">
+                  {offer.quantity} {offer.unit}
+                </p>
 
-              <p className="mt-3 text-sm">
-                {offer.quantity} {offer.unit}
-              </p>
+                <p className="mt-1 text-xs text-[#667268]">
+                  Pickup by {formatDate(offer.pickupBy)}
+                </p>
 
-              <p className="mt-1 text-xs text-[#667268]">
-                Pickup by {formatDate(offer.pickupBy)}
-              </p>
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() =>
+                      decide(offer.id, "decline")
+                    }
+                    className="btn-secondary text-red-700"
+                  >
+                    <XCircle className="h-4 w-4" />
+                    Decline
+                  </button>
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                <button
-                  onClick={() =>
-                    decide(offer.id, "decline")
-                  }
-                  className="btn-secondary text-red-700"
-                >
-                  <XCircle className="h-4 w-4" />
-                  Decline
-                </button>
-
-                <button
-                  onClick={() =>
-                    decide(offer.id, "accept")
-                  }
-                  className="btn-primary"
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  Accept
-                </button>
-              </div>
-            </article>
-          ))}
+                  <button
+                    onClick={() =>
+                      decide(offer.id, "accept")
+                    }
+                    className="btn-primary"
+                  >
+                    <CheckCircle2 className="h-4 w-4" />
+                    Accept
+                  </button>
+                </div>
+              </article>
+            ))
+          )}
         </>
       )}
     </Shell>
