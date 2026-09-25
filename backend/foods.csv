@@ -1,0 +1,1449 @@
+Cuisine,Category,Food_Name
+American,Dessert,Apple Pie
+American,Dessert,Banana Bread
+American,Dessert,Banana Split
+American,Dessert,Bread Pudding
+American,Dessert,Brownie
+American,Dessert,Carrot Cake
+American,Dessert,Chocolate Chip Cookie
+American,Dessert,Chocolate Mousse
+American,Dessert,Cupcake
+American,Dessert,Donut
+American,Dessert,Ice Cream Sundae
+American,Dessert,Key Lime Pie
+American,Dessert,Lemon Meringue Pie
+American,Dessert,Milkshake
+American,Dessert,New York Cheesecake
+American,Dessert,Peanut Butter Pie
+American,Dessert,Pecan Pie
+American,Dessert,Pumpkin Pie
+American,Dessert,Red Velvet Cake
+American,Fast Food,BLT Sandwich
+American,Fast Food,Bacon Burger
+American,Fast Food,Buffalo Wings
+American,Fast Food,Cheeseburger
+American,Fast Food,Chicken Burger
+American,Fast Food,Chicken Nuggets
+American,Fast Food,Chicken Sandwich
+American,Fast Food,Chicken Tenders
+American,Fast Food,Chili Dog
+American,Fast Food,Clam Chowder
+American,Fast Food,Club Sandwich
+American,Fast Food,Corn Dog
+American,Fast Food,Curly Fries
+American,Fast Food,Double Burger
+American,Fast Food,French Fries
+American,Fast Food,Grilled Cheese Sandwich
+American,Fast Food,Hamburger
+American,Fast Food,Hot Dog
+American,Fast Food,Loaded Fries
+American,Fast Food,Mac and Cheese
+American,Fast Food,Mozzarella Sticks
+American,Fast Food,Onion Rings
+American,Fast Food,Philly Cheesesteak
+American,Fast Food,Pulled Pork Sandwich
+American,Fast Food,Reuben Sandwich
+American,Fast Food,Sliders
+American,Fast Food,Tater Tots
+American,Fast Food,Tuna Melt
+American,Fast Food,Turkey Burger
+American,Fast Food,Veggie Burger
+Bakery,Bakery & Dessert,Almond Croissant
+Bakery,Bakery & Dessert,Apple Danish
+Bakery,Bakery & Dessert,Bagel
+Bakery,Bakery & Dessert,Baguette
+Bakery,Bakery & Dessert,Banana Bread
+Bakery,Bakery & Dessert,Banana Muffin
+Bakery,Bakery & Dessert,Black Forest Cake
+Bakery,Bakery & Dessert,Blondie
+Bakery,Bakery & Dessert,Blueberry Muffin
+Bakery,Bakery & Dessert,Bran Muffin
+Bakery,Bakery & Dessert,Brioche
+Bakery,Bakery & Dessert,Brownie
+Bakery,Bakery & Dessert,Butter Croissant
+Bakery,Bakery & Dessert,Carrot Cake
+Bakery,Bakery & Dessert,Cheesecake
+Bakery,Bakery & Dessert,Chocolate Cake
+Bakery,Bakery & Dessert,Chocolate Croissant
+Bakery,Bakery & Dessert,Chocolate Cupcake
+Bakery,Bakery & Dessert,Chocolate Donut
+Bakery,Bakery & Dessert,Chocolate Muffin
+Bakery,Bakery & Dessert,Chocolate Tart
+Bakery,Bakery & Dessert,Cinnamon Roll
+Bakery,Bakery & Dessert,Coffee Cake
+Bakery,Bakery & Dessert,Croissant
+Bakery,Bakery & Dessert,Cupcake
+Bakery,Bakery & Dessert,Danish Pastry
+Bakery,Bakery & Dessert,Donut
+Bakery,Bakery & Dessert,Focaccia
+Bakery,Bakery & Dessert,Fruit Cake
+Bakery,Bakery & Dessert,Fruit Tart
+Bakery,Bakery & Dessert,Garlic Bread
+Bakery,Bakery & Dessert,Glazed Donut
+Bakery,Bakery & Dessert,Jelly Donut
+Bakery,Bakery & Dessert,Lemon Tart
+Bakery,Bakery & Dessert,Muffin
+Bakery,Bakery & Dessert,Pain au Chocolat
+Bakery,Bakery & Dessert,Pineapple Cake
+Bakery,Bakery & Dessert,Plum Cake
+Bakery,Bakery & Dessert,Pretzel
+Bakery,Bakery & Dessert,Red Velvet Cupcake
+Bakery,Bakery & Dessert,Sourdough Bread
+Bakery,Bakery & Dessert,Sticky Bun
+Bakery,Bakery & Dessert,Tart
+Bakery,Bakery & Dessert,Vanilla Cake
+Bakery,Bakery & Dessert,Vanilla Cupcake
+Beverage,Hot & Cold Drinks,Aam Panna
+Beverage,Hot & Cold Drinks,Americano
+Beverage,Hot & Cold Drinks,Banana Milkshake
+Beverage,Hot & Cold Drinks,Banana Smoothie
+Beverage,Hot & Cold Drinks,Berry Smoothie
+Beverage,Hot & Cold Drinks,Black Tea
+Beverage,Hot & Cold Drinks,Buttermilk
+Beverage,Hot & Cold Drinks,Cappuccino
+Beverage,Hot & Cold Drinks,Chocolate Milkshake
+Beverage,Hot & Cold Drinks,Coconut Water
+Beverage,Hot & Cold Drinks,Coffee
+Beverage,Hot & Cold Drinks,Cold Brew
+Beverage,Hot & Cold Drinks,Cold Coffee
+Beverage,Hot & Cold Drinks,Espresso
+Beverage,Hot & Cold Drinks,Falooda
+Beverage,Hot & Cold Drinks,Flat White
+Beverage,Hot & Cold Drinks,Ginger Tea
+Beverage,Hot & Cold Drinks,Green Smoothie
+Beverage,Hot & Cold Drinks,Green Tea
+Beverage,Hot & Cold Drinks,Hot Chocolate
+Beverage,Hot & Cold Drinks,Iced Latte
+Beverage,Hot & Cold Drinks,Iced Mocha
+Beverage,Hot & Cold Drinks,Iced Tea
+Beverage,Hot & Cold Drinks,Jaljeera
+Beverage,Hot & Cold Drinks,Kokum Sharbat
+Beverage,Hot & Cold Drinks,Lassi
+Beverage,Hot & Cold Drinks,Latte
+Beverage,Hot & Cold Drinks,Lemon Tea
+Beverage,Hot & Cold Drinks,Lemonade
+Beverage,Hot & Cold Drinks,Macchiato
+Beverage,Hot & Cold Drinks,Mango Lassi
+Beverage,Hot & Cold Drinks,Mango Milkshake
+Beverage,Hot & Cold Drinks,Mango Shake
+Beverage,Hot & Cold Drinks,Mango Smoothie
+Beverage,Hot & Cold Drinks,Masala Chai
+Beverage,Hot & Cold Drinks,Milkshake
+Beverage,Hot & Cold Drinks,Mint Lemonade
+Beverage,Hot & Cold Drinks,Mocha
+Beverage,Hot & Cold Drinks,Nimbu Pani
+Beverage,Hot & Cold Drinks,Oreo Milkshake
+Beverage,Hot & Cold Drinks,Peach Iced Tea
+Beverage,Hot & Cold Drinks,Rooh Afza
+Beverage,Hot & Cold Drinks,Rose Milk
+Beverage,Hot & Cold Drinks,Salted Lassi
+Beverage,Hot & Cold Drinks,Smoothie
+Beverage,Hot & Cold Drinks,Strawberry Milkshake
+Beverage,Hot & Cold Drinks,Sugarcane Juice
+Beverage,Hot & Cold Drinks,Sweet Lassi
+Beverage,Hot & Cold Drinks,Tea
+Beverage,Hot & Cold Drinks,Vanilla Milkshake
+Breakfast,Breakfast,Acai Bowl
+Breakfast,Breakfast,Aloo Paratha
+Breakfast,Breakfast,American Breakfast
+Breakfast,Breakfast,Avocado Toast
+Breakfast,Breakfast,Belgian Waffles
+Breakfast,Breakfast,Blueberry Pancakes
+Breakfast,Breakfast,Boiled Eggs
+Breakfast,Breakfast,Bread Omelette
+Breakfast,Breakfast,Breakfast Bagel
+Breakfast,Breakfast,Breakfast Burrito
+Breakfast,Breakfast,Cheese Omelette
+Breakfast,Breakfast,Chocolate Pancakes
+Breakfast,Breakfast,Chole Bhature
+Breakfast,Breakfast,Cornflakes
+Breakfast,Breakfast,Dosa
+Breakfast,Breakfast,Egg Bhurji
+Breakfast,Breakfast,Egg Sandwich
+Breakfast,Breakfast,Eggs Benedict
+Breakfast,Breakfast,English Breakfast
+Breakfast,Breakfast,French Toast
+Breakfast,Breakfast,French Toast with Berries
+Breakfast,Breakfast,Granola Bowl
+Breakfast,Breakfast,Idli
+Breakfast,Breakfast,Masala Omelette
+Breakfast,Breakfast,Misal Pav
+Breakfast,Breakfast,Muesli
+Breakfast,Breakfast,Oatmeal
+Breakfast,Breakfast,Omelette
+Breakfast,Breakfast,Overnight Oats
+Breakfast,Breakfast,Pancakes
+Breakfast,Breakfast,Paratha
+Breakfast,Breakfast,Pav Bhaji
+Breakfast,Breakfast,Peanut Butter Toast
+Breakfast,Breakfast,Poached Eggs
+Breakfast,Breakfast,Poha
+Breakfast,Breakfast,Puri Bhaji
+Breakfast,Breakfast,Sabudana Khichdi
+Breakfast,Breakfast,Scrambled Eggs
+Breakfast,Breakfast,Stuffed Paratha
+Breakfast,Breakfast,Sunny Side Up Eggs
+Breakfast,Breakfast,Upma
+Breakfast,Breakfast,Waffles
+Breakfast,Breakfast,Yogurt Bowl
+Chinese,Main Course,American Chop Suey
+Chinese,Main Course,Beef Chow Mein
+Chinese,Main Course,Beef in Black Bean Sauce
+Chinese,Main Course,Beef with Broccoli
+Chinese,Main Course,Black Pepper Chicken
+Chinese,Main Course,Cashew Chicken
+Chinese,Main Course,Char Siu
+Chinese,Main Course,Chicken Chow Mein
+Chinese,Main Course,Chicken Fried Rice
+Chinese,Main Course,Chicken Hakka Noodles
+Chinese,Main Course,Chicken Manchurian
+Chinese,Main Course,Chilli Garlic Noodles
+Chinese,Main Course,Chinese Chop Suey
+Chinese,Main Course,Chow Mein
+Chinese,Main Course,Dan Dan Noodles
+Chinese,Main Course,Dongpo Pork
+Chinese,Main Course,Dragon Chicken
+Chinese,Main Course,Dragon Paneer
+Chinese,Main Course,Egg Fried Rice
+Chinese,Main Course,General Tso's Chicken
+Chinese,Main Course,Kung Pao Chicken
+Chinese,Main Course,Ma Po Eggplant
+Chinese,Main Course,Mapo Tofu
+Chinese,Main Course,Mongolian Beef
+Chinese,Main Course,Mongolian Chicken
+Chinese,Main Course,Orange Chicken
+Chinese,Main Course,Peking Duck
+Chinese,Main Course,Prawn Fried Rice
+Chinese,Main Course,Schezwan Fried Rice
+Chinese,Main Course,Schezwan Noodles
+Chinese,Main Course,Shanghai Noodles
+Chinese,Main Course,Singapore Noodles
+Chinese,Main Course,Sweet and Sour Chicken
+Chinese,Main Course,Sweet and Sour Pork
+Chinese,Main Course,Twice Cooked Pork
+Chinese,Main Course,Veg Fried Rice
+Chinese,Main Course,Veg Hakka Noodles
+Chinese,Main Course,Vegetable Manchurian
+Chinese,Main Course,Yangzhou Fried Rice
+Chinese,Soup,Chicken Clear Soup
+Chinese,Soup,Egg Drop Soup
+Chinese,Soup,Hot and Sour Soup
+Chinese,Soup,Manchow Soup
+Chinese,Soup,Mushroom Soup
+Chinese,Soup,Noodle Soup
+Chinese,Soup,Sweet Corn Soup
+Chinese,Soup,Szechuan Soup
+Chinese,Soup,Tomato Egg Soup
+Chinese,Soup,Vegetable Clear Soup
+Chinese,Soup,Wonton Soup
+Chinese,Specialty,Chinese Caramel Dessert
+Chinese,Specialty,Chinese Cheese Sandwich
+Chinese,Specialty,Chinese Chicken Sandwich
+Chinese,Specialty,Chinese Chicken Soup
+Chinese,Specialty,Chinese Chocolate Dessert
+Chinese,Specialty,Chinese Cream Soup
+Chinese,Specialty,Chinese Creamy Chicken
+Chinese,Specialty,Chinese Creamy Vegetable Curry
+Chinese,Specialty,Chinese Crispy Chicken
+Chinese,Specialty,Chinese Crispy Fish
+Chinese,Specialty,Chinese Fish Fillet
+Chinese,Specialty,Chinese Fresh Fruit Bowl
+Chinese,Specialty,Chinese Garlic Noodles
+Chinese,Specialty,Chinese Grilled Chicken
+Chinese,Specialty,Chinese Grilled Fish
+Chinese,Specialty,Chinese Grilled Vegetable Platter
+Chinese,Specialty,Chinese Herb Chicken
+Chinese,Specialty,Chinese Herb Rice
+Chinese,Specialty,Chinese Mixed Salad
+Chinese,Specialty,Chinese Mushroom Soup
+Chinese,Specialty,Chinese Sesame Noodles
+Chinese,Specialty,Chinese Spicy Chicken
+Chinese,Specialty,Chinese Spicy Fish
+Chinese,Specialty,Chinese Spicy Noodles
+Chinese,Specialty,Chinese Spicy Rice
+Chinese,Specialty,Chinese Spicy Vegetable Curry
+Chinese,Specialty,Chinese Tomato Soup
+Chinese,Specialty,Chinese Vanilla Dessert
+Chinese,Specialty,Chinese Vegetable Curry
+Chinese,Specialty,Chinese Vegetable Noodles
+Chinese,Specialty,Chinese Vegetable Rice
+Chinese,Specialty,Chinese Vegetable Sandwich
+Chinese,Specialty,Chinese Vegetable Soup
+Chinese,Starter,Chicken Dumplings
+Chinese,Starter,Chicken Lollipop
+Chinese,Starter,Chicken Spring Rolls
+Chinese,Starter,Chicken Wontons
+Chinese,Starter,Chilli Chicken
+Chinese,Starter,Chilli Paneer
+Chinese,Starter,Chilli Prawns
+Chinese,Starter,Chinese Bhel
+Chinese,Starter,Crispy Corn
+Chinese,Starter,Crispy Lotus Stem
+Chinese,Starter,Drums of Heaven
+Chinese,Starter,Honey Chilli Potato
+Chinese,Starter,Prawn Dumplings
+Chinese,Starter,Prawn Toast
+Chinese,Starter,Salt and Pepper Chicken
+Chinese,Starter,Salt and Pepper Mushroom
+Chinese,Starter,Schezwan Paneer
+Chinese,Starter,Sesame Toast
+Chinese,Starter,Spring Rolls
+Chinese,Starter,Vegetable Dumplings
+Chinese,Starter,Vegetable Spring Rolls
+Chinese,Starter,Wontons
+Continental,Dessert,Apple Crumble
+Continental,Dessert,Bread Pudding
+Continental,Dessert,Caramel Custard
+Continental,Dessert,Chocolate Brownie
+Continental,Dessert,Chocolate Fondant
+Continental,Dessert,Chocolate Mousse
+Continental,Dessert,Fruit Tart
+Continental,Dessert,Lemon Tart
+Continental,Dessert,Panna Cotta
+Continental,Dessert,Vanilla Pudding
+Continental,Main Course,Baked Pasta
+Continental,Main Course,Baked Salmon
+Continental,Main Course,Beef Stroganoff
+Continental,Main Course,Chicken Cordon Bleu
+Continental,Main Course,Chicken Kiev
+Continental,Main Course,Chicken Pasta
+Continental,Main Course,Chicken Schnitzel
+Continental,Main Course,Chicken Steak
+Continental,Main Course,Chicken Stroganoff
+Continental,Main Course,Cottage Pie
+Continental,Main Course,Creamy Mushroom Pasta
+Continental,Main Course,Fish and Chips
+Continental,Main Course,Grilled Chicken
+Continental,Main Course,Grilled Fish
+Continental,Main Course,Grilled Salmon
+Continental,Main Course,Grilled Vegetables
+Continental,Main Course,Herb Roasted Potatoes
+Continental,Main Course,Pork Schnitzel
+Continental,Main Course,Roast Beef
+Continental,Main Course,Roast Chicken
+Continental,Main Course,Shepherd's Pie
+Continental,Main Course,Steak
+Continental,Main Course,Stuffed Chicken Breast
+Continental,Main Course,Vegetable Au Gratin
+Continental,Main Course,Vegetable Gratin
+Continental,Specialty,Continental Caramel Dessert
+Continental,Specialty,Continental Cheese Sandwich
+Continental,Specialty,Continental Chicken Sandwich
+Continental,Specialty,Continental Chicken Soup
+Continental,Specialty,Continental Chocolate Dessert
+Continental,Specialty,Continental Cream Soup
+Continental,Specialty,Continental Creamy Chicken
+Continental,Specialty,Continental Creamy Vegetable Curry
+Continental,Specialty,Continental Crispy Chicken
+Continental,Specialty,Continental Crispy Fish
+Continental,Specialty,Continental Fish Fillet
+Continental,Specialty,Continental Fresh Fruit Bowl
+Continental,Specialty,Continental Garlic Noodles
+Continental,Specialty,Continental Grilled Chicken
+Continental,Specialty,Continental Grilled Fish
+Continental,Specialty,Continental Grilled Vegetable Platter
+Continental,Specialty,Continental Herb Chicken
+Continental,Specialty,Continental Herb Rice
+Continental,Specialty,Continental Mixed Salad
+Continental,Specialty,Continental Mushroom Soup
+Continental,Specialty,Continental Sesame Noodles
+Continental,Specialty,Continental Spicy Chicken
+Continental,Specialty,Continental Spicy Fish
+Continental,Specialty,Continental Spicy Noodles
+Continental,Specialty,Continental Spicy Rice
+Continental,Specialty,Continental Spicy Vegetable Curry
+Continental,Specialty,Continental Tomato Soup
+Continental,Specialty,Continental Vanilla Dessert
+Continental,Specialty,Continental Vegetable Curry
+Continental,Specialty,Continental Vegetable Noodles
+Continental,Specialty,Continental Vegetable Rice
+Continental,Specialty,Continental Vegetable Sandwich
+Continental,Specialty,Continental Vegetable Soup
+Continental,Starter,Bruschetta
+Continental,Starter,Caesar Salad
+Continental,Starter,Cheese Balls
+Continental,Starter,Chicken Skewers
+Continental,Starter,Coleslaw
+Continental,Starter,Cream of Chicken Soup
+Continental,Starter,Cream of Mushroom Soup
+Continental,Starter,Cream of Tomato Soup
+Continental,Starter,Garden Salad
+Continental,Starter,Garlic Bread
+Continental,Starter,Greek Salad
+Continental,Starter,Stuffed Mushrooms
+Dessert,Dessert,Apple Crumble
+Dessert,Dessert,Apple Pie
+Dessert,Dessert,Baklava
+Dessert,Dessert,Banoffee Pie
+Dessert,Dessert,Basbousa
+Dessert,Dessert,Black Forest Cake
+Dessert,Dessert,Brownie
+Dessert,Dessert,Butterscotch Ice Cream
+Dessert,Dessert,Caramel Pudding
+Dessert,Dessert,Carrot Cake
+Dessert,Dessert,Cheesecake
+Dessert,Dessert,Chocolate Cake
+Dessert,Dessert,Chocolate Ice Cream
+Dessert,Dessert,Chocolate Lava Cake
+Dessert,Dessert,Chocolate Mousse
+Dessert,Dessert,Chocolate Pudding
+Dessert,Dessert,Churros
+Dessert,Dessert,Cookie Dough Ice Cream
+Dessert,Dessert,Crepes
+Dessert,Dessert,Crème Brûlée
+Dessert,Dessert,Custard
+Dessert,Dessert,Donuts
+Dessert,Dessert,Dorayaki
+Dessert,Dessert,Falooda
+Dessert,Dessert,Flan
+Dessert,Dessert,Fruit Custard
+Dessert,Dessert,Fruit Tart
+Dessert,Dessert,Gulab Jamun
+Dessert,Dessert,Ice Cream
+Dessert,Dessert,Jalebi
+Dessert,Dessert,Kheer
+Dessert,Dessert,Kulfi
+Dessert,Dessert,Kunafa
+Dessert,Dessert,Lemon Tart
+Dessert,Dessert,Macarons
+Dessert,Dessert,Mango Ice Cream
+Dessert,Dessert,Mango Sticky Rice
+Dessert,Dessert,Mint Chocolate Ice Cream
+Dessert,Dessert,Mochi
+Dessert,Dessert,Opera Cake
+Dessert,Dessert,Pancakes
+Dessert,Dessert,Panna Cotta
+Dessert,Dessert,Profiteroles
+Dessert,Dessert,Rasgulla
+Dessert,Dessert,Rasmalai
+Dessert,Dessert,Red Velvet Cake
+Dessert,Dessert,Rice Pudding
+Dessert,Dessert,Strawberry Ice Cream
+Dessert,Dessert,Taiyaki
+Dessert,Dessert,Tiramisu
+Dessert,Dessert,Tres Leches Cake
+Dessert,Dessert,Vanilla Cake
+Dessert,Dessert,Vanilla Ice Cream
+Dessert,Dessert,Vanilla Pudding
+Dessert,Dessert,Waffles
+Dessert,Dessert,Éclair
+French,Dessert,Clafoutis
+French,Dessert,Crème Brûlée
+French,Dessert,Crêpes Suzette
+French,Dessert,Financier
+French,Dessert,Macarons
+French,Dessert,Madeleine
+French,Dessert,Mille-Feuille
+French,Dessert,Opera Cake
+French,Dessert,Pain au Chocolat
+French,Dessert,Paris-Brest
+French,Dessert,Profiteroles
+French,Dessert,Tarte Tatin
+French,Dessert,Éclair
+French,Main Course,Beef Bourguignon
+French,Main Course,Boeuf Bourguignon
+French,Main Course,Bouillabaisse
+French,Main Course,Cassoulet
+French,Main Course,Chicken Fricassee
+French,Main Course,Coq au Vin
+French,Main Course,Croque Madame
+French,Main Course,Croque Monsieur
+French,Main Course,Duck Confit
+French,Main Course,Escargots
+French,Main Course,Gratin Dauphinois
+French,Main Course,Quiche Lorraine
+French,Main Course,Ratatouille
+French,Main Course,Sole Meuniere
+French,Main Course,Steak Frites
+French,Main Course,Tartiflette
+French,Specialty,French Caramel Dessert
+French,Specialty,French Cheese Sandwich
+French,Specialty,French Chicken Sandwich
+French,Specialty,French Chicken Soup
+French,Specialty,French Chocolate Dessert
+French,Specialty,French Cream Soup
+French,Specialty,French Creamy Chicken
+French,Specialty,French Creamy Vegetable Curry
+French,Specialty,French Crispy Chicken
+French,Specialty,French Crispy Fish
+French,Specialty,French Fish Fillet
+French,Specialty,French Fresh Fruit Bowl
+French,Specialty,French Garlic Noodles
+French,Specialty,French Grilled Chicken
+French,Specialty,French Grilled Fish
+French,Specialty,French Grilled Vegetable Platter
+French,Specialty,French Herb Chicken
+French,Specialty,French Herb Rice
+French,Specialty,French Mixed Salad
+French,Specialty,French Mushroom Soup
+French,Specialty,French Sesame Noodles
+French,Specialty,French Spicy Chicken
+French,Specialty,French Spicy Fish
+French,Specialty,French Spicy Noodles
+French,Specialty,French Spicy Rice
+French,Specialty,French Spicy Vegetable Curry
+French,Specialty,French Tomato Soup
+French,Specialty,French Vanilla Dessert
+French,Specialty,French Vegetable Curry
+French,Specialty,French Vegetable Noodles
+French,Specialty,French Vegetable Rice
+French,Specialty,French Vegetable Sandwich
+French,Specialty,French Vegetable Soup
+French,Starter,Cheese Souffle
+French,Starter,Escargot
+French,Starter,French Onion Soup
+French,Starter,French Quiche
+French,Starter,Pate
+French,Starter,Ratatouille Tart
+French,Starter,Salade Nicoise
+French,Starter,Terrine
+Indian,Bengali,Aloo Posto
+Indian,Bengali,Begun Bhaja
+Indian,Bengali,Chingri Malai Curry
+Indian,Bengali,Cholar Dal
+Indian,Bengali,Doi Maach
+Indian,Bengali,Kosha Mangsho
+Indian,Bengali,Luchi Alur Dom
+Indian,Bengali,Macher Jhol
+Indian,Bengali,Mishti Doi
+Indian,Bengali,Mochar Ghonto
+Indian,Bengali,Payesh
+Indian,Bengali,Rasgulla
+Indian,Bengali,Sandesh
+Indian,Bengali,Shorshe Ilish
+Indian,Bengali,Shukto
+Indian,Bread,Aloo Paratha
+Indian,Bread,Amritsari Kulcha
+Indian,Bread,Appam
+Indian,Bread,Bajra Bhakri
+Indian,Bread,Bajra Roti
+Indian,Bread,Bhatura
+Indian,Bread,Butter Naan
+Indian,Bread,Chapati
+Indian,Bread,Cheese Naan
+Indian,Bread,Cheese Paratha
+Indian,Bread,Chole Kulche
+Indian,Bread,Garlic Naan
+Indian,Bread,Gobi Paratha
+Indian,Bread,Idiyappam
+Indian,Bread,Jowar Bhakri
+Indian,Bread,Kulcha
+Indian,Bread,Lachha Paratha
+Indian,Bread,Luchi
+Indian,Bread,Makki Ki Roti
+Indian,Bread,Malabar Parotta
+Indian,Bread,Methi Paratha
+Indian,Bread,Missi Paratha
+Indian,Bread,Missi Roti
+Indian,Bread,Mooli Paratha
+Indian,Bread,Naan
+Indian,Bread,Onion Paratha
+Indian,Bread,Paneer Paratha
+Indian,Bread,Paratha
+Indian,Bread,Phulka
+Indian,Bread,Pudina Paratha
+Indian,Bread,Puri
+Indian,Bread,Rumali Roti
+Indian,Bread,Tandoori Roti
+Indian,Dessert,Ada Pradhaman
+Indian,Dessert,Amrakhand
+Indian,Dessert,Atta Halwa
+Indian,Dessert,Badam Halwa
+Indian,Dessert,Balushahi
+Indian,Dessert,Barfi
+Indian,Dessert,Basundi
+Indian,Dessert,Besan Halwa
+Indian,Dessert,Besan Laddu
+Indian,Dessert,Boondi Laddu
+Indian,Dessert,Chenna Poda
+Indian,Dessert,Coconut Barfi
+Indian,Dessert,Coconut Laddu
+Indian,Dessert,Falooda
+Indian,Dessert,Gajar Halwa
+Indian,Dessert,Gond Laddu
+Indian,Dessert,Gulab Jamun
+Indian,Dessert,Jalebi
+Indian,Dessert,Kaju Katli
+Indian,Dessert,Kalakand
+Indian,Dessert,Kheer
+Indian,Dessert,Kulfi
+Indian,Dessert,Malpua
+Indian,Dessert,Mango Kulfi
+Indian,Dessert,Mathura Peda
+Indian,Dessert,Milk Cake
+Indian,Dessert,Modak
+Indian,Dessert,Moong Dal Halwa
+Indian,Dessert,Motichoor Laddu
+Indian,Dessert,Mysore Pak
+Indian,Dessert,Payasam
+Indian,Dessert,Peda
+Indian,Dessert,Phirni
+Indian,Dessert,Pista Barfi
+Indian,Dessert,Pista Kulfi
+Indian,Dessert,Rabri
+Indian,Dessert,Rasgulla
+Indian,Dessert,Rasmalai
+Indian,Dessert,Shrikhand
+Indian,Dessert,Soan Papdi
+Indian,Dessert,Sooji Halwa
+Indian,Dessert,Til Laddu
+Indian,Gujarati,Dal Dhokli
+Indian,Gujarati,Doodhpak
+Indian,Gujarati,Fafda Jalebi
+Indian,Gujarati,Ghevar
+Indian,Gujarati,Gujarati Kadhi
+Indian,Gujarati,Gujarati Thali
+Indian,Gujarati,Handvo
+Indian,Gujarati,Khandvi
+Indian,Gujarati,Khichdi Kadhi
+Indian,Gujarati,Lilva Kachori
+Indian,Gujarati,Methi Thepla
+Indian,Gujarati,Mohanthal
+Indian,Gujarati,Patra
+Indian,Gujarati,Ringna Bateta
+Indian,Gujarati,Sev Tameta
+Indian,Gujarati,Thepla
+Indian,Kashmiri,Dum Aloo Kashmiri
+Indian,Kashmiri,Gushtaba
+Indian,Kashmiri,Haak Saag
+Indian,Kashmiri,Kahwa
+Indian,Kashmiri,Kashmiri Pulao
+Indian,Kashmiri,Modur Pulao
+Indian,Kashmiri,Nadru Yakhni
+Indian,Kashmiri,Rista
+Indian,Kashmiri,Rogan Josh
+Indian,Kashmiri,Tabak Maaz
+Indian,Kashmiri,Yakhni
+Indian,Maharashtrian,Alu Vadi
+Indian,Maharashtrian,Amti
+Indian,Maharashtrian,Basundi
+Indian,Maharashtrian,Batata Bhaji
+Indian,Maharashtrian,Bharit
+Indian,Maharashtrian,Bharli Vangi
+Indian,Maharashtrian,Kanda Poha
+Indian,Maharashtrian,Kothimbir Vadi
+Indian,Maharashtrian,Matki Usal
+Indian,Maharashtrian,Misal
+Indian,Maharashtrian,Misal Pav
+Indian,Maharashtrian,Modak
+Indian,Maharashtrian,Pav Bhaji
+Indian,Maharashtrian,Pithla Bhakri
+Indian,Maharashtrian,Poha
+Indian,Maharashtrian,Puran Poli
+Indian,Maharashtrian,Sabudana Khichdi
+Indian,Maharashtrian,Shrikhand
+Indian,Maharashtrian,Sol Kadhi
+Indian,Maharashtrian,Thalipeeth
+Indian,Maharashtrian,Ukadiche Modak
+Indian,Maharashtrian,Usal Pav
+Indian,Maharashtrian,Vada Pav
+Indian,Maharashtrian,Varan Bhaat
+Indian,Maharashtrian,Zunka Bhakri
+Indian,Main Course,Aloo Gobi
+Indian,Main Course,Aloo Jeera
+Indian,Main Course,Aloo Matar
+Indian,Main Course,Aloo Palak
+Indian,Main Course,Avial
+Indian,Main Course,Baingan Bharta
+Indian,Main Course,Bengali Fish Curry
+Indian,Main Course,Bhindi Do Pyaza
+Indian,Main Course,Bhindi Masala
+Indian,Main Course,Butter Chicken
+Indian,Main Course,Chana Masala
+Indian,Main Course,Chicken Afghani
+Indian,Main Course,Chicken Bhuna
+Indian,Main Course,Chicken Chettinad
+Indian,Main Course,Chicken Curry
+Indian,Main Course,Chicken Dhaba
+Indian,Main Course,Chicken Do Pyaza
+Indian,Main Course,Chicken Handi
+Indian,Main Course,Chicken Kolhapuri
+Indian,Main Course,Chicken Korma
+Indian,Main Course,Chicken Patiala
+Indian,Main Course,Chicken Rogan Josh
+Indian,Main Course,Chicken Saagwala
+Indian,Main Course,Chicken Tikka Masala
+Indian,Main Course,Chole
+Indian,Main Course,Corn Palak
+Indian,Main Course,Dal Fry
+Indian,Main Course,Dal Makhani
+Indian,Main Course,Dal Palak
+Indian,Main Course,Dal Tadka
+Indian,Main Course,Egg Curry
+Indian,Main Course,Egg Masala
+Indian,Main Course,Fish Curry
+Indian,Main Course,Goan Fish Curry
+Indian,Main Course,Goat Curry
+Indian,Main Course,Gujarati Kadhi
+Indian,Main Course,Jackfruit Curry
+Indian,Main Course,Kadai Paneer
+Indian,Main Course,Kadhi Pakora
+Indian,Main Course,Kaju Curry
+Indian,Main Course,Kashmiri Dum Aloo
+Indian,Main Course,Kerala Fish Curry
+Indian,Main Course,Laal Maas
+Indian,Main Course,Malai Kofta
+Indian,Main Course,Malvani Fish Curry
+Indian,Main Course,Matar Paneer
+Indian,Main Course,Methi Malai Matar
+Indian,Main Course,Mix Veg
+Indian,Main Course,Mushroom Do Pyaza
+Indian,Main Course,Mushroom Masala
+Indian,Main Course,Mutton Bhuna
+Indian,Main Course,Mutton Curry
+Indian,Main Course,Mutton Do Pyaza
+Indian,Main Course,Mutton Handi
+Indian,Main Course,Mutton Keema
+Indian,Main Course,Mutton Korma
+Indian,Main Course,Mutton Nihari
+Indian,Main Course,Mutton Rogan Josh
+Indian,Main Course,Mutton Saag
+Indian,Main Course,Navratan Korma
+Indian,Main Course,Palak Paneer
+Indian,Main Course,Paneer Bhurji
+Indian,Main Course,Paneer Butter Masala
+Indian,Main Course,Paneer Do Pyaza
+Indian,Main Course,Paneer Handi
+Indian,Main Course,Paneer Kolhapuri
+Indian,Main Course,Paneer Lababdar
+Indian,Main Course,Prawn Curry
+Indian,Main Course,Prawn Masala
+Indian,Main Course,Punjabi Kadhi
+Indian,Main Course,Rajma
+Indian,Main Course,Rajma Masala
+Indian,Main Course,Rasam
+Indian,Main Course,Sambar
+Indian,Main Course,Shahi Paneer
+Indian,Main Course,Soya Chaap Curry
+Indian,Main Course,Undhiyu
+Indian,Main Course,Veg Kofta Curry
+Indian,Main Course,Veg Korma
+Indian,Main Course,Vegetable Stew
+Indian,Punjabi,Aloo Paratha
+Indian,Punjabi,Amritsari Fish
+Indian,Punjabi,Amritsari Kulcha
+Indian,Punjabi,Butter Chicken
+Indian,Punjabi,Chole Bhature
+Indian,Punjabi,Dal Makhani
+Indian,Punjabi,Kadhi Chawal
+Indian,Punjabi,Makki Di Roti
+Indian,Punjabi,Paneer Tikka
+Indian,Punjabi,Pindi Chole
+Indian,Punjabi,Punjabi Chole
+Indian,Punjabi,Rajma Chawal
+Indian,Punjabi,Sarson Ka Saag
+Indian,Punjabi,Tandoori Chicken
+Indian,Rajasthani,Bajre Ki Roti
+Indian,Rajasthani,Churma
+Indian,Rajasthani,Dal Baati Churma
+Indian,Rajasthani,Gatte Ki Sabzi
+Indian,Rajasthani,Ghevar
+Indian,Rajasthani,Ker Sangri
+Indian,Rajasthani,Laal Maas
+Indian,Rajasthani,Mawa Kachori
+Indian,Rajasthani,Mirchi Bada
+Indian,Rajasthani,Panchmel Dal
+Indian,Rajasthani,Papad Ki Sabzi
+Indian,Rajasthani,Pyaz Kachori
+Indian,Rajasthani,Rajasthani Thali
+Indian,Rice & Biryani,Ambur Biryani
+Indian,Rice & Biryani,Bombay Biryani
+Indian,Rice & Biryani,Brown Rice
+Indian,Rice & Biryani,Chicken Biryani
+Indian,Rice & Biryani,Coconut Rice
+Indian,Rice & Biryani,Curd Rice
+Indian,Rice & Biryani,Dindigul Biryani
+Indian,Rice & Biryani,Egg Biryani
+Indian,Rice & Biryani,Fish Biryani
+Indian,Rice & Biryani,Ghee Rice
+Indian,Rice & Biryani,Hyderabadi Biryani
+Indian,Rice & Biryani,Jeera Rice
+Indian,Rice & Biryani,Kashmiri Pulao
+Indian,Rice & Biryani,Kolkata Biryani
+Indian,Rice & Biryani,Lemon Rice
+Indian,Rice & Biryani,Lucknowi Biryani
+Indian,Rice & Biryani,Malabar Biryani
+Indian,Rice & Biryani,Masala Rice
+Indian,Rice & Biryani,Matar Pulao
+Indian,Rice & Biryani,Mushroom Biryani
+Indian,Rice & Biryani,Mutton Biryani
+Indian,Rice & Biryani,Paneer Biryani
+Indian,Rice & Biryani,Peas Pulao
+Indian,Rice & Biryani,Prawn Biryani
+Indian,Rice & Biryani,Schezwan Rice
+Indian,Rice & Biryani,Sindhi Biryani
+Indian,Rice & Biryani,Steamed Rice
+Indian,Rice & Biryani,Tamarind Rice
+Indian,Rice & Biryani,Tawa Pulao
+Indian,Rice & Biryani,Thalassery Biryani
+Indian,Rice & Biryani,Tomato Rice
+Indian,Rice & Biryani,Veg Biryani
+Indian,Rice & Biryani,Veg Pulao
+Indian,South Indian,Appam with Stew
+Indian,South Indian,Avial
+Indian,South Indian,Bisi Bele Bath
+Indian,South Indian,Chicken Kothu Parotta
+Indian,South Indian,Curd Vada
+Indian,South Indian,Egg Kothu Parotta
+Indian,South Indian,Idli
+Indian,South Indian,Kadala Curry
+Indian,South Indian,Kanchipuram Idli
+Indian,South Indian,Kothu Parotta
+Indian,South Indian,Masala Dosa
+Indian,South Indian,Medu Vada
+Indian,South Indian,Mysore Masala Dosa
+Indian,South Indian,Neer Dosa
+Indian,South Indian,Onion Dosa
+Indian,South Indian,Onion Uttapam
+Indian,South Indian,Parotta Kurma
+Indian,South Indian,Pesarattu
+Indian,South Indian,Pesarattu Upma
+Indian,South Indian,Plain Dosa
+Indian,South Indian,Pongal
+Indian,South Indian,Puliyodarai
+Indian,South Indian,Puttu
+Indian,South Indian,Rava Dosa
+Indian,South Indian,Rava Idli
+Indian,South Indian,Rava Upma
+Indian,South Indian,Sambar Vada
+Indian,South Indian,Set Dosa
+Indian,South Indian,Tomato Uttapam
+Indian,South Indian,Upma
+Indian,South Indian,Uttapam
+Indian,South Indian,Ven Pongal
+Indian,Specialty,Indian Caramel Dessert
+Indian,Specialty,Indian Cheese Sandwich
+Indian,Specialty,Indian Chicken Sandwich
+Indian,Specialty,Indian Chicken Soup
+Indian,Specialty,Indian Chocolate Dessert
+Indian,Specialty,Indian Cream Soup
+Indian,Specialty,Indian Creamy Chicken
+Indian,Specialty,Indian Creamy Vegetable Curry
+Indian,Specialty,Indian Crispy Chicken
+Indian,Specialty,Indian Crispy Fish
+Indian,Specialty,Indian Fish Fillet
+Indian,Specialty,Indian Fresh Fruit Bowl
+Indian,Specialty,Indian Garlic Noodles
+Indian,Specialty,Indian Grilled Chicken
+Indian,Specialty,Indian Grilled Fish
+Indian,Specialty,Indian Grilled Vegetable Platter
+Indian,Specialty,Indian Herb Chicken
+Indian,Specialty,Indian Herb Rice
+Indian,Specialty,Indian Mixed Salad
+Indian,Specialty,Indian Mushroom Soup
+Indian,Specialty,Indian Sesame Noodles
+Indian,Specialty,Indian Spicy Chicken
+Indian,Specialty,Indian Spicy Fish
+Indian,Specialty,Indian Spicy Noodles
+Indian,Specialty,Indian Spicy Rice
+Indian,Specialty,Indian Spicy Vegetable Curry
+Indian,Specialty,Indian Tomato Soup
+Indian,Specialty,Indian Vanilla Dessert
+Indian,Specialty,Indian Vegetable Curry
+Indian,Specialty,Indian Vegetable Noodles
+Indian,Specialty,Indian Vegetable Rice
+Indian,Specialty,Indian Vegetable Sandwich
+Indian,Specialty,Indian Vegetable Soup
+Indian,Starter,Aloo Chaat
+Indian,Starter,Aloo Tikki
+Indian,Starter,Amritsari Fish
+Indian,Starter,Basket Chaat
+Indian,Starter,Batata Vada
+Indian,Starter,Bhel Puri
+Indian,Starter,Bread Pakora
+Indian,Starter,Chicken 65
+Indian,Starter,Chicken Lollipop
+Indian,Starter,Chicken Seekh Kebab
+Indian,Starter,Chicken Tikka
+Indian,Starter,Chilli Chicken
+Indian,Starter,Corn Chaat
+Indian,Starter,Corn Tikki
+Indian,Starter,Dahi Puri
+Indian,Starter,Dahi Vada
+Indian,Starter,Dal Kachori
+Indian,Starter,Dhokla
+Indian,Starter,Fafda
+Indian,Starter,Fish Fry
+Indian,Starter,Galouti Kebab
+Indian,Starter,Hara Bhara Kebab
+Indian,Starter,Kachori
+Indian,Starter,Khaman
+Indian,Starter,Khandvi
+Indian,Starter,Malai Tikka
+Indian,Starter,Medu Vada
+Indian,Starter,Mirchi Bajji
+Indian,Starter,Moong Dal Pakoda
+Indian,Starter,Muthiya
+Indian,Starter,Mutton Seekh Kebab
+Indian,Starter,Mutton Shami Kebab
+Indian,Starter,Onion Pakora
+Indian,Starter,Palak Pakora
+Indian,Starter,Paneer Pakora
+Indian,Starter,Paneer Tikka
+Indian,Starter,Pani Puri
+Indian,Starter,Papdi Chaat
+Indian,Starter,Patra
+Indian,Starter,Pyaz Kachori
+Indian,Starter,Ragda Pattice
+Indian,Starter,Reshmi Kebab
+Indian,Starter,Sabudana Vada
+Indian,Starter,Samosa
+Indian,Starter,Sev Puri
+Indian,Starter,Tandoori Chicken
+Indian,Starter,Tandoori Prawns
+Indian,Starter,Veg Cutlet
+Italian,Dessert,Affogato
+Italian,Dessert,Amaretti
+Italian,Dessert,Biscotti
+Italian,Dessert,Cannoli
+Italian,Dessert,Gelato
+Italian,Dessert,Italian Ricotta Cake
+Italian,Dessert,Panna Cotta
+Italian,Dessert,Semifreddo
+Italian,Dessert,Tiramisu
+Italian,Dessert,Zabaglione
+Italian,Main Course,Calzone
+Italian,Main Course,Cannelloni
+Italian,Main Course,Chicken Lasagna
+Italian,Main Course,Chicken Parmesan
+Italian,Main Course,Chicken Piccata
+Italian,Main Course,Eggplant Parmesan
+Italian,Main Course,Fettuccine Alfredo
+Italian,Main Course,Four Cheese Pizza
+Italian,Main Course,Gnocchi
+Italian,Main Course,Hawaiian Pizza
+Italian,Main Course,Lasagna
+Italian,Main Course,Linguine
+Italian,Main Course,Margherita Pizza
+Italian,Main Course,Mushroom Pizza
+Italian,Main Course,Mushroom Risotto
+Italian,Main Course,Neapolitan Pizza
+Italian,Main Course,Osso Buco
+Italian,Main Course,Penne Alfredo
+Italian,Main Course,Penne Arrabbiata
+Italian,Main Course,Pepperoni Pizza
+Italian,Main Course,Pesto Pasta
+Italian,Main Course,Ravioli
+Italian,Main Course,Risotto
+Italian,Main Course,Seafood Risotto
+Italian,Main Course,Sicilian Pizza
+Italian,Main Course,Spaghetti Aglio e Olio
+Italian,Main Course,Spaghetti Bolognese
+Italian,Main Course,Spaghetti Carbonara
+Italian,Main Course,Tagliatelle
+Italian,Main Course,Vegetable Lasagna
+Italian,Main Course,Vegetable Pizza
+Italian,Specialty,Italian Caramel Dessert
+Italian,Specialty,Italian Cheese Sandwich
+Italian,Specialty,Italian Chicken Sandwich
+Italian,Specialty,Italian Chicken Soup
+Italian,Specialty,Italian Chocolate Dessert
+Italian,Specialty,Italian Cream Soup
+Italian,Specialty,Italian Creamy Chicken
+Italian,Specialty,Italian Creamy Vegetable Curry
+Italian,Specialty,Italian Crispy Chicken
+Italian,Specialty,Italian Crispy Fish
+Italian,Specialty,Italian Fish Fillet
+Italian,Specialty,Italian Fresh Fruit Bowl
+Italian,Specialty,Italian Garlic Noodles
+Italian,Specialty,Italian Grilled Chicken
+Italian,Specialty,Italian Grilled Fish
+Italian,Specialty,Italian Grilled Vegetable Platter
+Italian,Specialty,Italian Herb Chicken
+Italian,Specialty,Italian Herb Rice
+Italian,Specialty,Italian Mixed Salad
+Italian,Specialty,Italian Mushroom Soup
+Italian,Specialty,Italian Sesame Noodles
+Italian,Specialty,Italian Spicy Chicken
+Italian,Specialty,Italian Spicy Fish
+Italian,Specialty,Italian Spicy Noodles
+Italian,Specialty,Italian Spicy Rice
+Italian,Specialty,Italian Spicy Vegetable Curry
+Italian,Specialty,Italian Tomato Soup
+Italian,Specialty,Italian Vanilla Dessert
+Italian,Specialty,Italian Vegetable Curry
+Italian,Specialty,Italian Vegetable Noodles
+Italian,Specialty,Italian Vegetable Rice
+Italian,Specialty,Italian Vegetable Sandwich
+Italian,Specialty,Italian Vegetable Soup
+Italian,Starter,Antipasto
+Italian,Starter,Arancini
+Italian,Starter,Bruschetta
+Italian,Starter,Burrata Salad
+Italian,Starter,Caprese Salad
+Italian,Starter,Focaccia
+Italian,Starter,Fried Calamari
+Italian,Starter,Garlic Bread
+Italian,Starter,Garlic Knots
+Italian,Starter,Minestrone
+Italian,Starter,Polenta Fries
+Italian,Starter,Stuffed Mushrooms
+Japanese,Dessert,Anmitsu
+Japanese,Dessert,Castella
+Japanese,Dessert,Dango
+Japanese,Dessert,Dorayaki
+Japanese,Dessert,Hokkaido Milk Pudding
+Japanese,Dessert,Matcha Cheesecake
+Japanese,Dessert,Matcha Mochi
+Japanese,Dessert,Mochi
+Japanese,Dessert,Taiyaki
+Japanese,Main Course,Avocado Roll
+Japanese,Main Course,Beef Teriyaki
+Japanese,Main Course,California Roll
+Japanese,Main Course,Chicken Katsu
+Japanese,Main Course,Chicken Teriyaki
+Japanese,Main Course,Chirashi Sushi
+Japanese,Main Course,Curry Rice
+Japanese,Main Course,Donburi
+Japanese,Main Course,Dragon Roll
+Japanese,Main Course,Gyudon
+Japanese,Main Course,Japanese Curry
+Japanese,Main Course,Katsudon
+Japanese,Main Course,Maki
+Japanese,Main Course,Miso Ramen
+Japanese,Main Course,Nigiri
+Japanese,Main Course,Okonomiyaki
+Japanese,Main Course,Oyakodon
+Japanese,Main Course,Ramen
+Japanese,Main Course,Salmon Roll
+Japanese,Main Course,Sashimi
+Japanese,Main Course,Shio Ramen
+Japanese,Main Course,Shoyu Ramen
+Japanese,Main Course,Soba
+Japanese,Main Course,Spicy Tuna Roll
+Japanese,Main Course,Sushi
+Japanese,Main Course,Temaki
+Japanese,Main Course,Tempura
+Japanese,Main Course,Tempura Roll
+Japanese,Main Course,Teriyaki Tofu
+Japanese,Main Course,Tofu Steak
+Japanese,Main Course,Tonkotsu Ramen
+Japanese,Main Course,Udon
+Japanese,Main Course,Unagi Don
+Japanese,Main Course,Vegetable Ramen
+Japanese,Main Course,Vegetable Sushi
+Japanese,Main Course,Yaki Udon
+Japanese,Main Course,Yakisoba
+Japanese,Specialty,Japanese Caramel Dessert
+Japanese,Specialty,Japanese Cheese Sandwich
+Japanese,Specialty,Japanese Chicken Sandwich
+Japanese,Specialty,Japanese Chicken Soup
+Japanese,Specialty,Japanese Chocolate Dessert
+Japanese,Specialty,Japanese Cream Soup
+Japanese,Specialty,Japanese Creamy Chicken
+Japanese,Specialty,Japanese Creamy Vegetable Curry
+Japanese,Specialty,Japanese Crispy Chicken
+Japanese,Specialty,Japanese Crispy Fish
+Japanese,Specialty,Japanese Fish Fillet
+Japanese,Specialty,Japanese Fresh Fruit Bowl
+Japanese,Specialty,Japanese Garlic Noodles
+Japanese,Specialty,Japanese Grilled Chicken
+Japanese,Specialty,Japanese Grilled Fish
+Japanese,Specialty,Japanese Grilled Vegetable Platter
+Japanese,Specialty,Japanese Herb Chicken
+Japanese,Specialty,Japanese Herb Rice
+Japanese,Specialty,Japanese Mixed Salad
+Japanese,Specialty,Japanese Mushroom Soup
+Japanese,Specialty,Japanese Sesame Noodles
+Japanese,Specialty,Japanese Spicy Chicken
+Japanese,Specialty,Japanese Spicy Fish
+Japanese,Specialty,Japanese Spicy Noodles
+Japanese,Specialty,Japanese Spicy Rice
+Japanese,Specialty,Japanese Spicy Vegetable Curry
+Japanese,Specialty,Japanese Tomato Soup
+Japanese,Specialty,Japanese Vanilla Dessert
+Japanese,Specialty,Japanese Vegetable Curry
+Japanese,Specialty,Japanese Vegetable Noodles
+Japanese,Specialty,Japanese Vegetable Rice
+Japanese,Specialty,Japanese Vegetable Sandwich
+Japanese,Specialty,Japanese Vegetable Soup
+Japanese,Starter,Agedashi Tofu
+Japanese,Starter,Chicken Gyoza
+Japanese,Starter,Edamame
+Japanese,Starter,Gyoza
+Japanese,Starter,Japanese Potato Salad
+Japanese,Starter,Karaage
+Japanese,Starter,Seaweed Salad
+Japanese,Starter,Sunomono
+Japanese,Starter,Takoyaki
+Japanese,Starter,Tsukemono
+Japanese,Starter,Vegetable Gyoza
+Japanese,Starter,Yakitori
+Korean,Main Course,Beef Bulgogi
+Korean,Main Course,Bibimbap
+Korean,Main Course,Bossam
+Korean,Main Course,Bulgogi
+Korean,Main Course,Bulgogi Rice
+Korean,Main Course,Chicken Bulgogi
+Korean,Main Course,Dak Galbi
+Korean,Main Course,Dolsot Bibimbap
+Korean,Main Course,Galbi
+Korean,Main Course,Gimbap
+Korean,Main Course,Jajangmyeon
+Korean,Main Course,Japchae
+Korean,Main Course,Jjamppong
+Korean,Main Course,Kimchi Fried Rice
+Korean,Main Course,Kimchi Jjigae
+Korean,Main Course,Kimchi Stew
+Korean,Main Course,Korean Fried Chicken
+Korean,Main Course,LA Galbi
+Korean,Main Course,Naengmyeon
+Korean,Main Course,Samgyeopsal
+Korean,Main Course,Samgyetang
+Korean,Main Course,Sundubu Jjigae
+Korean,Main Course,Tteokbokki
+Korean,Specialty,Korean Caramel Dessert
+Korean,Specialty,Korean Cheese Sandwich
+Korean,Specialty,Korean Chicken Sandwich
+Korean,Specialty,Korean Chicken Soup
+Korean,Specialty,Korean Chocolate Dessert
+Korean,Specialty,Korean Cream Soup
+Korean,Specialty,Korean Creamy Chicken
+Korean,Specialty,Korean Creamy Vegetable Curry
+Korean,Specialty,Korean Crispy Chicken
+Korean,Specialty,Korean Crispy Fish
+Korean,Specialty,Korean Fish Fillet
+Korean,Specialty,Korean Fresh Fruit Bowl
+Korean,Specialty,Korean Garlic Noodles
+Korean,Specialty,Korean Grilled Chicken
+Korean,Specialty,Korean Grilled Fish
+Korean,Specialty,Korean Grilled Vegetable Platter
+Korean,Specialty,Korean Herb Chicken
+Korean,Specialty,Korean Herb Rice
+Korean,Specialty,Korean Mixed Salad
+Korean,Specialty,Korean Mushroom Soup
+Korean,Specialty,Korean Sesame Noodles
+Korean,Specialty,Korean Spicy Chicken
+Korean,Specialty,Korean Spicy Fish
+Korean,Specialty,Korean Spicy Noodles
+Korean,Specialty,Korean Spicy Rice
+Korean,Specialty,Korean Spicy Vegetable Curry
+Korean,Specialty,Korean Tomato Soup
+Korean,Specialty,Korean Vanilla Dessert
+Korean,Specialty,Korean Vegetable Curry
+Korean,Specialty,Korean Vegetable Noodles
+Korean,Specialty,Korean Vegetable Rice
+Korean,Specialty,Korean Vegetable Sandwich
+Korean,Specialty,Korean Vegetable Soup
+Korean,Starter,Corn Cheese
+Korean,Starter,Gamja Twigim
+Korean,Starter,Haemul Pajeon
+Korean,Starter,Kimchi
+Korean,Starter,Korean Dumplings
+Korean,Starter,Korean Egg Roll
+Korean,Starter,Mandu
+Korean,Starter,Pajeon
+Mediterranean,Dessert,Baklava
+Mediterranean,Dessert,Basbousa
+Mediterranean,Dessert,Halva
+Mediterranean,Dessert,Kanafeh
+Mediterranean,Dessert,Loukoumades
+Mediterranean,Dessert,Rice Pudding
+Mediterranean,Dessert,Turkish Delight
+Mediterranean,Main Course,Chicken Kebab
+Mediterranean,Main Course,Chicken Shawarma
+Mediterranean,Main Course,Falafel Plate
+Mediterranean,Main Course,Greek Salad
+Mediterranean,Main Course,Grilled Halloumi
+Mediterranean,Main Course,Grilled Sea Bass
+Mediterranean,Main Course,Gyro
+Mediterranean,Main Course,Lamb Kebab
+Mediterranean,Main Course,Lamb Kofta
+Mediterranean,Main Course,Lamb Shawarma
+Mediterranean,Main Course,Mediterranean Pasta
+Mediterranean,Main Course,Moussaka
+Mediterranean,Main Course,Seafood Paella
+Mediterranean,Main Course,Shakshuka
+Mediterranean,Main Course,Souvlaki
+Mediterranean,Main Course,Spanakopita
+Mediterranean,Main Course,Stuffed Grape Leaves
+Mediterranean,Main Course,Stuffed Peppers
+Mediterranean,Specialty,Mediterranean Caramel Dessert
+Mediterranean,Specialty,Mediterranean Cheese Sandwich
+Mediterranean,Specialty,Mediterranean Chicken Sandwich
+Mediterranean,Specialty,Mediterranean Chicken Soup
+Mediterranean,Specialty,Mediterranean Chocolate Dessert
+Mediterranean,Specialty,Mediterranean Cream Soup
+Mediterranean,Specialty,Mediterranean Creamy Chicken
+Mediterranean,Specialty,Mediterranean Creamy Vegetable Curry
+Mediterranean,Specialty,Mediterranean Crispy Chicken
+Mediterranean,Specialty,Mediterranean Crispy Fish
+Mediterranean,Specialty,Mediterranean Fish Fillet
+Mediterranean,Specialty,Mediterranean Fresh Fruit Bowl
+Mediterranean,Specialty,Mediterranean Garlic Noodles
+Mediterranean,Specialty,Mediterranean Grilled Chicken
+Mediterranean,Specialty,Mediterranean Grilled Fish
+Mediterranean,Specialty,Mediterranean Grilled Vegetable Platter
+Mediterranean,Specialty,Mediterranean Herb Chicken
+Mediterranean,Specialty,Mediterranean Herb Rice
+Mediterranean,Specialty,Mediterranean Mixed Salad
+Mediterranean,Specialty,Mediterranean Mushroom Soup
+Mediterranean,Specialty,Mediterranean Sesame Noodles
+Mediterranean,Specialty,Mediterranean Spicy Chicken
+Mediterranean,Specialty,Mediterranean Spicy Fish
+Mediterranean,Specialty,Mediterranean Spicy Noodles
+Mediterranean,Specialty,Mediterranean Spicy Rice
+Mediterranean,Specialty,Mediterranean Spicy Vegetable Curry
+Mediterranean,Specialty,Mediterranean Tomato Soup
+Mediterranean,Specialty,Mediterranean Vanilla Dessert
+Mediterranean,Specialty,Mediterranean Vegetable Curry
+Mediterranean,Specialty,Mediterranean Vegetable Noodles
+Mediterranean,Specialty,Mediterranean Vegetable Rice
+Mediterranean,Specialty,Mediterranean Vegetable Sandwich
+Mediterranean,Specialty,Mediterranean Vegetable Soup
+Mediterranean,Starter,Baba Ganoush
+Mediterranean,Starter,Dolma
+Mediterranean,Starter,Falafel
+Mediterranean,Starter,Fattoush
+Mediterranean,Starter,Feta Dip
+Mediterranean,Starter,Hummus
+Mediterranean,Starter,Labneh
+Mediterranean,Starter,Muhammara
+Mediterranean,Starter,Olives
+Mediterranean,Starter,Pita Bread
+Mediterranean,Starter,Tabbouleh
+Mediterranean,Starter,Tzatziki
+Mexican,Dessert,Arroz con Leche
+Mexican,Dessert,Buñuelos
+Mexican,Dessert,Cajeta Flan
+Mexican,Dessert,Churros
+Mexican,Dessert,Conchas
+Mexican,Dessert,Flan
+Mexican,Dessert,Mexican Chocolate Cake
+Mexican,Dessert,Tres Leches Cake
+Mexican,Main Course,Barbacoa
+Mexican,Main Course,Bean Burrito
+Mexican,Main Course,Beef Burrito
+Mexican,Main Course,Beef Tacos
+Mexican,Main Course,Burrito
+Mexican,Main Course,Carnitas
+Mexican,Main Course,Cheese Enchiladas
+Mexican,Main Course,Chicken Burrito
+Mexican,Main Course,Chicken Enchiladas
+Mexican,Main Course,Chicken Fajitas
+Mexican,Main Course,Chicken Quesadilla
+Mexican,Main Course,Chicken Tacos
+Mexican,Main Course,Chilaquiles
+Mexican,Main Course,Chile Relleno
+Mexican,Main Course,Chimichanga
+Mexican,Main Course,Enchiladas
+Mexican,Main Course,Fajitas
+Mexican,Main Course,Fish Tacos
+Mexican,Main Course,Huevos Rancheros
+Mexican,Main Course,Menudo
+Mexican,Main Course,Mexican Rice
+Mexican,Main Course,Mole Poblano
+Mexican,Main Course,Pozole
+Mexican,Main Course,Quesadillas
+Mexican,Main Course,Refried Beans
+Mexican,Main Course,Shrimp Tacos
+Mexican,Main Course,Steak Fajitas
+Mexican,Main Course,Tacos
+Mexican,Main Course,Tamales
+Mexican,Main Course,Tostadas
+Mexican,Main Course,Vegetable Tacos
+Mexican,Specialty,Mexican Caramel Dessert
+Mexican,Specialty,Mexican Cheese Sandwich
+Mexican,Specialty,Mexican Chicken Sandwich
+Mexican,Specialty,Mexican Chicken Soup
+Mexican,Specialty,Mexican Chocolate Dessert
+Mexican,Specialty,Mexican Cream Soup
+Mexican,Specialty,Mexican Creamy Chicken
+Mexican,Specialty,Mexican Creamy Vegetable Curry
+Mexican,Specialty,Mexican Crispy Chicken
+Mexican,Specialty,Mexican Crispy Fish
+Mexican,Specialty,Mexican Fish Fillet
+Mexican,Specialty,Mexican Fresh Fruit Bowl
+Mexican,Specialty,Mexican Garlic Noodles
+Mexican,Specialty,Mexican Grilled Chicken
+Mexican,Specialty,Mexican Grilled Fish
+Mexican,Specialty,Mexican Grilled Vegetable Platter
+Mexican,Specialty,Mexican Herb Chicken
+Mexican,Specialty,Mexican Herb Rice
+Mexican,Specialty,Mexican Mixed Salad
+Mexican,Specialty,Mexican Mushroom Soup
+Mexican,Specialty,Mexican Sesame Noodles
+Mexican,Specialty,Mexican Spicy Chicken
+Mexican,Specialty,Mexican Spicy Fish
+Mexican,Specialty,Mexican Spicy Noodles
+Mexican,Specialty,Mexican Spicy Rice
+Mexican,Specialty,Mexican Spicy Vegetable Curry
+Mexican,Specialty,Mexican Tomato Soup
+Mexican,Specialty,Mexican Vanilla Dessert
+Mexican,Specialty,Mexican Vegetable Curry
+Mexican,Specialty,Mexican Vegetable Noodles
+Mexican,Specialty,Mexican Vegetable Rice
+Mexican,Specialty,Mexican Vegetable Sandwich
+Mexican,Specialty,Mexican Vegetable Soup
+Mexican,Starter,Bean Dip
+Mexican,Starter,Elote
+Mexican,Starter,Esquites
+Mexican,Starter,Guacamole
+Mexican,Starter,Jalapeno Poppers
+Mexican,Starter,Mexican Street Corn
+Mexican,Starter,Nachos
+Mexican,Starter,Queso Dip
+Mexican,Starter,Queso Fundido
+Mexican,Starter,Salsa
+Mexican,Starter,Taquitos
+Middle Eastern,Dessert,Atayef
+Middle Eastern,Dessert,Baklava
+Middle Eastern,Dessert,Barazek
+Middle Eastern,Dessert,Basbousa
+Middle Eastern,Dessert,Halva
+Middle Eastern,Dessert,Kunafa
+Middle Eastern,Dessert,Maamoul
+Middle Eastern,Dessert,Qatayef
+Middle Eastern,Dessert,Umm Ali
+Middle Eastern,Main Course,Adana Kebab
+Middle Eastern,Main Course,Beef Shawarma
+Middle Eastern,Main Course,Chicken Fatteh
+Middle Eastern,Main Course,Chicken Kabsa
+Middle Eastern,Main Course,Chicken Mandi
+Middle Eastern,Main Course,Chicken Shawarma
+Middle Eastern,Main Course,Chicken Tagine
+Middle Eastern,Main Course,Couscous
+Middle Eastern,Main Course,Doner Kebab
+Middle Eastern,Main Course,Falafel Wrap
+Middle Eastern,Main Course,Fatteh
+Middle Eastern,Main Course,Harira
+Middle Eastern,Main Course,Kebab
+Middle Eastern,Main Course,Kofta
+Middle Eastern,Main Course,Lamb Kabsa
+Middle Eastern,Main Course,Lamb Mandi
+Middle Eastern,Main Course,Lamb Shawarma
+Middle Eastern,Main Course,Lamb Tagine
+Middle Eastern,Main Course,Mandi
+Middle Eastern,Main Course,Maqluba
+Middle Eastern,Main Course,Molokhia
+Middle Eastern,Main Course,Musakhan
+Middle Eastern,Starter,Baba Ghanoush
+Middle Eastern,Starter,Falafel
+Middle Eastern,Starter,Fattoush
+Middle Eastern,Starter,Hummus
+Middle Eastern,Starter,Kibbeh
+Middle Eastern,Starter,Labneh
+Middle Eastern,Starter,Manakish
+Middle Eastern,Starter,Muhammara
+Middle Eastern,Starter,Mutabbal
+Middle Eastern,Starter,Sambousek
+Middle Eastern,Starter,Stuffed Vine Leaves
+Middle Eastern,Starter,Tabbouleh
+Salad,Salad,Avocado Salad
+Salad,Salad,Bean Salad
+Salad,Salad,Beetroot Salad
+Salad,Salad,Broccoli Salad
+Salad,Salad,Caesar Salad
+Salad,Salad,Caprese Salad
+Salad,Salad,Carrot Salad
+Salad,Salad,Chicken Caesar Salad
+Salad,Salad,Chicken Salad
+Salad,Salad,Chickpea Salad
+Salad,Salad,Coleslaw
+Salad,Salad,Corn Salad
+Salad,Salad,Cucumber Salad
+Salad,Salad,Fruit Salad
+Salad,Salad,Garden Salad
+Salad,Salad,Greek Salad
+Salad,Salad,Kachumber Salad
+Salad,Salad,Macaroni Salad
+Salad,Salad,Mango Salad
+Salad,Salad,Nicoise Salad
+Salad,Salad,Pasta Salad
+Salad,Salad,Potato Salad
+Salad,Salad,Quinoa Salad
+Salad,Salad,Russian Salad
+Salad,Salad,Sprout Salad
+Salad,Salad,Sprouted Moong Salad
+Salad,Salad,Thai Papaya Salad
+Salad,Salad,Tomato Salad
+Salad,Salad,Tuna Salad
+Salad,Salad,Waldorf Salad
+Spanish,Dessert,Arroz con Leche
+Spanish,Dessert,Churros
+Spanish,Dessert,Crema Catalana
+Spanish,Dessert,Flan
+Spanish,Dessert,Polvorones
+Spanish,Dessert,Tarta de Santiago
+Spanish,Dessert,Torrijas
+Spanish,Main Course,Chicken Paella
+Spanish,Main Course,Chorizo
+Spanish,Main Course,Croquetas
+Spanish,Main Course,Fabada Asturiana
+Spanish,Main Course,Fideuà
+Spanish,Main Course,Gazpacho
+Spanish,Main Course,Paella Valenciana
+Spanish,Main Course,Patatas Bravas
+Spanish,Main Course,Pisto
+Spanish,Main Course,Pulpo a la Gallega
+Spanish,Main Course,Seafood Paella
+Spanish,Main Course,Spanish Omelette
+Spanish,Main Course,Tortilla Española
+Spanish,Main Course,Vegetable Paella
+Thai,Main Course,Basil Chicken
+Thai,Main Course,Cashew Chicken
+Thai,Main Course,Drunken Noodles
+Thai,Main Course,Gaeng Daeng
+Thai,Main Course,Khao Soi
+Thai,Main Course,Massaman Curry
+Thai,Main Course,Pad Kee Mao
+Thai,Main Course,Pad Kra Pao
+Thai,Main Course,Pad See Ew
+Thai,Main Course,Pad Thai
+Thai,Main Course,Panang Curry
+Thai,Main Course,Pineapple Fried Rice
+Thai,Main Course,Thai BBQ Chicken
+Thai,Main Course,Thai Basil Beef
+Thai,Main Course,Thai Boat Noodles
+Thai,Main Course,Thai Fish Cakes
+Thai,Main Course,Thai Fried Rice
+Thai,Main Course,Thai Glass Noodles
+Thai,Main Course,Thai Green Curry
+Thai,Main Course,Thai Red Curry
+Thai,Main Course,Tom Kha Gai
+Thai,Main Course,Tom Kha Hed
+Thai,Main Course,Tom Yum Goong
+Thai,Main Course,Yellow Curry
+Thai,Specialty,Thai Caramel Dessert
+Thai,Specialty,Thai Cheese Sandwich
+Thai,Specialty,Thai Chicken Sandwich
+Thai,Specialty,Thai Chicken Soup
+Thai,Specialty,Thai Chocolate Dessert
+Thai,Specialty,Thai Cream Soup
+Thai,Specialty,Thai Creamy Chicken
+Thai,Specialty,Thai Creamy Vegetable Curry
+Thai,Specialty,Thai Crispy Chicken
+Thai,Specialty,Thai Crispy Fish
+Thai,Specialty,Thai Fish Fillet
+Thai,Specialty,Thai Fresh Fruit Bowl
+Thai,Specialty,Thai Garlic Noodles
+Thai,Specialty,Thai Grilled Chicken
+Thai,Specialty,Thai Grilled Fish
+Thai,Specialty,Thai Grilled Vegetable Platter
+Thai,Specialty,Thai Herb Chicken
+Thai,Specialty,Thai Herb Rice
+Thai,Specialty,Thai Mixed Salad
+Thai,Specialty,Thai Mushroom Soup
+Thai,Specialty,Thai Sesame Noodles
+Thai,Specialty,Thai Spicy Chicken
+Thai,Specialty,Thai Spicy Fish
+Thai,Specialty,Thai Spicy Noodles
+Thai,Specialty,Thai Spicy Rice
+Thai,Specialty,Thai Spicy Vegetable Curry
+Thai,Specialty,Thai Tomato Soup
+Thai,Specialty,Thai Vanilla Dessert
+Thai,Specialty,Thai Vegetable Curry
+Thai,Specialty,Thai Vegetable Noodles
+Thai,Specialty,Thai Vegetable Rice
+Thai,Specialty,Thai Vegetable Sandwich
+Thai,Specialty,Thai Vegetable Soup
+Thai,Starter,Chicken Satay
+Thai,Starter,Corn Cakes
+Thai,Starter,Green Papaya Salad
+Thai,Starter,Mango Salad
+Thai,Starter,Papaya Salad
+Thai,Starter,Thai Beef Salad
+Thai,Starter,Thai Fish Cakes
+Thai,Starter,Thai Shrimp Cakes
+Thai,Starter,Thai Spring Rolls
+Thai,Starter,Tofu Satay
