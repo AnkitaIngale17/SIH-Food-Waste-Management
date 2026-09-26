@@ -877,6 +877,79 @@ function ReportSurplus() {
   });
 
   const [message, setMessage] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const [liveTranscript, setLiveTranscript] = useState("");
+
+  // Native In-Browser Voice Recognition
+  function startVoiceInput() {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setMessage("Voice recognition is not supported in this browser. Please use Chrome, Edge, or Safari.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-IN";
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    setIsListening(true);
+    setLiveTranscript("Listening... Speak now");
+
+    recognition.onresult = async (event) => {
+      const currentText = Array.from(event.results)
+        .map((r) => r[0].transcript)
+        .join("");
+      setLiveTranscript(currentText);
+
+      // When speech pauses and is finalized
+      if (event.results[0].isFinal) {
+        setIsListening(false);
+        try {
+          // Send to backend extractor
+          const response = await fetch(
+            "https://annsetu-food-management-system.onrender.com/channels/voice/turn",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ transcript: currentText })
+            }
+          );
+          const data = await response.json();
+          const parsed = data.parsed_so_far || {};
+
+          // Auto-fill form fields with parsed results
+          setForm((prev) => ({
+            ...prev,
+            foodItem: parsed.foodItem || prev.foodItem,
+            quantity: parsed.quantity || prev.quantity,
+            unit: parsed.unit || prev.unit,
+            pickupBy: parsed.pickupBy
+              ? parsed.pickupBy.slice(0, 16)
+              : prev.pickupBy,
+            notes: prev.notes || `Reported via Voice Assistant: "${currentText}"`
+          }));
+
+          setMessage("Voice details extracted and populated into the form!");
+        } catch (err) {
+          setMessage("Could not process voice input with backend.");
+        }
+      }
+    };
+
+    recognition.onerror = () => {
+      setIsListening(false);
+      setLiveTranscript("");
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
+  }
 
   async function submit(event) {
     event.preventDefault();
@@ -889,15 +962,11 @@ function ReportSurplus() {
       });
 
       if (response.offline) {
-        setMessage(
-          "This form is ready for the real backend API."
-        );
+        setMessage("This form is ready for the real backend API.");
         return;
       }
 
-      navigate(
-        `/kitchen/listings/${unwrap(response).id}`
-      );
+      navigate(`/kitchen/listings/${unwrap(response).id}`);
     } catch (error) {
       setMessage(error.message);
     }
@@ -906,137 +975,123 @@ function ReportSurplus() {
   return (
     <Shell
       title="Report surplus"
-      subtitle="Same fields used by WhatsApp and call extraction"
+      subtitle="Report surplus via text or browser microphone"
       role="kitchen"
     >
-      <form
-        onSubmit={submit}
-        className="card mt-4 max-w-[480px] space-y-4"
-      >
-        <label className="block text-xs font-semibold">
-          Food item
+      <div className="card mt-4 max-w-[480px]">
+        {/* Voice Assistant Mic Button */}
+        <div className="mb-4 rounded-xl border border-[#dce8d8] bg-[#f2f7f1] p-4 text-center">
+          <p className="text-xs font-semibold text-[#173f2e]">
+            Quick Voice Input (Speak to Fill)
+          </p>
+          <p className="mt-1 text-xs text-[#667268]">
+            Tap the button and say: <em>"We have 25 kg of vegetable pulao ready by 9 pm"</em>
+          </p>
 
-          <input
-            required
-            className="input"
-            placeholder="e.g. Vegetable pulao"
-            value={form.foodItem}
-            onChange={(event) =>
-              setForm({
-                ...form,
-                foodItem: event.target.value
-              })
-            }
-          />
-        </label>
+          <button
+            type="button"
+            onClick={startVoiceInput}
+            className={`btn-primary mx-auto mt-3 flex items-center gap-2 ${
+              isListening ? "animate-pulse bg-red-600" : "bg-[#173f2e]"
+            }`}
+          >
+            <Sparkles className="h-4 w-4" />
+            {isListening ? "Listening... (Tap to stop)" : "🎙️ Speak to Report"}
+          </button>
 
-        <div className="grid grid-cols-2 gap-3">
-          <label className="text-xs font-semibold">
-            Quantity
-
-            <input
-              required
-              type="number"
-              min="0"
-              className="input"
-              value={form.quantity}
-              onChange={(event) =>
-                setForm({
-                  ...form,
-                  quantity: event.target.value
-                })
-              }
-            />
-          </label>
-
-          <label className="text-xs font-semibold">
-            Unit
-
-            <select
-              className="input"
-              value={form.unit}
-              onChange={(event) =>
-                setForm({
-                  ...form,
-                  unit: event.target.value
-                })
-              }
-            >
-              <option>kg</option>
-              <option>servings</option>
-              <option>packets</option>
-              <option>trays</option>
-            </select>
-          </label>
-
-          <label className="text-xs font-semibold">
-            Cooked at
-
-            <input
-              required
-              type="datetime-local"
-              className="input"
-              value={form.cookedAt}
-              onChange={(event) =>
-                setForm({
-                  ...form,
-                  cookedAt: event.target.value
-                })
-              }
-            />
-          </label>
-
-          <label className="text-xs font-semibold">
-            Pickup by
-
-            <input
-              required
-              type="datetime-local"
-              className="input"
-              value={form.pickupBy}
-              onChange={(event) =>
-                setForm({
-                  ...form,
-                  pickupBy: event.target.value
-                })
-              }
-            />
-          </label>
+          {liveTranscript && (
+            <p className="mt-2 text-xs italic text-[#173f2e]">
+              "{liveTranscript}"
+            </p>
+          )}
         </div>
 
-        <label className="block text-xs font-semibold">
-          Notes
+        <form onSubmit={submit} className="space-y-4">
+          <label className="block text-xs font-semibold">
+            Food item
+            <input
+              required
+              className="input"
+              placeholder="e.g. Vegetable pulao"
+              value={form.foodItem}
+              onChange={(e) => setForm({ ...form, foodItem: e.target.value })}
+            />
+          </label>
 
-          <textarea
-            className="input min-h-20"
-            placeholder="Allergens, packing, gate instructions…"
-            value={form.notes}
-            onChange={(event) =>
-              setForm({
-                ...form,
-                notes: event.target.value
-              })
-            }
-          />
-        </label>
+          <div className="grid grid-cols-2 gap-3">
+            <label className="text-xs font-semibold">
+              Quantity
+              <input
+                required
+                type="number"
+                min="0"
+                className="input"
+                value={form.quantity}
+                onChange={(e) => setForm({ ...form, quantity: e.target.value })}
+              />
+            </label>
 
-        <p className="rounded bg-[#eaf1e8] p-3 text-xs">
-          This listing will look identical to one created by an AI phone call
-          or WhatsApp message.
-        </p>
+            <label className="text-xs font-semibold">
+              Unit
+              <select
+                className="input"
+                value={form.unit}
+                onChange={(e) => setForm({ ...form, unit: e.target.value })}
+              >
+                <option>kg</option>
+                <option>servings</option>
+                <option>packets</option>
+                <option>plates</option>
+                <option>trays</option>
+                <option>meals</option>
+                <option>boxes</option>
+              </select>
+            </label>
 
-        {message && (
-          <p className="text-xs text-red-700">
-            {message}
-          </p>
-        )}
+            <label className="text-xs font-semibold">
+              Cooked at
+              <input
+                required
+                type="datetime-local"
+                className="input"
+                value={form.cookedAt}
+                onChange={(e) => setForm({ ...form, cookedAt: e.target.value })}
+              />
+            </label>
 
-        <button className="btn-primary w-full">
-          {urgent
-            ? "Start urgent matching"
-            : "Publish listing"}
-        </button>
-      </form>
+            <label className="text-xs font-semibold">
+              Pickup by
+              <input
+                required
+                type="datetime-local"
+                className="input"
+                value={form.pickupBy}
+                onChange={(e) => setForm({ ...form, pickupBy: e.target.value })}
+              />
+            </label>
+          </div>
+
+          <label className="block text-xs font-semibold">
+            Notes
+            <textarea
+              className="input min-h-20"
+              placeholder="Allergens, packaging, gate instructions…"
+              value={form.notes}
+              onChange={(e) => setForm({ ...form, notes: e.target.value })}
+            />
+          </label>
+
+          {message && (
+            <p className="rounded bg-[#eaf1e8] p-3 text-xs text-[#173f2e]">
+              {message}
+            </p>
+          )}
+
+          <button className="btn-primary w-full">
+            {urgent ? "Start urgent matching" : "Publish listing"}
+          </button>
+        </form>
+      </div>
     </Shell>
   );
 }
