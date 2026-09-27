@@ -1473,7 +1473,7 @@ function ReportSurplus() {
             }`}
           >
             <Sparkles className="h-4 w-4" />
-            {isListening ? "Listening... (Tap to stop)" : "🎙️ Speak to Report"}
+            {isListening ? t("Listening... (Tap to stop)") : t("🎙️ Speak to Report")}
           </button>
 
           {liveTranscript && (
