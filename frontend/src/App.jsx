@@ -1780,3 +1780,98 @@ function CompliancePage() {
     </Shell>
   );
 }
+function NotFound() {
+  return (
+    <main
+      className="grid min-h-screen place-items-center p-4"
+      style={backgroundStyle}
+    >
+      <section
+        className="rounded-xl border border-[#eadfca] p-7 text-center shadow-xl"
+        style={{ backgroundColor: cream }}
+      >
+        <h1 className="text-2xl">
+          Page not found
+        </h1>
+
+        <Link
+          to="/login"
+          className="btn-primary mt-5"
+        >
+          Go to login
+        </Link>
+      </section>
+    </main>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route
+        path="/login"
+        element={<RolePicker />}
+      />
+
+      <Route
+        path="/login/:role"
+        element={<AuthPage mode="login" />}
+      />
+
+      <Route
+        path="/signup/:role"
+        element={<AuthPage mode="signup" />}
+      />
+
+      <Route
+        path="/signout"
+        element={<SignOutPage />}
+      />
+
+      <Route
+        path="/kitchen/dashboard"
+        element={<KitchenDashboard />}
+      />
+
+      <Route
+        path="/kitchen/report-surplus"
+        element={<ReportSurplus />}
+      />
+
+      <Route
+        path="/kitchen/listings/:id"
+        element={<ListingPage />}
+      />
+
+      <Route
+        path="/restaurant/offers"
+        element={<RestaurantOffers />}
+      />
+
+      <Route
+        path="/volunteer/pickup/:id"
+        element={<VolunteerPickup />}
+      />
+
+      <Route
+        path="/impact"
+        element={<ImpactPage />}
+      />
+
+      <Route
+        path="/compliance"
+        element={<CompliancePage />}
+      />
+
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
+
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
+    </Routes>
+  );
+}
