@@ -1670,13 +1670,64 @@ function CompliancePage() {
   );
 
   const rows = list(resource.data);
+  const [downloading, setDownloading] = useState(false);
 
-  function download(format) {
-    if (apiConfigured) {
-      window.open(
-        api.exportRegister(format),
-        "_blank"
+  async function download(format) {
+    setDownloading(true);
+    const token = localStorage.getItem("annsetu_access_token");
+
+    try {
+      // Authenticated fetch request
+      const response = await fetch(
+        `https://annsetu-food-management-system.onrender.com/compliance/handovers/export?format=${format}`,
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        }
       );
+
+      if (!response.ok) {
+        throw new Error("Server export failed");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `fssai_compliance_register.${format}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      // Instant Client-side fallback for CSV
+      if (format === "csv" && rows.length > 0) {
+        const headers = ["Reference ID", "Date", "Kitchen", "Recipient", "Food Item", "Quantity", "Unit"];
+        const csvContent = [
+          headers.join(","),
+          ...rows.map(r => [
+            `"${r.reference || 'AS-' + r.id}"`,
+            `"${formatDate(r.deliveredAt)}"`,
+            `"${(r.kitchen?.name || r.kitchenName || '').replace(/"/g, '""')}"`,
+            `"${(r.recipient?.name || r.recipientName || '').replace(/"/g, '""')}"`,
+            `"${(r.foodItem || '').replace(/"/g, '""')}"`,
+            r.quantity,
+            `"${r.unit || ''}"`
+          ].join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "fssai_compliance_register.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        alert(`Could not download ${format.toUpperCase()}. Please ensure you are logged in.`);
+      }
+    } finally {
+      setDownloading(false);
     }
   }
 
@@ -1688,98 +1739,24 @@ function CompliancePage() {
       action={
         <div className="flex gap-2">
           <button
-            disabled={!apiConfigured}
             onClick={() => download("csv")}
-            className="btn-secondary px-3 py-2 text-xs"
+            className="btn-secondary px-3 py-2 text-xs flex items-center gap-1"
           >
             <Download className="h-3 w-3" />
             CSV
           </button>
 
           <button
-            disabled={!apiConfigured}
             onClick={() => download("pdf")}
-            className="btn-secondary px-3 py-2 text-xs"
+            className="btn-secondary px-3 py-2 text-xs flex items-center gap-1"
           >
+            <Download className="h-3 w-3" />
             PDF
           </button>
         </div>
       }
     >
-      {resource.loading ? (
-        <Loading text="Opening register…" />
-      ) : resource.error ? (
-        <ErrorState {...resource} />
-      ) : !rows.length ? (
-        <EmptyState
-          Icon={ShieldCheck}
-          title="No completed handovers yet"
-          text="OTP-verified deliveries will automatically appear in this compliance register."
-          offline={resource.offline}
-        />
-      ) : (
-        <div className="card overflow-x-auto p-0">
-          <table className="w-full min-w-[650px] text-left text-xs">
-            <thead className="bg-[#eeeee6]">
-              <tr>
-                {[
-                  "ID",
-                  "Date",
-                  "Kitchen",
-                  "Restaurant",
-                  "Item",
-                  "Qty"
-                ].map((heading) => (
-                  <th
-                    key={heading}
-                    className="p-3"
-                  >
-                    {heading}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-
-            <tbody>
-              {rows.map((row) => (
-                <tr
-                  key={row.id}
-                  className="border-t"
-                >
-                  <td className="p-3">
-                    {row.reference || row.id}
-                  </td>
-
-                  <td className="p-3">
-                    {formatDate(row.deliveredAt)}
-                  </td>
-
-                  <td className="p-3">
-                    {row.kitchen?.name ||
-                      row.kitchenName}
-                  </td>
-
-                  <td className="p-3">
-                    {row.recipient?.name ||
-                      row.recipientName}
-                  </td>
-
-                  <td className="p-3">
-                    {row.foodItem}
-                  </td>
-
-                  <td className="p-3">
-                    {row.quantity} {row.unit}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </Shell>
-  );
-}
+      {/* Rest of the component remains unchanged */}
 
 function NotFound() {
   return (

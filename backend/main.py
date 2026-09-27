@@ -6,15 +6,41 @@ import csv
 import io
 
 from fastapi.responses import StreamingResponse
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
+from jose import jwt, JWTError
+
+from reportlab.lib.pagesizes import letter, landscape
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
 
 from database import get_db
 from models import User, Organisation, SurplusListing, ComplianceRecord
-from auth import hash_password, verify_password, create_access_token, get_current_user_payload
+from auth import (
+    hash_password,
+    verify_password,
+    create_access_token,
+    get_current_user_payload,
+    SECRET_KEY,
+    ALGORITHM,
+)
 from extractor import extract_surplus_fields
+
+import os
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
+# Match the exact file name in your backend/ folder
+FONT_PATH = os.path.join(os.path.dirname(__file__), "NotoSansDevanagari.ttf")
+TITLE_FONT = "Helvetica-Bold"
+
+if os.path.exists(FONT_PATH):
+    pdfmetrics.registerFont(TTFont("DevanagariBold", FONT_PATH))
+    TITLE_FONT = "DevanagariBold"
 
 app = FastAPI(title="Food Waste Platform API")
 
@@ -607,37 +633,130 @@ def create_listing_from_voice(payload: VoiceSurplusRequest, db: Session = Depend
     return {"id": listing.id, "status": "created"}
 
 
+
+
 @app.get("/compliance/handovers/export")
 def export_compliance_handovers(
-    token_payload: dict = Depends(get_current_user_payload),
+    format: str = "csv",
+    token: str | None = Query(None),
     db: Session = Depends(get_db),
+    credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False)),
 ):
+    # Support token from either Bearer header or query parameter
+    jwt_token = credentials.credentials if credentials else token
+    if not jwt_token:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    try:
+        jwt.decode(jwt_token, SECRET_KEY, algorithms=[ALGORITHM])
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
     records = db.query(ComplianceRecord).order_by(ComplianceRecord.delivered_at.desc()).all()
 
-    output = io.StringIO()
-    writer = csv.writer(output)
-    
-    writer.writerow(["Reference ID", "Delivered At", "Donor Kitchen", "Recipient Organisation", "Food Item", "Quantity", "Unit"])
+    # 1. CSV EXPORT
+    if format.lower() == "csv":
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["Reference ID", "Delivered At", "Donor Kitchen", "Recipient Organisation", "Food Item", "Quantity", "Unit"])
 
-    for r in records:
-        donor = db.query(Organisation).filter(Organisation.id == r.donor_org_id).first()
-        recipient = db.query(Organisation).filter(Organisation.id == r.recipient_org_id).first()
-        writer.writerow([
-            f"AS-{r.id:05d}",
-            r.delivered_at.isoformat(),
-            donor.name if donor else "Unknown",
-            recipient.name if recipient else "Unknown",
-            r.food_item,
-            r.quantity,
-            r.unit,
-        ])
+        for r in records:
+            donor = db.query(Organisation).filter(Organisation.id == r.donor_org_id).first()
+            recipient = db.query(Organisation).filter(Organisation.id == r.recipient_org_id).first()
+            writer.writerow([
+                f"AS-{r.id:05d}",
+                r.delivered_at.strftime("%Y-%m-%d %H:%M:%S") if r.delivered_at else "",
+                donor.name if donor else "Unknown Kitchen",
+                recipient.name if recipient else "Unknown Recipient",
+                r.food_item,
+                r.quantity,
+                r.unit,
+            ])
 
-    output.seek(0)
-    return StreamingResponse(
-        iter([output.getvalue()]),
-        media_type="text/csv",
-        headers={"Content-Disposition": "attachment; filename=fssai_compliance_register.csv"}
-    )
+        output.seek(0)
+        return StreamingResponse(
+            iter([output.getvalue()]),
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=fssai_compliance_register.csv"}
+        )
+
+    # 2. PDF EXPORT
+    elif format.lower() == "pdf":
+        buf = io.BytesIO()
+        doc = SimpleDocTemplate(
+            buf,
+            pagesize=landscape(letter),
+            leftMargin=30,
+            rightMargin=30,
+            topMargin=30,
+            bottomMargin=30
+        )
+        styles = getSampleStyleSheet()
+
+        title_style = ParagraphStyle(
+            'TitleStyle',
+            parent=styles['Heading1'],
+            fontName=TITLE_FONT,      
+            fontSize=16,
+            textColor=colors.HexColor('#173f2e'),
+            spaceAfter=4,
+        )
+        subtitle_style = ParagraphStyle(
+            'SubTitleStyle',
+            parent=styles['Normal'],
+            fontSize=9,
+            textColor=colors.HexColor('#555555'),
+            spaceAfter=14,
+        )
+
+        elements = [
+            Paragraph("<b>अन्नSetu (AnnSetu) — FSSAI Surplus Food Handover Register</b>", title_style),
+            Paragraph("Official Compliance Log under Food Safety and Standards (Recovery and Distribution of Surplus Food) Regulations, 2019", subtitle_style),
+        ]
+        
+
+        table_data = [
+            ["Ref ID", "Delivered At (UTC)", "Donor Kitchen", "Recipient Org", "Food Item", "Qty", "Unit"]
+        ]
+
+        for r in records:
+            donor = db.query(Organisation).filter(Organisation.id == r.donor_org_id).first()
+            recipient = db.query(Organisation).filter(Organisation.id == r.recipient_org_id).first()
+            table_data.append([
+                f"AS-{r.id:05d}",
+                r.delivered_at.strftime("%Y-%m-%d %H:%M") if r.delivered_at else "—",
+                donor.name if donor else "Kitchen",
+                recipient.name if recipient else "Recipient",
+                r.food_item,
+                str(r.quantity),
+                r.unit,
+            ])
+
+        table = Table(table_data, colWidths=[70, 110, 150, 150, 140, 50, 50])
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#173f2e')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 9),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ('TOPPADDING', (0, 0), (-1, -1), 6),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.HexColor('#ffffff'), colors.HexColor('#f9f9f5')]),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d6d6c9')),
+            ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ]))
+
+        elements.append(table)
+        doc.build(elements)
+        buf.seek(0)
+
+        return StreamingResponse(
+            buf,
+            media_type="application/pdf",
+            headers={"Content-Disposition": "attachment; filename=fssai_compliance_register.pdf"}
+        )
+
+    else:
+        raise HTTPException(status_code=400, detail="Supported formats are 'csv' and 'pdf'")
 
 
 @app.post("/channels/voice/turn")
