@@ -6,7 +6,7 @@ import csv
 import io
 
 from fastapi.responses import StreamingResponse
-from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi import FastAPI, Depends, HTTPException, Query, APIRouter
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -18,6 +18,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
+from ml.forecast import predict_demand
 from database import get_db
 from models import User, Organisation, SurplusListing, ComplianceRecord
 from auth import (
@@ -768,3 +769,18 @@ def voice_turn(payload: dict):
             "pickupBy": extracted["pickupBy"],
         },
     }
+
+router = APIRouter(prefix="/forecast", tags=["Forecast"])
+
+@router.get("/demand")
+def get_demand(center_id: int, meal_id: int, checkout_price: float, base_price: float, emailer: int = 0, featured: int = 0):
+    return predict_demand(
+        center_id=center_id,
+        meal_id=meal_id,
+        checkout_price=checkout_price,
+        base_price=base_price,
+        emailer=emailer,
+        featured=featured
+    )
+app.include_router(router)
+
