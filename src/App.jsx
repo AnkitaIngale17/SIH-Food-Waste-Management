@@ -2108,7 +2108,11 @@ function CompliancePage() {
         </div>
       }
     >
-      {/* Rest of the component remains unchanged */}
+      {/* The uploaded source did not include the compliance table body.
+          Keep the existing structure intact and close the component so the file compiles. */}
+    </Shell>
+  );
+}
 
 function NotFound() {
   return (
