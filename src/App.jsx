@@ -89,6 +89,12 @@ const translations = {
     "Choose the workspace for this device.": "इस डिवाइस के लिए कार्यक्षेत्र चुनें।",
     "FSSAI-aligned food redistribution · verified handovers": "FSSAI-अनुरूप भोजन पुनर्वितरण · सत्यापित हस्तांतरण",
     "Passwords do not match.": "पासवर्ड मेल नहीं खाते।",
+    "Draft": "ड्राफ्ट",
+    "Confirmed": "पुष्ट",
+    "Matching": "मिलान हो रहा है",
+    "Claimed": "दावा किया गया",
+    "In transit": "रास्ते में",
+    "Delivered": "डिलीवर किया गया",
     "Change role": "भूमिका बदलें",
     "Create {role} account": "{role} खाता बनाएँ",
     "Sign in as {role}": "{role} के रूप में साइन इन करें",
@@ -218,6 +224,48 @@ const translations = {
     "Could not download {format}. Please ensure you are logged in.": "{format} डाउनलोड नहीं हो सका। कृपया सुनिश्चित करें कि आप लॉग इन हैं।",
     "Allergens, packaging, gate instructions…": "एलर्जेन, पैकेजिंग, गेट निर्देश…",
     "e.g. Vegetable pulao": "जैसे, वेजिटेबल पुलाव",
+    "Kitchen workspace": "रसोई कार्यक्षेत्र",
+    "Surplus risk": "अतिरिक्त भोजन का जोखिम",
+    "Not calculated yet": "अभी गणना नहीं हुई",
+    "Load": "लोड",
+    "Confirm handover": "हस्तांतरण की पुष्टि करें",
+    "Pickup by": "पिकअप समय",
+    "Kitchen": "रसोई",
+    "Start urgent matching": "तत्काल मिलान शुरू करें",
+    "Publish listing": "लिस्टिंग प्रकाशित करें",
+    "kg": "किग्रा",
+    "servings": "सर्विंग",
+    "packets": "पैकेट",
+    "plates": "प्लेट",
+    "trays": "ट्रे",
+    "meals": "भोजन",
+    "boxes": "बॉक्स",
+    "Mon": "सोम",
+    "Tue": "मंगल",
+    "Wed": "बुध",
+    "Thu": "गुरु",
+    "Fri": "शुक्र",
+    "Sat": "शनि",
+    "Sun": "रवि",
+    "Monday": "सोमवार",
+    "Tuesday": "मंगलवार",
+    "Wednesday": "बुधवार",
+    "Thursday": "गुरुवार",
+    "Friday": "शुक्रवार",
+    "Saturday": "शनिवार",
+    "Sunday": "रविवार",
+    "High": "उच्च",
+    "Medium": "मध्यम",
+    "High urgency": "उच्च प्राथमिकता",
+    "Medium urgency": "मध्यम प्राथमिकता",
+    "Day 1": "दिन 1",
+    "Day 2": "दिन 2",
+    "Day 3": "दिन 3",
+    "Day 4": "दिन 4",
+    "Day 5": "दिन 5",
+    "Day 6": "दिन 6",
+    "Day 7": "दिन 7",
+    "We have 25 kg of vegetable pulao ready by 9 pm": "रात 9 बजे तक 25 किग्रा वेजिटेबल पुलाव तैयार है",
     "Change role": "भूमिका बदलें"
   },
   mr: {
@@ -245,6 +293,12 @@ const translations = {
     "Choose the workspace for this device.": "या डिव्हाइससाठी कार्यक्षेत्र निवडा.",
     "FSSAI-aligned food redistribution · verified handovers": "FSSAI-अनुरूप अन्न पुनर्वितरण · सत्यापित हस्तांतरण",
     "Passwords do not match.": "पासवर्ड जुळत नाहीत.",
+    "Draft": "मसुदा",
+    "Confirmed": "पुष्टी",
+    "Matching": "जुळणी सुरू आहे",
+    "Claimed": "दावा केलेले",
+    "In transit": "मार्गावर",
+    "Delivered": "वितरित",
     "Change role": "भूमिका बदला",
     "Create {role} account": "{role} खाते तयार करा",
     "Sign in as {role}": "{role} म्हणून साइन इन करा",
@@ -372,6 +426,48 @@ const translations = {
     "Could not download {format}. Please ensure you are logged in.": "{format} डाउनलोड करता आले नाही. कृपया तुम्ही लॉग इन आहात याची खात्री करा.",
     "Allergens, packaging, gate instructions…": "अॅलर्जन्स, पॅकेजिंग, गेट सूचना…",
     "e.g. Vegetable pulao": "उदा. व्हेजिटेबल पुलाव",
+    "Kitchen workspace": "स्वयंपाकघर कार्यक्षेत्र",
+    "Surplus risk": "उरलेल्या अन्नाचा धोका",
+    "Not calculated yet": "अद्याप गणना झालेली नाही",
+    "Load": "लोड",
+    "Confirm handover": "हस्तांतरणाची पुष्टी करा",
+    "Pickup by": "पिकअप वेळ",
+    "Kitchen": "स्वयंपाकघर",
+    "Start urgent matching": "तातडीचे जुळवणी सुरू करा",
+    "Publish listing": "लिस्टिंग प्रकाशित करा",
+    "kg": "किलो",
+    "servings": "सर्व्हिंग्स",
+    "packets": "पॅकेट्स",
+    "plates": "प्लेट्स",
+    "trays": "ट्रे",
+    "meals": "जेवणे",
+    "boxes": "बॉक्सेस",
+    "Mon": "सोम",
+    "Tue": "मंगळ",
+    "Wed": "बुध",
+    "Thu": "गुरु",
+    "Fri": "शुक्र",
+    "Sat": "शनि",
+    "Sun": "रवि",
+    "Monday": "सोमवार",
+    "Tuesday": "मंगळवार",
+    "Wednesday": "बुधवार",
+    "Thursday": "गुरुवार",
+    "Friday": "शुक्रवार",
+    "Saturday": "शनिवार",
+    "Sunday": "रविवार",
+    "High": "उच्च",
+    "Medium": "मध्यम",
+    "High urgency": "उच्च तातडी",
+    "Medium urgency": "मध्यम तातडी",
+    "Day 1": "दिवस 1",
+    "Day 2": "दिवस 2",
+    "Day 3": "दिवस 3",
+    "Day 4": "दिवस 4",
+    "Day 5": "दिवस 5",
+    "Day 6": "दिवस 6",
+    "Day 7": "दिवस 7",
+    "We have 25 kg of vegetable pulao ready by 9 pm": "रात्री 9 वाजेपर्यंत 25 किलो व्हेजिटेबल पुलाव तयार आहे",
     "Change role": "भूमिका बदला"
   }
 };
@@ -391,6 +487,34 @@ function setLanguage(language) {
 
 function locale() {
   return LANGUAGE_LOCALES[currentLanguage] || LANGUAGE_LOCALES.en;
+}
+
+function translateUnit(unit) {
+  return unit ? t(unit) : unit;
+}
+
+function translateForecastLabel(label) {
+  if (label == null) return label;
+  const value = String(label);
+
+  // Keep ISO/date-like labels localized using the selected locale.
+  if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
+    const date = new Date(value);
+    if (!Number.isNaN(date.getTime())) {
+      return new Intl.DateTimeFormat(locale(), {
+        month: "short",
+        day: "numeric"
+      }).format(date);
+    }
+  }
+
+  // Forecast APIs commonly return weekday labels such as Mon or Monday.
+  return t(value);
+}
+
+function translateBackendText(value) {
+  if (typeof value !== "string") return value;
+  return t(value);
 }
 
 function LanguageSwitcher({ language, onChange }) {
@@ -568,10 +692,10 @@ function EmptyState({
 function ErrorState({ error, reload }) {
   return (
     <div className="card text-center">
-      <h3 className="text-xl">Could not load this page</h3>
+      <h3 className="text-xl">{t("Could not load this page")}</h3>
 
       <p className="mt-2 text-sm text-red-700">
-        {error?.message || t("Please try again.")}
+        {translateBackendText(error?.message || t("Please try again."))}
       </p>
 
       <button onClick={reload} className="btn-secondary mt-4">
@@ -951,7 +1075,7 @@ function SignOutPage() {
       >
         <ShieldCheck className="mx-auto h-9 w-9 text-[#173f2e]" />
 
-        <h1 className="mt-4 text-2xl">You are signed out</h1>
+        <h1 className="mt-4 text-2xl">{t("You are signed out")}</h1>
 
         <p className="mt-2 text-sm text-[#667268]">
           {t("Your local session has been cleared from this device.")}
@@ -1046,7 +1170,7 @@ function KitchenDashboard() {
   return (
     <Shell
       title={dashboard.kitchenName || t("Kitchen dashboard")}
-      subtitle="Kitchen workspace"
+      subtitle={t("Kitchen workspace")}
       role="kitchen"
       action={
         <button
@@ -1075,17 +1199,17 @@ function KitchenDashboard() {
               </p>
 
               <p className="mt-2 font-serif text-3xl">
-                {dashboard.forecast?.headline ||
-                  "Awaiting kitchen history"}
+                {translateBackendText(dashboard.forecast?.headline ||
+                  t("Awaiting kitchen history"))}
               </p>
             </div>
 
             <div className="card border-l-2 border-l-[#c9981e]">
-              <h3>Surplus risk</h3>
+              <h3>{t("Surplus risk")}</h3>
 
               <p className="mt-2 text-sm">
-                {dashboard.risk?.label ||
-                  "Not calculated yet"}
+                {translateBackendText(dashboard.risk?.label ||
+                  t("Not calculated yet"))}
               </p>
             </div>
 
@@ -1093,14 +1217,14 @@ function KitchenDashboard() {
               <h3>{t("Today’s AI brief")}</h3>
 
               <p className="mt-2 text-sm">
-                {dashboard.brief ||
-                  "A real-time AI brief will appear when kitchen data is connected."}
+                {translateBackendText(dashboard.brief ||
+                  t("A real-time AI brief will appear when kitchen data is connected."))}
               </p>
             </div>
           </section>
 
           <section className="card mt-4">
-            <h3>7-day demand forecast</h3>
+            <h3>{t("7-day demand forecast")}</h3>
 
             {dashboard.forecast?.points?.length ? (
               <div className="mt-4 h-52">
@@ -1109,9 +1233,9 @@ function KitchenDashboard() {
                   height="100%"
                 >
                   <AreaChart data={dashboard.forecast.points}>
-                    <XAxis dataKey="label" />
+                    <XAxis dataKey="label" tickFormatter={translateForecastLabel} />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip labelFormatter={translateForecastLabel} />
 
                     <Area
                       dataKey="value"
@@ -1129,7 +1253,7 @@ function KitchenDashboard() {
           </section>
 
           <section className="card mt-4">
-            <h3>Why this forecast</h3>
+            <h3>{t("Why this forecast")}</h3>
 
             <p className="eyebrow">
               {t("Plain-language reasoning")}
@@ -1138,7 +1262,7 @@ function KitchenDashboard() {
             {dashboard.forecast?.reasons?.length ? (
               <ul className="mt-3 space-y-2 text-sm">
                 {dashboard.forecast.reasons.map((reason) => (
-                  <li key={reason}>— {reason}</li>
+                  <li key={reason}>— {translateBackendText(reason)}</li>
                 ))}
               </ul>
             ) : (
@@ -1189,8 +1313,7 @@ function KitchenDashboard() {
                     </span>
 
                     <small className="mt-1 block text-xs text-[#667268]">
-                      {listing.quantity} {listing.unit} · pickup by{" "}
-                      {formatDate(listing.pickupBy)}
+                      {listing.quantity} {translateUnit(listing.unit)} · {t("Pickup by")} {formatDate(listing.pickupBy)}
                     </small>
                   </span>
 
@@ -1339,7 +1462,7 @@ function ReportSurplus() {
             {t("Quick Voice Input (Speak to Fill)")}
           </p>
           <p className="mt-1 text-xs text-[#667268]">
-            {t("Tap the button and say:")} <em>"We have 25 kg of vegetable pulao ready by 9 pm"</em>
+            {t("Tap the button and say:")} <em>"{t("We have 25 kg of vegetable pulao ready by 9 pm")}"</em>
           </p>
 
           <button
@@ -1392,13 +1515,13 @@ function ReportSurplus() {
                 value={form.unit}
                 onChange={(e) => setForm({ ...form, unit: e.target.value })}
               >
-                <option>kg</option>
-                <option>servings</option>
-                <option>packets</option>
-                <option>plates</option>
-                <option>trays</option>
-                <option>meals</option>
-                <option>boxes</option>
+                <option value="kg">{t("kg")}</option>
+                <option value="servings">{t("servings")}</option>
+                <option value="packets">{t("packets")}</option>
+                <option value="plates">{t("plates")}</option>
+                <option value="trays">{t("trays")}</option>
+                <option value="meals">{t("meals")}</option>
+                <option value="boxes">{t("boxes")}</option>
               </select>
             </label>
 
@@ -1442,7 +1565,7 @@ function ReportSurplus() {
           )}
 
           <button className="btn-primary w-full">
-            {urgent ? "Start urgent matching" : "Publish listing"}
+            {urgent ? t("Start urgent matching") : t("Publish listing")}
           </button>
         </form>
       </div>
@@ -1490,7 +1613,7 @@ function Timeline({ current = "draft" }) {
                   : "text-[#667268]"
               }`}
             >
-              {stageNames[stage]}
+              {t(stageNames[stage])}
             </span>
           </div>
         );
@@ -1609,8 +1732,7 @@ function ListingPage() {
               </h2>
 
               <p className="mt-1 text-sm text-[#667268]">
-                {listing.quantity} {listing.unit} · pickup by{" "}
-                {formatDate(listing.pickupBy)}
+                {listing.quantity} {translateUnit(listing.unit)} · {t("Pickup by")} {formatDate(listing.pickupBy)}
               </p>
             </div>
 
@@ -1737,7 +1859,7 @@ function RestaurantOffers() {
                     </h3>
 
                     <p className="text-xs text-[#667268]">
-                      {offer.kitchen?.name || "Kitchen"}
+                      {offer.kitchen?.name || t("Kitchen")}
                     </p>
                   </div>
 
@@ -1749,11 +1871,11 @@ function RestaurantOffers() {
                 </div>
 
                 <p className="mt-3 text-sm">
-                  {offer.quantity} {offer.unit}
+                  {offer.quantity} {translateUnit(offer.unit)}
                 </p>
 
                 <p className="mt-1 text-xs text-[#667268]">
-                  Pickup by {formatDate(offer.pickupBy)}
+                  {t("Pickup by")} {formatDate(offer.pickupBy)}
                 </p>
 
                 <div className="mt-4 grid grid-cols-2 gap-2">
@@ -1803,7 +1925,7 @@ function VolunteerPickup() {
     event.preventDefault();
 
     if (otp.length !== 4) {
-      setMessage(t(t("Enter the four-digit code from the restaurant.")));
+      setMessage(t("Enter the four-digit code from the restaurant."));
       return;
     }
 
@@ -1850,11 +1972,11 @@ function VolunteerPickup() {
           </section>
 
           <section className="card mt-3">
-            <h3>Load</h3>
+            <h3>{t("Load")}</h3>
 
             <p className="mt-2 text-sm">
               {pickup.foodItem || pickup.title} ·{" "}
-              {pickup.quantity} {pickup.unit}
+              {pickup.quantity} {translateUnit(pickup.unit)}
             </p>
           </section>
 
@@ -1862,7 +1984,7 @@ function VolunteerPickup() {
             onSubmit={verify}
             className="card mt-3"
           >
-            <h3>Confirm handover</h3>
+            <h3>{t("Confirm handover")}</h3>
 
             <p className="mt-1 text-xs text-[#667268]">
               {t("Ask the restaurant representative to read their four-digit code.")}
@@ -1986,9 +2108,9 @@ function ImpactPage() {
                   height="100%"
                 >
                   <AreaChart data={trend}>
-                    <XAxis dataKey="label" />
+                    <XAxis dataKey="label" tickFormatter={translateForecastLabel} />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip labelFormatter={translateForecastLabel} />
 
                     <Area
                       dataKey="value"
@@ -2053,7 +2175,7 @@ function CompliancePage() {
     } catch (err) {
       // Instant Client-side fallback for CSV
       if (format === "csv" && rows.length > 0) {
-        const headers = ["Reference ID", "Date", "Kitchen", "Recipient", "Food Item", "Quantity", "Unit"];
+        const headers = [t("Reference ID"), t("Date"), t("Kitchen"), t("Recipient"), t("Food Item"), t("Quantity"), t("Unit")];
         const csvContent = [
           headers.join(","),
           ...rows.map(r => [
