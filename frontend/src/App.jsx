@@ -2345,3 +2345,13 @@ export default function App() {
     </>
   );
 }
+
+export const listenVoice = (lang = 'mr-IN', onResult) => {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return alert("Browser does not support voice input.");
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = lang; // 'mr-IN' for Marathi, 'hi-IN' for Hindi, 'en-IN' for English
+  recognition.onresult = (e) => onResult(e.results[0][0].transcript);
+  recognition.start();
+};
