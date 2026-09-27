@@ -638,19 +638,8 @@ def create_listing_from_voice(payload: VoiceSurplusRequest, db: Session = Depend
 @app.get("/compliance/handovers/export")
 def export_compliance_handovers(
     format: str = "csv",
-    token: str | None = Query(None),
     db: Session = Depends(get_db),
-    credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False)),
 ):
-    # Support token from either Bearer header or query parameter
-    jwt_token = credentials.credentials if credentials else token
-    if not jwt_token:
-        raise HTTPException(status_code=401, detail="Authentication required")
-    try:
-        jwt.decode(jwt_token, SECRET_KEY, algorithms=[ALGORITHM])
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
     records = db.query(ComplianceRecord).order_by(ComplianceRecord.delivered_at.desc()).all()
 
     # 1. CSV EXPORT
@@ -695,7 +684,7 @@ def export_compliance_handovers(
         title_style = ParagraphStyle(
             'TitleStyle',
             parent=styles['Heading1'],
-            fontName=TITLE_FONT,      
+            fontName=TITLE_FONT,
             fontSize=16,
             textColor=colors.HexColor('#173f2e'),
             spaceAfter=4,
@@ -712,7 +701,6 @@ def export_compliance_handovers(
             Paragraph("<b>अन्नSetu (AnnSetu) — FSSAI Surplus Food Handover Register</b>", title_style),
             Paragraph("Official Compliance Log under Food Safety and Standards (Recovery and Distribution of Surplus Food) Regulations, 2019", subtitle_style),
         ]
-        
 
         table_data = [
             ["Ref ID", "Delivered At (UTC)", "Donor Kitchen", "Recipient Org", "Food Item", "Qty", "Unit"]
@@ -757,7 +745,6 @@ def export_compliance_handovers(
 
     else:
         raise HTTPException(status_code=400, detail="Supported formats are 'csv' and 'pdf'")
-
 
 @app.post("/channels/voice/turn")
 def voice_turn(payload: dict):

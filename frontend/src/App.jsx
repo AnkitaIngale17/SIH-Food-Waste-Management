@@ -1670,65 +1670,15 @@ function CompliancePage() {
   );
 
   const rows = list(resource.data);
-  const [downloading, setDownloading] = useState(false);
 
-  async function download(format) {
-    setDownloading(true);
-    const token = localStorage.getItem("annsetu_access_token");
-
-    try {
-      // Authenticated fetch request
-      const response = await fetch(
-        `https://annsetu-food-management-system.onrender.com/compliance/handovers/export?format=${format}`,
-        {
-          headers: token ? { Authorization: `Bearer ${token}` } : {}
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Server export failed");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `fssai_compliance_register.${format}`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      // Instant Client-side fallback for CSV
-      if (format === "csv" && rows.length > 0) {
-        const headers = ["Reference ID", "Date", "Kitchen", "Recipient", "Food Item", "Quantity", "Unit"];
-        const csvContent = [
-          headers.join(","),
-          ...rows.map(r => [
-            `"${r.reference || 'AS-' + r.id}"`,
-            `"${formatDate(r.deliveredAt)}"`,
-            `"${(r.kitchen?.name || r.kitchenName || '').replace(/"/g, '""')}"`,
-            `"${(r.recipient?.name || r.recipientName || '').replace(/"/g, '""')}"`,
-            `"${(r.foodItem || '').replace(/"/g, '""')}"`,
-            r.quantity,
-            `"${r.unit || ''}"`
-          ].join(","))
-        ].join("\n");
-
-        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "fssai_compliance_register.csv";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        alert(`Could not download ${format.toUpperCase()}. Please ensure you are logged in.`);
-      }
-    } finally {
-      setDownloading(false);
-    }
+  function download(format) {
+    const url = `https://annsetu-food-management-system.onrender.com/compliance/handovers/export?format=${format}`;
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `fssai_compliance_register.${format}`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   return (
@@ -1756,100 +1706,77 @@ function CompliancePage() {
         </div>
       }
     >
-      {/* Rest of the component remains unchanged */}
+      {resource.loading ? (
+        <Loading text="Opening register…" />
+      ) : resource.error ? (
+        <ErrorState {...resource} />
+      ) : !rows.length ? (
+        <EmptyState
+          Icon={ShieldCheck}
+          title="No completed handovers yet"
+          text="OTP-verified deliveries will automatically appear in this compliance register."
+          offline={resource.offline}
+        />
+      ) : (
+        <div className="card overflow-x-auto p-0">
+          <table className="w-full min-w-[650px] text-left text-xs">
+            <thead className="bg-[#eeeee6]">
+              <tr>
+                {[
+                  "ID",
+                  "Date",
+                  "Kitchen",
+                  "Restaurant",
+                  "Item",
+                  "Qty"
+                ].map((heading) => (
+                  <th
+                    key={heading}
+                    className="p-3"
+                  >
+                    {heading}
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-function NotFound() {
-  return (
-    <main
-      className="grid min-h-screen place-items-center p-4"
-      style={backgroundStyle}
-    >
-      <section
-        className="rounded-xl border border-[#eadfca] p-7 text-center shadow-xl"
-        style={{ backgroundColor: cream }}
-      >
-        <h1 className="text-2xl">
-          Page not found
-        </h1>
+            <tbody>
+              {rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-t"
+                >
+                  <td className="p-3">
+                    {row.reference || row.id}
+                  </td>
 
-        <Link
-          to="/login"
-          className="btn-primary mt-5"
-        >
-          Go to login
-        </Link>
-      </section>
-    </main>
-  );
-}
+                  <td className="p-3">
+                    {formatDate(row.deliveredAt)}
+                  </td>
 
-export default function App() {
-  return (
-    <Routes>
-      <Route
-        path="/login"
-        element={<RolePicker />}
-      />
+                  <td className="p-3">
+                    {row.kitchen?.name ||
+                      row.kitchenName}
+                  </td>
 
-      <Route
-        path="/login/:role"
-        element={<AuthPage mode="login" />}
-      />
+                  <td className="p-3">
+                    {row.recipient?.name ||
+                      row.recipientName}
+                  </td>
 
-      <Route
-        path="/signup/:role"
-        element={<AuthPage mode="signup" />}
-      />
+                  <td className="p-3">
+                    {row.foodItem}
+                  </td>
 
-      <Route
-        path="/signout"
-        element={<SignOutPage />}
-      />
-
-      <Route
-        path="/kitchen/dashboard"
-        element={<KitchenDashboard />}
-      />
-
-      <Route
-        path="/kitchen/report-surplus"
-        element={<ReportSurplus />}
-      />
-
-      <Route
-        path="/kitchen/listings/:id"
-        element={<ListingPage />}
-      />
-
-      <Route
-        path="/restaurant/offers"
-        element={<RestaurantOffers />}
-      />
-
-      <Route
-        path="/volunteer/pickup/:id"
-        element={<VolunteerPickup />}
-      />
-
-      <Route
-        path="/impact"
-        element={<ImpactPage />}
-      />
-
-      <Route
-        path="/compliance"
-        element={<CompliancePage />}
-      />
-
-      <Route
-        path="/"
-        element={<Navigate to="/login" replace />}
-      />
-
-      <Route
-        path="*"
-        element={<NotFound />}
-      />
-    </Routes>
+                  <td className="p-3">
+                    {row.quantity} {row.unit}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </Shell>
   );
 }
