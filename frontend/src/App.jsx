@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import {
   Link,
   NavLink,
@@ -49,14 +49,14 @@ const cream = "#FFF8E7";
 
 const backgroundStyle = {
   backgroundImage:
-    "linear-gradient(rgba(245,245,239,0.38), rgba(245,245,239,0.62)), url('/annsetu-intro.jpg.jpg')",
+    "linear-gradient(rgba(245,245,239,0.38), rgba(245,245,239,0.62)), url('/AnnSahay-intro.jpg.jpg')",
   backgroundPosition: "center",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat"
 };
 
 
-const LANGUAGE_STORAGE_KEY = "annsetu_language";
+const LANGUAGE_STORAGE_KEY = "AnnSahay_language";
 const LANGUAGE_LOCALES = {
   en: "en-IN",
   hi: "hi-IN",
@@ -112,7 +112,7 @@ const translations = {
     "Create account": "खाता बनाएँ",
     "Sign in": "साइन इन",
     "Already registered?": "पहले से पंजीकृत हैं?",
-    "New to अन्नSetu?": "अन्नSetu पर नए हैं?",
+    "New to अन्नSahay?": "अन्नSahay पर नए हैं?",
     "Create an account": "खाता बनाएँ",
     "Sign out": "साइन आउट",
     "You are signed out": "आप साइन आउट हो चुके हैं",
@@ -316,7 +316,7 @@ const translations = {
     "Create account": "खाते तयार करा",
     "Sign in": "साइन इन",
     "Already registered?": "आधीच नोंदणी केली आहे?",
-    "New to अन्नSetu?": "अन्नSetu वर नवीन आहात?",
+    "New to अन्नSahay?": "अन्नSahay वर नवीन आहात?",
     "Create an account": "खाते तयार करा",
     "Sign out": "साइन आउट",
     "You are signed out": "तुम्ही साइन आउट केले आहे",
@@ -645,7 +645,7 @@ function Brand() {
       <span className="grid h-9 w-9 place-items-center rounded-md bg-[#173f2e] text-white">
         <Leaf className="h-5 w-5" />
       </span>
-      <span className="font-serif text-2xl font-semibold">अन्नSetu</span>
+      <span className="font-serif text-2xl font-semibold">अन्नSahay</span>
     </Link>
   );
 }
@@ -852,7 +852,7 @@ function AuthPage({ mode }) {
       const data = unwrap(response);
 
       if (data?.accessToken) {
-        localStorage.setItem("annsetu_access_token", data.accessToken);
+        localStorage.setItem("AnnSahay_access_token", data.accessToken);
       }
 
       navigate(selectedRole.home);
@@ -1038,7 +1038,7 @@ function AuthPage({ mode }) {
           </button>
 
           <p className="mt-5 text-center text-xs text-[#667268]">
-            {isSignup ? "Already registered?" : "New to अन्नSetu?"}{" "}
+            {isSignup ? "Already registered?" : "New to अन्नSahay?"}{" "}
 
             <Link
               to={
@@ -1061,7 +1061,7 @@ function SignOutPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("annsetu_access_token");
+    localStorage.removeItem("AnnSahay_access_token");
   }, []);
 
   return (
@@ -1387,7 +1387,7 @@ function ReportSurplus() {
         try {
           // Send to backend extractor
           const response = await fetch(
-            "https://annsetu-food-management-system.onrender.com/channels/voice/turn",
+            "https://AnnSahay-food-management-system.onrender.com/channels/voice/turn",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -2148,12 +2148,12 @@ function CompliancePage() {
 
   async function download(format) {
     setDownloading(true);
-    const token = localStorage.getItem("annsetu_access_token");
+    const token = localStorage.getItem("AnnSahay_access_token");
 
     try {
       // Authenticated fetch request
       const response = await fetch(
-        `https://annsetu-food-management-system.onrender.com/compliance/handovers/export?format=${format}`,
+        `https://AnnSahay-food-management-system.onrender.com/compliance/handovers/export?format=${format}`,
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {}
         }
@@ -2355,3 +2355,7 @@ export const listenVoice = (lang = 'mr-IN', onResult) => {
   recognition.onresult = (e) => onResult(e.results[0][0].transcript);
   recognition.start();
 };
+
+
+
+

@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 from datetime import datetime, timedelta
 import hashlib
@@ -53,7 +53,7 @@ def seed_database():
         org_id=kitchen_org.id,
         role="kitchen",
         full_name="Chef Rajesh Shinde",
-        email="kitchen@annsetu.org",
+        email="kitchen@annsahay.org",
         phone="9822012345",
         password_hash=default_pwd,
     )
@@ -61,7 +61,7 @@ def seed_database():
         org_id=ngo_org.id,
         role="restaurant",  # mapped as recipient organization in UI
         full_name="Pooja Kulkarni (NGO Lead)",
-        email="ngo@annsetu.org",
+        email="ngo@annsahay.org",
         phone="9822054321",
         password_hash=default_pwd,
     )
@@ -69,7 +69,7 @@ def seed_database():
         org_id=None,
         role="volunteer",
         full_name="Rahul Deshmukh (Volunteer)",
-        email="volunteer@annsetu.org",
+        email="volunteer@annsahay.org",
         phone="9822099999",
         password_hash=default_pwd,
     )
@@ -135,3 +135,6 @@ def seed_database():
 
 if __name__ == "__main__":
     seed_database()
+
+
+
