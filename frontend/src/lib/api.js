@@ -1,11 +1,11 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
+﻿const BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
 
 export const apiConfigured = Boolean(BASE_URL);
 
 async function request(path, options = {}) {
   if (!BASE_URL) return { offline: true, data: null };
 
-  const token = localStorage.getItem("annsetu_access_token");
+  const token = localStorage.getItem("annsahay_access_token") || localStorage.getItem("annsetu_access_token");
 
   const response = await fetch(`${BASE_URL}${path}`, {
     ...options,
@@ -77,3 +77,4 @@ export const api = {
   exportRegister: (format) =>
     `${BASE_URL}/compliance/handovers/export?format=${format}`
 };
+
