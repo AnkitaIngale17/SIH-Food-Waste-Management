@@ -2148,12 +2148,11 @@ function CompliancePage() {
 
   async function download(format) {
     setDownloading(true);
-    const token = localStorage.getItem("AnnSahay_access_token");
+    const token = localStorage.getItem("annsahay_access_token") || localStorage.getItem("annsetu_access_token");
 
     try {
-      // Authenticated fetch request
       const response = await fetch(
-        `https://AnnSahay-food-management-system.onrender.com/compliance/handovers/export?format=${format}`,
+        `https://annsetu-food-management-system.onrender.com/compliance/handovers/export?format=${format}`,
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {}
         }
@@ -2173,7 +2172,6 @@ function CompliancePage() {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      // Instant Client-side fallback for CSV
       if (format === "csv" && rows.length > 0) {
         const headers = [t("Reference ID"), t("Date"), t("Kitchen"), t("Recipient"), t("Food Item"), t("Quantity"), t("Unit")];
         const csvContent = [
@@ -2214,7 +2212,7 @@ function CompliancePage() {
         <div className="flex gap-2">
           <button
             onClick={() => download("csv")}
-            className="btn-secondary px-3 py-2 text-xs flex items-center gap-1"
+            className="btn-secondary flex items-center gap-1 px-3 py-2 text-xs"
           >
             <Download className="h-3 w-3" />
             CSV
@@ -2222,7 +2220,7 @@ function CompliancePage() {
 
           <button
             onClick={() => download("pdf")}
-            className="btn-secondary px-3 py-2 text-xs flex items-center gap-1"
+            className="btn-secondary flex items-center gap-1 px-3 py-2 text-xs"
           >
             <Download className="h-3 w-3" />
             PDF
@@ -2230,11 +2228,59 @@ function CompliancePage() {
         </div>
       }
     >
-      {/* The uploaded source did not include the compliance table body.
-          Keep the existing structure intact and close the component so the file compiles. */}
+      {resource.loading ? (
+        <Loading />
+      ) : resource.error ? (
+        <ErrorState {...resource} />
+      ) : !rows.length ? (
+        <div className="mt-4">
+          <EmptyState
+            Icon={ShieldCheck}
+            title={t("No compliance records yet")}
+            text={t("Verified delivery logs will appear here once handovers are completed.")}
+            offline={resource.offline}
+          />
+        </div>
+      ) : (
+        <div className="card mt-4 overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead>
+              <tr className="border-b border-[#ddd4bf] pb-2 text-[#7a857d]">
+                <th className="pb-2 font-semibold">{t("Reference ID")}</th>
+                <th className="pb-2 font-semibold">{t("Date")}</th>
+                <th className="pb-2 font-semibold">{t("Recipient")}</th>
+                <th className="pb-2 font-semibold">{t("Food Item")}</th>
+                <th className="pb-2 text-right font-semibold">{t("Quantity")}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#ecece6]">
+              {rows.map((row) => (
+                <tr key={row.id} className="transition hover:bg-[#f7f7f2]">
+                  <td className="py-2.5 font-mono font-medium text-[#173f2e]">
+                    {row.reference || `AS-${String(row.id).padStart(5, '0')}`}
+                  </td>
+                  <td className="py-2.5 text-[#667268]">
+                    {formatDate(row.deliveredAt)}
+                  </td>
+                  <td className="py-2.5 font-medium">
+                    {row.recipientName || row.recipient?.name || "—"}
+                  </td>
+                  <td className="py-2.5">
+                    {row.foodItem}
+                  </td>
+                  <td className="py-2.5 text-right font-semibold text-[#173f2e]">
+                    {row.quantity} {translateUnit(row.unit)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </Shell>
   );
 }
+
 
 function NotFound() {
   return (
