@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import {
   Link,
   NavLink,
@@ -148,6 +148,8 @@ const translations = {
     "Microphone permission was denied. Please allow mic access in your browser settings.": "माइक्रोफ़ोन की अनुमति अस्वीकृत की गई। कृपया ब्राउज़र सेटिंग में जाकर अनुमति दें।",
     "No speech detected. Please tap the button and speak closer to the mic.": "कोई आवाज़ नहीं सुनाई दी। कृपया बटन दबाकर माइक के पास बोलें।",
     "Voice details extracted and populated into the form!": "वॉइस विवरण निकाले गए और फ़ॉर्म में भर दिए गए हैं!",
+    "Processing voice input...": "वॉइस इनपुट संसाधित किया जा रहा है...",
+    "Network error connecting to speech service. Please check your internet connection.": "वॉइस सेवा से कनेक्ट करने में नेटवर्क त्रुटि। कृपया इंटरनेट कनेक्शन जांचें।",
     "Could not process voice input with backend.": "बैकएंड से वॉइस इनपुट संसाधित नहीं हो सका।",
     "This form is ready for the real backend API.": "यह फ़ॉर्म वास्तविक बैकएंड API के लिए तैयार है।",
     "Listening... (Tap to stop)": "सुन रहा है... (रोकने के लिए दबाएँ)",
@@ -801,32 +803,68 @@ function AuthPage({ mode }) {
     }
 
     try {
+      // Clear old tokens and prior user session data first so new accounts start completely fresh
+      localStorage.removeItem("annsahay_access_token");
+      localStorage.removeItem("annsetu_access_token");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("token");
+      localStorage.removeItem("annsahay_user_org");
+      localStorage.removeItem("annsahay_user_email");
+      localStorage.removeItem("annsahay_user_name");
+      localStorage.removeItem("annsahay_user_role");
+
       const response = isSignup
         ? await api.signup({
             fullName: form.fullName,
+            full_name: form.fullName,
             organisationName: form.organisationName,
+            organisation_name: form.organisationName,
+            organizationName: form.organisationName,
+            organization_name: form.organisationName,
             email: form.email,
+            username: form.email,
             phone: form.phone,
             password: form.password,
-            role
+            role: role || "kitchen"
           })
         : await api.login({
             email: form.email,
+            username: form.email,
             password: form.password,
-            role
+            role: role || "kitchen"
           });
 
-      if (response.offline) {
-        navigate(selectedRole.home);
-        return;
-      }
-
       const data = unwrap(response);
+      let token = data?.access_token || data?.accessToken || data?.token || data?.jwt || data?.data?.access_token || data?.data?.accessToken;
 
-      if (data?.accessToken) {
-        localStorage.setItem("annsahay_access_token", data.accessToken);
-        localStorage.setItem("annsetu_access_token", data.accessToken);
+      // If signup did not directly return a token, immediately authenticate via login
+      if (!token && isSignup) {
+        try {
+          const loginRes = await api.login({
+            email: form.email,
+            username: form.email,
+            password: form.password,
+            role: role || "kitchen"
+          });
+          const loginData = unwrap(loginRes);
+          token = loginData?.access_token || loginData?.accessToken || loginData?.token || loginData?.jwt || loginData?.data?.access_token || loginData?.data?.accessToken;
+        } catch (loginErr) {
+          console.warn("Auto-login fallback error:", loginErr);
+        }
       }
+
+      if (token) {
+        localStorage.setItem("annsahay_access_token", token);
+        localStorage.setItem("annsetu_access_token", token);
+        localStorage.setItem("access_token", token);
+        localStorage.setItem("token", token);
+      }
+
+      // Persist the user's registered identity so dashboards reflect their real organization
+      localStorage.setItem("annsahay_user_email", form.email);
+      localStorage.setItem("annsahay_user_name", form.fullName);
+      localStorage.setItem("annsahay_user_org", form.organisationName || form.fullName);
+      localStorage.setItem("annsahay_user_role", role || "kitchen");
 
       navigate(selectedRole.home);
     } catch (error) {
@@ -1140,11 +1178,27 @@ function KitchenDashboard() {
 
   const navigate = useNavigate();
   const dashboard = resource.data || {};
-  const listings = list(dashboard.listings);
+  const rawListings = list(dashboard.listings);
+
+  const userOrg = localStorage.getItem("annsahay_user_org");
+  const userEmail = localStorage.getItem("annsahay_user_email");
+  const isDemoAccount = userEmail === "kitchen@annsahay.org";
+
+  // Display user's registered organization name if newly created; keep demo name only for demo account
+  const displayedTitle = (!isDemoAccount && userOrg)
+    ? userOrg
+    : (dashboard.kitchenName && dashboard.kitchenName !== "Hotel Shreyas Kitchen"
+        ? dashboard.kitchenName
+        : (isDemoAccount ? (dashboard.kitchenName || "Hotel Shreyas Kitchen") : (userOrg || t("Kitchen dashboard"))));
+
+  // If a new kitchen account was registered, do not show Hotel Shreyas Kitchen's demo listings
+  const listings = (!isDemoAccount && userOrg && dashboard.kitchenName === "Hotel Shreyas Kitchen")
+    ? []
+    : rawListings;
 
   return (
     <Shell
-      title={dashboard.kitchenName || t("Kitchen dashboard")}
+      title={displayedTitle}
       subtitle={t("Kitchen workspace")}
       role="kitchen"
       action={
@@ -1332,7 +1386,131 @@ function ReportSurplus() {
   const [isListening, setIsListening] = useState(false);
   const [liveTranscript, setLiveTranscript] = useState("");
 
-  function startVoiceInput() {
+  const recognitionRef = useRef(null);
+  const transcriptRef = useRef("");
+  const processedRef = useRef(false);
+
+  // Client-side multilingual rule extractor (English, Marathi, Hindi)
+  // Ensures instant, zero-latency form population even if Render backend is in cold sleep or offline
+  function clientExtractSurplus(text) {
+    if (!text) return {};
+    const devDigits = { '०': '0', '१': '1', '२': '2', '३': '3', '४': '4', '५': '5', '६': '6', '७': '7', '८': '8', '९': '9' };
+    let normalized = "";
+    for (const char of text) {
+      normalized += devDigits[char] || char;
+    }
+
+    // Extract quantity (e.g. 25, 25.5)
+    const qtyMatch = normalized.match(/(\d+(?:\.\d+)?)/);
+    const quantity = qtyMatch ? qtyMatch[1] : "";
+
+    // Extract unit
+    let unit = "kg";
+    if (/(?:packet|पॅकेट|पैकेट)/i.test(normalized)) unit = "packets";
+    else if (/(?:plate|ताट|प्लेट)/i.test(normalized)) unit = "plates";
+    else if (/(?:serving|सर्विंग)/i.test(normalized)) unit = "servings";
+    else if (/(?:box|डबा|डबे|बॉक्स)/i.test(normalized)) unit = "boxes";
+    else if (/(?:meal|जेवण|भोजन)/i.test(normalized)) unit = "meals";
+    else if (/(?:tray|ट्रे)/i.test(normalized)) unit = "trays";
+    else if (/(?:kg|kilo|किग्रा|किलो)/i.test(normalized)) unit = "kg";
+
+    // Curated Indian food item names (Marathi, Hindi, English)
+    const foods = [
+      "Vegetable Pulao", "Veg Pulao", "Pulao", "Biryani", "Dal Khichdi", "Khichdi",
+      "Chapati", "Roti", "Dal", "Rice", "Paneer Bhurji", "Paneer", "Bhaji", "Sabzi",
+      "व्हेज पुलाव", "पुलाव", "बिर्याणी", "चपाती", "पोळी", "भात", "डाळ", "भाजी", "पनीर", "खिचडी",
+      "सब्जी", "सब्ज़ी", "रोटी", "दाल", "चावल", "बिरयानी", "बिरियानी"
+    ];
+    let foodItem = "";
+    for (const f of foods) {
+      if (normalized.toLowerCase().includes(f.toLowerCase())) {
+        foodItem = f;
+        break;
+      }
+    }
+
+    // Pickup time extraction (e.g., 9 pm, 8:30 pm, रात्री ९)
+    let pickupBy = "";
+    const timeMatch = normalized.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm|वाजता|बजे)?/i);
+    if (timeMatch) {
+      const today = new Date();
+      let hours = parseInt(timeMatch[1], 10);
+      const minutes = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
+      const meridian = (timeMatch[3] || "").toLowerCase();
+      if (meridian === "pm" || /रात्री|संध्याकाळी|शाम/i.test(normalized)) {
+        if (hours < 12) hours += 12;
+      }
+      today.setHours(hours, minutes, 0, 0);
+      pickupBy = today.toISOString().slice(0, 16);
+    }
+
+    return { foodItem, quantity, unit, pickupBy };
+  }
+
+  async function processVoiceTranscript(text) {
+    if (!text || processedRef.current) return;
+    processedRef.current = true;
+
+    // 1. Immediately apply instant client-side extraction so inputs populate with zero latency
+    const localSlots = clientExtractSurplus(text);
+    setForm((prev) => ({
+      ...prev,
+      foodItem: localSlots.foodItem || prev.foodItem,
+      quantity: localSlots.quantity || prev.quantity,
+      unit: localSlots.unit || prev.unit,
+      pickupBy: localSlots.pickupBy || prev.pickupBy,
+      notes: prev.notes || ("Reported via Voice: " + text)
+    }));
+
+    setMessage(t("Voice details extracted and populated into the form!"));
+
+    // 2. Concurrently attempt server NLP enhancement if backend is reachable (with a 4s timeout)
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+      const response = await fetch(
+        "https://annsetu-food-management-system.onrender.com/channels/voice/turn",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ transcript: text }),
+          signal: controller.signal
+        }
+      );
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const data = await response.json();
+        const parsed = data.parsed_so_far || {};
+        setForm((prev) => ({
+          ...prev,
+          foodItem: parsed.foodItem || prev.foodItem,
+          quantity: parsed.quantity || prev.quantity,
+          unit: parsed.unit || prev.unit,
+          pickupBy: parsed.pickupBy ? parsed.pickupBy.slice(0, 16) : prev.pickupBy
+        }));
+      }
+    } catch (err) {
+      // Backend timed out or sleeping; local client-side extraction already populated the fields!
+    }
+  }
+
+  async function toggleVoiceInput() {
+    // If currently listening, tapping the button stops it cleanly and processes collected speech
+    if (isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
+      setIsListening(false);
+      if (transcriptRef.current && !processedRef.current) {
+        processVoiceTranscript(transcriptRef.current);
+      }
+      return;
+    }
+
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -1341,70 +1519,92 @@ function ReportSurplus() {
       return;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = locale();
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
-
-    setIsListening(true);
-    setLiveTranscript(t("Listening... Speak now"));
     setMessage("");
+    transcriptRef.current = "";
+    processedRef.current = false;
 
-    recognition.onresult = async (event) => {
-      const currentText = Array.from(event.results)
-        .map((r) => r[0].transcript)
-        .join("");
-      setLiveTranscript(currentText);
-
-      if (event.results[0].isFinal) {
-        setIsListening(false);
-        try {
-          const response = await fetch(
-            "https://annsetu-food-management-system.onrender.com/channels/voice/turn",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ transcript: currentText })
-            }
-          );
-          const data = await response.json();
-          const parsed = data.parsed_so_far || {};
-
-          setForm((prev) => ({
-            ...prev,
-            foodItem: parsed.foodItem || prev.foodItem,
-            quantity: parsed.quantity || prev.quantity,
-            unit: parsed.unit || prev.unit,
-            pickupBy: parsed.pickupBy
-              ? parsed.pickupBy.slice(0, 16)
-              : prev.pickupBy,
-            notes: prev.notes || `Reported via Voice Assistant: "${currentText}"`
-          }));
-
-          setMessage(t("Voice details extracted and populated into the form!"));
-        } catch (err) {
-          setMessage(t("Could not process voice input with backend."));
+    // Prompt mobile browser microphone permission via getUserMedia first
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach((track) => track.stop());
+      } catch (micErr) {
+        if (micErr.name === "NotAllowedError" || micErr.name === "PermissionDeniedError") {
+          setMessage(t("Microphone permission was denied. Please allow mic access in your browser settings."));
+          return;
         }
       }
-    };
+    }
 
-    recognition.onerror = (event) => {
+    try {
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+      recognition.lang = locale();
+      recognition.interimResults = true;
+      recognition.continuous = false;
+      recognition.maxAlternatives = 1;
+
+      setIsListening(true);
+      setLiveTranscript(t("Listening... Speak now"));
+
+      recognition.onresult = (event) => {
+        let combined = "";
+        for (let i = 0; i < event.results.length; i++) {
+          combined += event.results[i][0].transcript;
+        }
+        transcriptRef.current = combined;
+        setLiveTranscript(combined);
+
+        const hasFinal = Array.from(event.results).some((r) => r.isFinal);
+        if (hasFinal && !processedRef.current) {
+          setIsListening(false);
+          try {
+            recognition.stop();
+          } catch (e) {}
+          processVoiceTranscript(combined);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        setIsListening(false);
+        setLiveTranscript("");
+        if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+          setMessage(t("Microphone permission was denied. Please allow mic access in your browser settings."));
+        } else if (event.error === "no-speech") {
+          if (transcriptRef.current && !processedRef.current) {
+            processVoiceTranscript(transcriptRef.current);
+          } else {
+            setMessage(t("No speech detected. Please tap the button and speak closer to the mic."));
+          }
+        } else if (event.error === "language-not-supported") {
+          if (recognition.lang !== "en-IN") {
+            recognition.lang = "en-IN";
+            try {
+              recognition.start();
+              setIsListening(true);
+              return;
+            } catch (e) {}
+          }
+          setMessage(t("Voice recognition is not supported in this browser. Please use Chrome, Edge, or Safari."));
+        } else if (event.error === "network") {
+          setMessage(t("Network error connecting to speech service. Please check your internet connection."));
+        } else if (event.error !== "aborted") {
+          setMessage("Voice notice: " + event.error);
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        if (transcriptRef.current && !processedRef.current) {
+          processVoiceTranscript(transcriptRef.current);
+        }
+      };
+
+      recognition.start();
+    } catch (err) {
       setIsListening(false);
-      setLiveTranscript("");
-      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-        setMessage(t("Microphone permission was denied. Please allow mic access in your browser settings."));
-      } else if (event.error === 'no-speech') {
-        setMessage(t("No speech detected. Please tap the button and speak closer to the mic."));
-      } else {
-        setMessage(`Voice notice: ${event.error}`);
-      }
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.start();
+      setMessage(err.message || "Failed to start microphone.");
+    }
   }
 
   async function submit(event) {
@@ -1445,7 +1645,7 @@ function ReportSurplus() {
 
           <button
             type="button"
-            onClick={startVoiceInput}
+            onClick={toggleVoiceInput}
             className={`btn-primary mx-auto mt-3 flex items-center gap-2 ${
               isListening ? "animate-pulse bg-red-600" : "bg-[#173f2e]"
             }`}
