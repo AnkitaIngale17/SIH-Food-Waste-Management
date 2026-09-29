@@ -49,14 +49,13 @@ const cream = "#FFF8E7";
 
 const backgroundStyle = {
   backgroundImage:
-    "linear-gradient(rgba(245,245,239,0.38), rgba(245,245,239,0.62)), url('/AnnSahay-intro.jpg.jpg')",
+    "linear-gradient(rgba(245,245,239,0.38), rgba(245,245,239,0.62)), url('/annsetu-intro.jpg.jpg')",
   backgroundPosition: "center",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat"
 };
 
-
-const LANGUAGE_STORAGE_KEY = "AnnSahay_language";
+const LANGUAGE_STORAGE_KEY = "annsahay_language";
 const LANGUAGE_LOCALES = {
   en: "en-IN",
   hi: "hi-IN",
@@ -89,12 +88,6 @@ const translations = {
     "Choose the workspace for this device.": "इस डिवाइस के लिए कार्यक्षेत्र चुनें।",
     "FSSAI-aligned food redistribution · verified handovers": "FSSAI-अनुरूप भोजन पुनर्वितरण · सत्यापित हस्तांतरण",
     "Passwords do not match.": "पासवर्ड मेल नहीं खाते।",
-    "Draft": "ड्राफ्ट",
-    "Confirmed": "पुष्ट",
-    "Matching": "मिलान हो रहा है",
-    "Claimed": "दावा किया गया",
-    "In transit": "रास्ते में",
-    "Delivered": "डिलीवर किया गया",
     "Change role": "भूमिका बदलें",
     "Create {role} account": "{role} खाता बनाएँ",
     "Sign in as {role}": "{role} के रूप में साइन इन करें",
@@ -152,6 +145,8 @@ const translations = {
     "Tap the button and say:": "बटन दबाएँ और कहें:",
     "Listening... Speak now": "सुन रहा है... अब बोलें",
     "Voice recognition is not supported in this browser. Please use Chrome, Edge, or Safari.": "इस ब्राउज़र में वॉइस पहचान समर्थित नहीं है। कृपया Chrome, Edge या Safari इस्तेमाल करें।",
+    "Microphone permission was denied. Please allow mic access in your browser settings.": "माइक्रोफ़ोन की अनुमति अस्वीकृत की गई। कृपया ब्राउज़र सेटिंग में जाकर अनुमति दें।",
+    "No speech detected. Please tap the button and speak closer to the mic.": "कोई आवाज़ नहीं सुनाई दी। कृपया बटन दबाकर माइक के पास बोलें।",
     "Voice details extracted and populated into the form!": "वॉइस विवरण निकाले गए और फ़ॉर्म में भर दिए गए हैं!",
     "Could not process voice input with backend.": "बैकएंड से वॉइस इनपुट संसाधित नहीं हो सका।",
     "This form is ready for the real backend API.": "यह फ़ॉर्म वास्तविक बैकएंड API के लिए तैयार है।",
@@ -175,7 +170,6 @@ const translations = {
     "Track every handover": "हर हस्तांतरण ट्रैक करें",
     "Listing unavailable": "लिस्टिंग उपलब्ध नहीं है",
     "Create a surplus listing first.": "पहले अतिरिक्त भोजन की लिस्टिंग बनाएँ।",
-    "Dashboard": "डैशबोर्ड",
     "Handover progress": "हस्तांतरण की प्रगति",
     "Incoming offers": "आने वाले प्रस्ताव",
     "Surplus food near you, matched in real time": "आपके पास का अतिरिक्त भोजन, रीयल-टाइम में मिलान किया गया",
@@ -215,6 +209,8 @@ const translations = {
     "Server export failed": "सर्वर से एक्सपोर्ट विफल हुआ",
     "Compliance register": "अनुपालन रजिस्टर",
     "FSSAI surplus-food handover log — OTP-verified deliveries": "FSSAI अतिरिक्त-भोजन हस्तांतरण लॉग — OTP-सत्यापित डिलीवरी",
+    "No compliance records yet": "अभी कोई अनुपालन रिकॉर्ड नहीं है",
+    "Verified delivery logs will appear here once handovers are completed.": "हस्तांतरण पूरा होने पर सत्यापित डिलीवरी लॉग यहाँ दिखाई देंगे।",
     "Reference ID": "संदर्भ ID",
     "Date": "तारीख",
     "Recipient": "प्राप्तकर्ता",
@@ -224,15 +220,6 @@ const translations = {
     "Could not download {format}. Please ensure you are logged in.": "{format} डाउनलोड नहीं हो सका। कृपया सुनिश्चित करें कि आप लॉग इन हैं।",
     "Allergens, packaging, gate instructions…": "एलर्जेन, पैकेजिंग, गेट निर्देश…",
     "e.g. Vegetable pulao": "जैसे, वेजिटेबल पुलाव",
-    "Kitchen workspace": "रसोई कार्यक्षेत्र",
-    "Surplus risk": "अतिरिक्त भोजन का जोखिम",
-    "Not calculated yet": "अभी गणना नहीं हुई",
-    "Load": "लोड",
-    "Confirm handover": "हस्तांतरण की पुष्टि करें",
-    "Pickup by": "पिकअप समय",
-    "Kitchen": "रसोई",
-    "Start urgent matching": "तत्काल मिलान शुरू करें",
-    "Publish listing": "लिस्टिंग प्रकाशित करें",
     "kg": "किग्रा",
     "servings": "सर्विंग",
     "packets": "पैकेट",
@@ -265,8 +252,7 @@ const translations = {
     "Day 5": "दिन 5",
     "Day 6": "दिन 6",
     "Day 7": "दिन 7",
-    "We have 25 kg of vegetable pulao ready by 9 pm": "रात 9 बजे तक 25 किग्रा वेजिटेबल पुलाव तैयार है",
-    "Change role": "भूमिका बदलें"
+    "We have 25 kg of vegetable pulao ready by 9 pm": "रात 9 बजे तक 25 किग्रा वेजिटेबल पुलाव तैयार है"
   },
   mr: {
     "urgency": "तातडी",
@@ -293,12 +279,6 @@ const translations = {
     "Choose the workspace for this device.": "या डिव्हाइससाठी कार्यक्षेत्र निवडा.",
     "FSSAI-aligned food redistribution · verified handovers": "FSSAI-अनुरूप अन्न पुनर्वितरण · सत्यापित हस्तांतरण",
     "Passwords do not match.": "पासवर्ड जुळत नाहीत.",
-    "Draft": "मसुदा",
-    "Confirmed": "पुष्टी",
-    "Matching": "जुळणी सुरू आहे",
-    "Claimed": "दावा केलेले",
-    "In transit": "मार्गावर",
-    "Delivered": "वितरित",
     "Change role": "भूमिका बदला",
     "Create {role} account": "{role} खाते तयार करा",
     "Sign in as {role}": "{role} म्हणून साइन इन करा",
@@ -355,6 +335,8 @@ const translations = {
     "Tap the button and say:": "बटण दाबा आणि म्हणा:",
     "Listening... Speak now": "ऐकत आहे... आता बोला",
     "Voice recognition is not supported in this browser. Please use Chrome, Edge, or Safari.": "या ब्राउझरमध्ये व्हॉइस ओळख समर्थित नाही. कृपया Chrome, Edge किंवा Safari वापरा.",
+    "Microphone permission was denied. Please allow mic access in your browser settings.": "मायक्रोफोन परवानगी नाकारली गेली आहे. कृपया ब्राउझर सेटिंग्जमध्ये मायक्रोफोन परवानगी द्या.",
+    "No speech detected. Please tap the button and speak closer to the mic.": "कोणताही आवाज आला नाही. कृपया बटण दाबून माइकजवळ बोला.",
     "Voice details extracted and populated into the form!": "व्हॉइस तपशील काढून फॉर्ममध्ये भरले आहेत!",
     "Could not process voice input with backend.": "बॅकएंडकडून व्हॉइस इनपुट प्रक्रिया करता आली नाही.",
     "This form is ready for the real backend API.": "हा फॉर्म खऱ्या बॅकएंड API साठी तयार आहे.",
@@ -417,6 +399,8 @@ const translations = {
     "Server export failed": "सर्व्हर एक्सपोर्ट अयशस्वी झाला",
     "Compliance register": "अनुपालन नोंदवही",
     "FSSAI surplus-food handover log — OTP-verified deliveries": "FSSAI उरलेले-अन्न हस्तांतरण नोंद — OTP-सत्यापित डिलिव्हरी",
+    "No compliance records yet": "अद्याप अनुपालन नोंदी नाहीत",
+    "Verified delivery logs will appear here once handovers are completed.": "हस्तांतरण पूर्ण झाल्यावर सत्यापित वितरण नोंदी येथे दिसतील.",
     "Reference ID": "संदर्भ ID",
     "Date": "तारीख",
     "Recipient": "प्राप्तकर्ता",
@@ -426,15 +410,6 @@ const translations = {
     "Could not download {format}. Please ensure you are logged in.": "{format} डाउनलोड करता आले नाही. कृपया तुम्ही लॉग इन आहात याची खात्री करा.",
     "Allergens, packaging, gate instructions…": "अॅलर्जन्स, पॅकेजिंग, गेट सूचना…",
     "e.g. Vegetable pulao": "उदा. व्हेजिटेबल पुलाव",
-    "Kitchen workspace": "स्वयंपाकघर कार्यक्षेत्र",
-    "Surplus risk": "उरलेल्या अन्नाचा धोका",
-    "Not calculated yet": "अद्याप गणना झालेली नाही",
-    "Load": "लोड",
-    "Confirm handover": "हस्तांतरणाची पुष्टी करा",
-    "Pickup by": "पिकअप वेळ",
-    "Kitchen": "स्वयंपाकघर",
-    "Start urgent matching": "तातडीचे जुळवणी सुरू करा",
-    "Publish listing": "लिस्टिंग प्रकाशित करा",
     "kg": "किलो",
     "servings": "सर्व्हिंग्स",
     "packets": "पॅकेट्स",
@@ -467,8 +442,7 @@ const translations = {
     "Day 5": "दिवस 5",
     "Day 6": "दिवस 6",
     "Day 7": "दिवस 7",
-    "We have 25 kg of vegetable pulao ready by 9 pm": "रात्री 9 वाजेपर्यंत 25 किलो व्हेजिटेबल पुलाव तयार आहे",
-    "Change role": "भूमिका बदला"
+    "We have 25 kg of vegetable pulao ready by 9 pm": "रात्री 9 वाजेपर्यंत 25 किलो व्हेजिटेबल पुलाव तयार आहे"
   }
 };
 
@@ -497,7 +471,6 @@ function translateForecastLabel(label) {
   if (label == null) return label;
   const value = String(label);
 
-  // Keep ISO/date-like labels localized using the selected locale.
   if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
     const date = new Date(value);
     if (!Number.isNaN(date.getTime())) {
@@ -508,7 +481,6 @@ function translateForecastLabel(label) {
     }
   }
 
-  // Forecast APIs commonly return weekday labels such as Mon or Monday.
   return t(value);
 }
 
@@ -852,7 +824,8 @@ function AuthPage({ mode }) {
       const data = unwrap(response);
 
       if (data?.accessToken) {
-        localStorage.setItem("AnnSahay_access_token", data.accessToken);
+        localStorage.setItem("annsahay_access_token", data.accessToken);
+        localStorage.setItem("annsetu_access_token", data.accessToken);
       }
 
       navigate(selectedRole.home);
@@ -1034,11 +1007,11 @@ function AuthPage({ mode }) {
           )}
 
           <button className="btn-primary mt-5 w-full">
-            {isSignup ? "Create account" : "Sign in"}
+            {isSignup ? t("Create account") : t("Sign in")}
           </button>
 
           <p className="mt-5 text-center text-xs text-[#667268]">
-            {isSignup ? "Already registered?" : "New to अन्नSahay?"}{" "}
+            {isSignup ? t("Already registered?") : t("New to अन्नSahay?")}{" "}
 
             <Link
               to={
@@ -1048,7 +1021,7 @@ function AuthPage({ mode }) {
               }
               className="font-bold text-[#173f2e]"
             >
-              {isSignup ? "Sign in" : "Create an account"}
+              {isSignup ? t("Sign in") : t("Create an account")}
             </Link>
           </p>
         </form>
@@ -1061,7 +1034,9 @@ function SignOutPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("AnnSahay_access_token");
+    localStorage.removeItem("annsahay_access_token");
+    localStorage.removeItem("annsetu_access_token");
+    localStorage.clear();
   }, []);
 
   return (
@@ -1357,7 +1332,6 @@ function ReportSurplus() {
   const [isListening, setIsListening] = useState(false);
   const [liveTranscript, setLiveTranscript] = useState("");
 
-  // Native In-Browser Voice Recognition
   function startVoiceInput() {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1374,6 +1348,7 @@ function ReportSurplus() {
 
     setIsListening(true);
     setLiveTranscript(t("Listening... Speak now"));
+    setMessage("");
 
     recognition.onresult = async (event) => {
       const currentText = Array.from(event.results)
@@ -1381,13 +1356,11 @@ function ReportSurplus() {
         .join("");
       setLiveTranscript(currentText);
 
-      // When speech pauses and is finalized
       if (event.results[0].isFinal) {
         setIsListening(false);
         try {
-          // Send to backend extractor
           const response = await fetch(
-            "https://AnnSahay-food-management-system.onrender.com/channels/voice/turn",
+            "https://annsetu-food-management-system.onrender.com/channels/voice/turn",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -1397,7 +1370,6 @@ function ReportSurplus() {
           const data = await response.json();
           const parsed = data.parsed_so_far || {};
 
-          // Auto-fill form fields with parsed results
           setForm((prev) => ({
             ...prev,
             foodItem: parsed.foodItem || prev.foodItem,
@@ -1416,9 +1388,16 @@ function ReportSurplus() {
       }
     };
 
-    recognition.onerror = () => {
+    recognition.onerror = (event) => {
       setIsListening(false);
       setLiveTranscript("");
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        setMessage(t("Microphone permission was denied. Please allow mic access in your browser settings."));
+      } else if (event.error === 'no-speech') {
+        setMessage(t("No speech detected. Please tap the button and speak closer to the mic."));
+      } else {
+        setMessage(`Voice notice: ${event.error}`);
+      }
     };
 
     recognition.onend = () => {
@@ -1456,7 +1435,6 @@ function ReportSurplus() {
       role="kitchen"
     >
       <div className="card mt-4 max-w-[480px]">
-        {/* Voice Assistant Mic Button */}
         <div className="mb-4 rounded-xl border border-[#dce8d8] bg-[#f2f7f1] p-4 text-center">
           <p className="text-xs font-semibold text-[#173f2e]">
             {t("Quick Voice Input (Speak to Fill)")}
@@ -1818,7 +1796,6 @@ function RestaurantOffers() {
         <ErrorState {...resource} />
       ) : (
         <>
-          {/* Prominent Verification OTP Card */}
           {claimedOtp && (
             <div className="mb-4 rounded-xl border-2 border-[#173f2e] bg-[#eaf1e8] p-5 text-center shadow-sm">
               <p className="text-xs font-bold uppercase tracking-wider text-[#667268]">
@@ -2281,7 +2258,6 @@ function CompliancePage() {
   );
 }
 
-
 function NotFound() {
   return (
     <main
@@ -2323,70 +2299,70 @@ export default function App() {
     <>
       <LanguageSwitcher language={language} onChange={handleLanguageChange} />
       <Routes key={language}>
-      <Route
-        path="/login"
-        element={<RolePicker />}
-      />
+        <Route
+          path="/login"
+          element={<RolePicker />}
+        />
 
-      <Route
-        path="/login/:role"
-        element={<AuthPage mode="login" />}
-      />
+        <Route
+          path="/login/:role"
+          element={<AuthPage mode="login" />}
+        />
 
-      <Route
-        path="/signup/:role"
-        element={<AuthPage mode="signup" />}
-      />
+        <Route
+          path="/signup/:role"
+          element={<AuthPage mode="signup" />}
+        />
 
-      <Route
-        path="/signout"
-        element={<SignOutPage />}
-      />
+        <Route
+          path="/signout"
+          element={<SignOutPage />}
+        />
 
-      <Route
-        path="/kitchen/dashboard"
-        element={<KitchenDashboard />}
-      />
+        <Route
+          path="/kitchen/dashboard"
+          element={<KitchenDashboard />}
+        />
 
-      <Route
-        path="/kitchen/report-surplus"
-        element={<ReportSurplus />}
-      />
+        <Route
+          path="/kitchen/report-surplus"
+          element={<ReportSurplus />}
+        />
 
-      <Route
-        path="/kitchen/listings/:id"
-        element={<ListingPage />}
-      />
+        <Route
+          path="/kitchen/listings/:id"
+          element={<ListingPage />}
+        />
 
-      <Route
-        path="/restaurant/offers"
-        element={<RestaurantOffers />}
-      />
+        <Route
+          path="/restaurant/offers"
+          element={<RestaurantOffers />}
+        />
 
-      <Route
-        path="/volunteer/pickup/:id"
-        element={<VolunteerPickup />}
-      />
+        <Route
+          path="/volunteer/pickup/:id"
+          element={<VolunteerPickup />}
+        />
 
-      <Route
-        path="/impact"
-        element={<ImpactPage />}
-      />
+        <Route
+          path="/impact"
+          element={<ImpactPage />}
+        />
 
-      <Route
-        path="/compliance"
-        element={<CompliancePage />}
-      />
+        <Route
+          path="/compliance"
+          element={<CompliancePage />}
+        />
 
-      <Route
-        path="/"
-        element={<Navigate to="/login" replace />}
-      />
+        <Route
+          path="/"
+          element={<Navigate to="/login" replace />}
+        />
 
-      <Route
-        path="*"
-        element={<NotFound />}
-      />
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
       </Routes>
     </>
   );
@@ -2397,11 +2373,8 @@ export const listenVoice = (lang = 'mr-IN', onResult) => {
   if (!SpeechRecognition) return alert("Browser does not support voice input.");
 
   const recognition = new SpeechRecognition();
-  recognition.lang = lang; // 'mr-IN' for Marathi, 'hi-IN' for Hindi, 'en-IN' for English
+  recognition.lang = lang;
   recognition.onresult = (e) => onResult(e.results[0][0].transcript);
   recognition.start();
 };
-
-
-
 
